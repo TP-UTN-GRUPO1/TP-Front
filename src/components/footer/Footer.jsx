@@ -1,11 +1,64 @@
-import React from 'react'
+import React from "react";
+import "./Footer.css"; // Asegúrate de tener un archivo de estilos CSS para este componente
 
 const Footer = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <footer className="footer">
+      <div className="footer-content">
+        <div className="footer-section">
+          <h4>Sobre Nosotros</h4>
+          <p>
+            Estudiantes de la Tecnicatura de Programacion en la UTN de Rosario.
+            <br />
+            Integrantes:
+            <br />
+            La Rana
+            <br />
+            Santi Chewi
+            <br />
+            Kiki Lopez
+          </p>
+        </div>
+        <div className="footer-section">
+          <h4>Enlaces Rápidos</h4>
+          <ul>
+            <li>
+              <a href="/about">Sobre Nosotros</a>
+            </li>
+            <li>
+              <a href="/contact">Contáctanos</a>
+            </li>
+            <li>
+              <a href="/terms">Términos y Condiciones</a>
+            </li>
+            <li>
+              <a href="/privacy">Política de Privacidad</a>
+            </li>
+          </ul>
+        </div>
+        <div className="footer-section">
+          <h4>Seguinos en las redes</h4>
+          <ul>
+            <li>
+              <a href="https://facebook.com">Facebook</a>
+            </li>
+            <li>
+              <a href="https://instagram.com">Instagram</a>
+            </li>
+            <li>
+              <a href="https://twitter.com">Twitter</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <p>
+          &copy; {new Date().getFullYear()} TheFrog. Todos los derechos
+          reservados.
+        </p>
+      </div>
+    </footer>
+  );
+};
 
-export default Footer
+export default Footer;
