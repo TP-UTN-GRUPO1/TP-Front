@@ -1,0 +1,10 @@
+.imgCarrousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.imgCarrousel img {
+    width: 100%;
+}

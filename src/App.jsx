@@ -2,16 +2,17 @@ import { useState } from "react";
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
+import GigantCarrousel from "./components/gigantCarrousel/gigantCarrousel";
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
       <Navbar></Navbar>
-      <div style={{ height: "1000px" }}>
-        <p>Contenido de prueba</p>
+      <GigantCarrousel></GigantCarrousel>
+      <div>
+        <p>ESPACIO</p>
       </div>
-
       <Footer></Footer>
     </>
   );
