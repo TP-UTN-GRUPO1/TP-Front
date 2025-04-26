@@ -1,6 +1,7 @@
 import React from "react";
 import { House, Cart, Heart } from "react-bootstrap-icons";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -20,8 +21,12 @@ const Navbar = () => {
         <div className="navbar-right">
           <Cart size={24} className="icon" />
           <Heart size={24} className="icon" />
-          <button className="nav-button">Mi Cuenta</button>
-          <button className="nav-button primary">Registrarse</button>
+          <Link to="./login">
+            <button className="nav-button">Mi Cuenta</button>
+          </Link>
+          <Link to="./register">
+            <button className="nav-button primary">Registrarse</button>
+          </Link>
         </div>
       </div>
       <div className="navBarBot">

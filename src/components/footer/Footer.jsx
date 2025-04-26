@@ -1,14 +1,13 @@
-import React from "react";
-import "./Footer.css";
+import styles from "./Footer.module.css";
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="footer-section">
+    <footer className={styles.footer}>
+      <div className={styles.footerContent}>
+        <div className={styles.footerSection}>
           <h4>Sobre Nosotros</h4>
           <p>
-            Estudiantes de la Tecnicatura de Programacion en la UTN de Rosario.
+            Estudiantes de la Tecnicatura de Programación en la UTN de Rosario.
             <br />
             Integrantes:
             <br />
@@ -19,7 +18,8 @@ const Footer = () => {
             Kiki Lopez
           </p>
         </div>
-        <div className="footer-section">
+
+        <div className={styles.footerSection}>
           <h4>Enlaces Rápidos</h4>
           <ul>
             <li>
@@ -36,22 +36,42 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <div className="footer-section">
+
+        <div className={styles.footerSection}>
           <h4>Seguinos en las redes</h4>
           <ul>
             <li>
-              <a href="https://facebook.com">Facebook</a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Facebook
+              </a>
             </li>
             <li>
-              <a href="https://instagram.com">Instagram</a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Instagram
+              </a>
             </li>
             <li>
-              <a href="https://twitter.com">Twitter</a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Twitter
+              </a>
             </li>
           </ul>
         </div>
       </div>
-      <div className="footer-bottom">
+
+      <div className={styles.footerBottom}>
         <p>
           &copy; {new Date().getFullYear()} TheFrog. Todos los derechos
           reservados.
