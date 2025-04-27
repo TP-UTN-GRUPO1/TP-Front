@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 
 function Login() {
@@ -17,6 +17,11 @@ function Login() {
     }
 
     console.log("Usuario logueado:", username);
+    navigate("/");
+  };
+
+  const handleBack = (e) => {
+    e.preventDefault();
     navigate("/");
   };
 
@@ -41,10 +46,9 @@ function Login() {
         <button className={styles.button} type="submit">
           Entrar
         </button>
-        <button className={styles.button}>
-          <Link to="/">
-          Volver
-        </Link>   </button>
+        <button className={styles.button} onClick={handleBack}>
+          <Link to="/">Volver</Link>
+        </button>
         {error && <p className={styles.error}>{error}</p>}
       </form>
     </section>

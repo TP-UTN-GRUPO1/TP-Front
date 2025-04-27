@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./Register.module.css";
+import styles from "../login/login.module.css";
 
 function Register() {
   const navigate = useNavigate();
@@ -24,6 +24,11 @@ function Register() {
 
     console.log("Usuario registrado:", username);
     navigate("/login");
+  };
+
+  const handleBack = (e) => {
+    e.preventDefault();
+    navigate("/");
   };
 
   return (
@@ -68,10 +73,8 @@ function Register() {
         <button className={styles.button} type="submit">
           Registrarse
         </button>
-        <button className={styles.button}>
-          <Link to="/">
-          Volver
-        </Link>  
+        <button className={styles.button} onClick={handleBack}>
+          <Link to="/">Volver</Link>
         </button>
         {error && <p className={styles.error}>{error}</p>}
       </form>
