@@ -1,20 +1,21 @@
-.navBar {
+.navbar {
   width: 100%;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 15px 30px;
+  padding: 15px 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
 }
 
-.navBarTop {
+.navbar-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.navbarLeft {
+.navbar-left {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -26,7 +27,7 @@
   color: #fff;
 }
 
-.searchInput {
+.search-input {
   flex: 1;
   margin: 0 20px;
   padding: 10px 15px;
@@ -38,15 +39,17 @@
   font-size: 16px;
 }
 
-.searchInput::placeholder {
+.search-input::placeholder {
   color: #ddd;
 }
 
-.navbarRight {
+.navbar-right {
   display: flex;
   align-items: center;
   gap: 15px;
 }
+
+
 
 .icon {
   color: #fff;
@@ -58,32 +61,36 @@
   color: #6c63ff;
 }
 
-.navButton {
-  background: transparent;
-  border: 2px solid #6c63ff;
+.nav-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 8px 16px;
   border-radius: 10px;
-  color: #6c63ff;
+  color: #fff;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s;
+  backdrop-filter: blur(10px);
+  transition: background 0.3s, border-color 0.3s;
 }
 
-.navButton:hover {
-  background: #6c63ff;
-  color: #fff;
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .primary {
-  background: #6c63ff;
+  background: rgba(255, 255, 255, 0.2);
   color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
 }
 
 .primary:hover {
-  background: #5848e5;
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
-.navBarBot {
+.navbar-bot {
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -91,17 +98,42 @@
   flex-wrap: wrap;
 }
 
-.buttonConsole {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
+.button-console {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 10px 20px;
   border-radius: 10px;
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  backdrop-filter: blur(10px);
+  transition: background 0.3s, border-color 0.3s;
 }
 
-.buttonConsole:hover {
-  background: #6c63ff;
+.button-console:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.link-button {
+  text-decoration: none; 
+}
+
+.link-button button {
+  background: transparent; 
+  border: none; 
+  cursor: pointer; 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.link-button .icon {
+  color: #fff; 
+}
+
+.link-button .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff; 
 }
