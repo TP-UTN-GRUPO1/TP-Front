@@ -33,7 +33,7 @@ const Navbar = () => {
         <button className="button-console">PS5</button>
         <button className="button-console">PS4</button>
         <button className="button-console">Nintendo</button>
-        <button className="button-console">XBOX S</button>
+        <button className="button-console">XBOX Series</button>
         <button className="button-console">XBOX ONE</button>
         <button className="button-console">PC</button>
       </div>

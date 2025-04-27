@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Register.module.css";
 
 function Register() {
@@ -38,6 +38,20 @@ function Register() {
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
+          type="text"
+          className={styles.input}
+          placeholder="Email"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="date"
+          className={styles.input}
+          placeholder="Fecha de nacimiento"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
           type="password"
           className={styles.input}
           placeholder="Contraseña"
@@ -53,6 +67,11 @@ function Register() {
         />
         <button className={styles.button} type="submit">
           Registrarse
+        </button>
+        <button className={styles.button}>
+          <Link to="/">
+          Volver
+        </Link>  
         </button>
         {error && <p className={styles.error}>{error}</p>}
       </form>
