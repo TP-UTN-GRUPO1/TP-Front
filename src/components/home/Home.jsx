@@ -28,6 +28,7 @@ const Home = () => {
       <div>
         {games.map((game) => (
           <Cards
+          key={game.id}
             imageUrl={game.imageUrl}
             nameGame={game.nameGame}
             platform={game.platform}
