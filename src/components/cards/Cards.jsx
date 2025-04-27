@@ -1,11 +1,14 @@
-import React from 'react'
 
-const Cards = () => {
+
+export const Cards = ({nameGame, imageUrl,platform,price}) => {
   return (
     <div>
-      soy una carta
+      <img src ={imageUrl}/>
+      <h2>{nameGame}</h2>
+      <p>{platform}</p>
+      <p>${price}</p>
+
     </div>
   )
 }
 
-export default Cards
