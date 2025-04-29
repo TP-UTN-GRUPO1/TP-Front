@@ -3,10 +3,29 @@
   list-style: none;
   white-space: nowrap;
 }
+.ul-gigantCarrousel {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    
+  }
 
-.li-gigantCarrousel  {
-  display: inline;
+.li-gigantCarrousel {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.li-gigantCarrousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
 
 img {
   margin-top: -16px;
@@ -15,14 +34,16 @@ img {
 
 
 .main-container {
-  width: 500px;
-  height: 280px;
-  margin: 0 auto;
-}
-.slider-container {
-  position: relative;
-  height: 100%
-}
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    height: auto;
+  }
+  .slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
 
 .dots-container {
   display: flex;
@@ -40,7 +61,7 @@ img {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  left: -100px;
+  left: 10px;
   font-size: 50px;
   font-weight: 700;
   color: #fff;
@@ -52,7 +73,7 @@ img {
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  right: -100px;
+  right: 10px;
   font-size: 50px;
   font-weight: 700;
   color: #fff;
@@ -62,10 +83,9 @@ img {
 
 .container-images {
   width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  border: 1px solid #eee;
+  height: 400px; /* Ajustá este valor a tu gusto */
   overflow: hidden;
+  border-radius: 10px;
 }
 
 div.active {
