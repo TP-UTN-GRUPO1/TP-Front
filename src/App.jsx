@@ -1,10 +1,9 @@
-import { useState } from "react";
 import "./App.css";
 import Home from "./components/home/Home";
 import Login from "./components/user/login/Login";
 import Register from "./components/user/register/Register";
 import Cart from "./components/cart/Cart";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <>
