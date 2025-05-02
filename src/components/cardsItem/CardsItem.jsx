@@ -1,33 +1,33 @@
 import { Card, Button, Badge } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom'; // ✅ Corrección clave
-import './cardsItem.css';
+import { useNavigate } from "react-router-dom";
+import "./cardsItem.css";
 
 const Cardsitem = ({
   id,
-  gameName, 
+  gameName,
   developer,
-  imageUrl, 
-  platform, 
+  imageUrl,
+  platform,
   price,
   available,
-  onGameSelected
+  onGameSelected,
 }) => {
   const navigate = useNavigate();
 
   const HandleGameSelected = () => {
-    if (onGameSelected) onGameSelected(gameName); // ✅ Opcional
-    navigate(`/games/${id}`, { // ✅ Navegación clara y específica
+    if (onGameSelected) onGameSelected(gameName);
+    navigate(`/games/${id}`, {
       state: {
         game: {
           id,
-          gameName, 
+          gameName,
           developer,
-          imageUrl, 
-          platform, 
+          imageUrl,
+          platform,
           price,
-          available
-        }
-      }
+          available,
+        },
+      },
     });
   };
 
@@ -47,9 +47,7 @@ const Cardsitem = ({
         <div>{platform}</div>
         <p>$ {price}</p>
         <div className="d-flex justify-content-between">
-          <Button onClick={HandleGameSelected}>
-            Seleccionar juego
-          </Button>
+          <Button onClick={HandleGameSelected}>Seleccionar juego</Button>
         </div>
       </Card.Body>
     </Card>

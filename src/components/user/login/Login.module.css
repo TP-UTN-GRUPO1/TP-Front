@@ -70,7 +70,6 @@
 body {
   background: linear-gradient(135deg, black, red);
   min-height: 100vh;
-  display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Poppins', sans-serif;
