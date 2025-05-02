@@ -10,6 +10,12 @@ import "./Home.css";
 
 const Home = () => {
   const [games, setGames] = useState([]);
+  const [selectedPlatform, setSelectedPlatform] = useState("");
+  
+
+  const filteredGames = selectedPlatform
+  ? games.filter((game) => game.platform === selectedPlatform)
+  : games;
 
   useEffect(() => {
     axios
@@ -24,7 +30,7 @@ const Home = () => {
   }, []); //muy muy importante el arreglo vacio, xq se ejecuta una vez cuando se monta el componente
   return (
     <div>
-      <Navbar />
+        <Navbar setSelectedPlatform={setSelectedPlatform} />
       <br />
       <GigantCarrousel />
       {/* <ProductCarousel></ProductCarousel>
@@ -36,7 +42,11 @@ const Home = () => {
       <br />
       <br />
       <br />
-      <Cards games={games} />
+      {filteredGames.length === 0 ? (
+        <p className="d-flex justify-content-center flex-wrap">
+          No se encontraron juegos.
+        </p>):
+        (<Cards games={filteredGames} />)}
       <Footer />
     </div>
   );

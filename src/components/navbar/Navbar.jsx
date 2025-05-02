@@ -3,7 +3,12 @@ import { House, Cart, Heart } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({setSelectedPlatform}) => {
+
+  const handleFilterPlatform = (e) => 
+    setSelectedPlatform(e.target.value);
+  
+
   return (
     <nav className="navbar">
       <div className="navbar-top">
@@ -35,12 +40,12 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-bot">
-        <button className="button-console">PS5</button>
-        <button className="button-console">PS4</button>
-        <button className="button-console">Nintendo</button>
-        <button className="button-console">XBOX Series</button>
-        <button className="button-console">XBOX ONE</button>
-        <button className="button-console">PC</button>
+        <button className="button-console" onClick={handleFilterPlatform} value="PlayStation 5">PS5</button>
+        <button className="button-console" onClick={handleFilterPlatform} value="PlayStation 4">PS4</button>
+        <button className="button-console" onClick={handleFilterPlatform} value="Nintendo Switch">Nintendo</button>
+        <button className="button-console" onClick={handleFilterPlatform} value="Xbox Series X|S">XBOX Series</button>
+        <button className="button-console" onClick={handleFilterPlatform} value="Xbox One">XBOX ONE</button>
+        <button className="button-console" onClick={handleFilterPlatform} value="PC">PC</button>
       </div>
     </nav>
   );
