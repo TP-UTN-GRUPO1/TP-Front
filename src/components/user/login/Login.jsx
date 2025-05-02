@@ -44,7 +44,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className={styles.button} type="submit">
-          Entrar
+          Iniciar sesion
         </button>
         <button className={styles.button} onClick={handleBack}>
           <Link to="/">Volver</Link>
