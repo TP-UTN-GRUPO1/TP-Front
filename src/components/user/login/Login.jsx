@@ -1,23 +1,36 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
+import axios from "axios";
 
 function Login() {
-  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (username.trim() === "" || password.trim() === "") {
-      setError("Por favor completa todos los campos");
-      return;
-    }
+    try {
+      const response = await axios.post("http://localhost:3000/login", {
+        email,
+        password,
+      });
 
-    console.log("Usuario logueado:", username);
-    navigate("/");
+      localStorage.setItem("token", response.data.token);
+      console.log("Login exitoso. Token guardado.");
+
+      navigate("/");
+    } catch (err) {
+      console.error("Error al iniciar sesión:", err);
+      if (err.response) {
+        setError(err.response.data.message || "Error al iniciar sesión");
+      } else {
+        setError("Error de conexión con el servidor");
+      }
+    }
   };
 
   const handleBack = (e) => {

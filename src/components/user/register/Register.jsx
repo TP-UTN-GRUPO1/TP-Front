@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../login/login.module.css";
+import axios from "axios";
 
 function Register() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [date, setDate] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -17,13 +20,25 @@ function Register() {
       return;
     }
 
-    if (username.trim() === "" || password.trim() === "") {
+    if (!name || !email || !date || !password || !confirmPassword) {
       setError("Por favor completa todos los campos");
       return;
     }
 
-    console.log("Usuario registrado:", username);
-    navigate("/login");
+    try {
+      const response = await axios.post("http://localhost:3000/register", {
+        name,
+        email,
+        date,
+        password,
+      });
+
+      console.log("Registro exitoso:", response.data);
+      navigate("/login");
+    } catch (error) {
+      console.error("Error en el registro:", error);
+      setError(error.response?.data?.message || "Error en el servidor");
+    }
   };
 
   const handleBack = (e) => {
@@ -39,22 +54,22 @@ function Register() {
           type="text"
           className={styles.input}
           placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           type="text"
           className={styles.input}
           placeholder="Email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="date"
           className={styles.input}
           placeholder="Fecha de nacimiento"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
         />
         <input
           type="password"
