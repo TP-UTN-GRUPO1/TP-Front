@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../login/login.module.css";
-import axios from "axios";
+// import axios from "axios";
 
 function Register() {
   const navigate = useNavigate();
@@ -25,20 +25,35 @@ function Register() {
       return;
     }
 
-    try {
-      const response = await axios.post("http://localhost:3000/register", {
-        name,
-        email,
-        date,
-        password,
-      });
+    // try {
+    //   const response = await axios.post("http://localhost:3000/register", {
+    //     name,
+    //     email,
+    //     date,
+    //     password,
+    //   });
 
-      console.log("Registro exitoso:", response.data);
+    //   console.log("Registro exitoso:", response.data);
+    //   navigate("/login");
+    // } catch (error) {
+    //   console.error("Error en el registro:", error);
+    //   setError(error.response?.data?.message || "Error en el servidor");
+    // }
+
+    fetch("http://localhost:3000/register", {
+
+        headers:{
+          "Content-type": "application/json"
+        },
+        method:"POST",
+        body: JSON.stringify({name, email, date, password})
+    })
+    .then(res => res.json())
+    .then(()=>{
+      console.log("Usuario creado!")
       navigate("/login");
-    } catch (error) {
-      console.error("Error en el registro:", error);
-      setError(error.response?.data?.message || "Error en el servidor");
-    }
+    })
+
   };
 
   const handleBack = (e) => {
