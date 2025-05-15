@@ -32,10 +32,11 @@ const Cardsitem = ({
   };
 
   return (
-    <Card className="mx-3 mb-3 card-container">
+    <div className="card-container">
+    <Card className="cards">
       <Card.Img height={300} variant="top" src={imageUrl} />
       <Card.Body>
-        <div className="mb-2">
+        <div className="stock">
           {available ? (
             <Badge bg="success">En Stock</Badge>
           ) : (
@@ -46,11 +47,12 @@ const Cardsitem = ({
         <Card.Subtitle>{developer}</Card.Subtitle>
         <div>{platform}</div>
         <p>$ {price}</p>
-        <div className="d-flex justify-content-between">
+        <div className="">
           <Button onClick={HandleGameSelected}>Seleccionar juego</Button>
         </div>
       </Card.Body>
     </Card>
+    </div>
   );
 };
 
