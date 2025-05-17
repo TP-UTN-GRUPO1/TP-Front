@@ -13,13 +13,14 @@ const Cards = ({games}) => {
       <Cardsitem
           key={games.id}
           id={games.id}
-          gameName={games.gameName}
+          gameName={games.nameGame}
           developer={games.developer}
           price={games.price}
-          platform={games.platform}
+          platform={games.platforms.map(game => game.platformName)}
+          genre={games.genres.map(game => game.genreName)}
           imageUrl={games.imageUrl}
           available={games.available}/>);
-
+ 
   return (
     <div className="d-flex justify-content-center flex-wrap">
       {gamesMapped}

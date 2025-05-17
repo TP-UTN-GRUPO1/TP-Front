@@ -11,6 +11,7 @@ const Cardsitem = ({
   price,
   available,
   onGameSelected,
+  genre
 }) => {
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ const Cardsitem = ({
           platform,
           price,
           available,
+          genre
         },
       },
     });
@@ -45,7 +47,8 @@ const Cardsitem = ({
         </div>
         <Card.Title>{gameName}</Card.Title>
         <Card.Subtitle>{developer}</Card.Subtitle>
-        <div>{platform}</div>
+        <div>{platform.map(plt => plt.platformName)}</div>
+        <div>{genre.map(gnr => gnr.genreName)}</div>
         <p>$ {price}</p>
         <div className="">
           <Button onClick={HandleGameSelected}>Seleccionar juego</Button>
