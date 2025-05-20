@@ -11,12 +11,14 @@ import "./Home.css";
 const Home = () => {
   const [games, setGames] = useState([]);
   const [selectedPlatform, setSelectedPlatform] = useState("");
-  
 
-  const filteredGames = selectedPlatform
-  ? games.filter((game) => game.platform === selectedPlatform)
+  const filteredGames = selectedPlatform && selectedPlatform !== ""
+  ? games.filter((game) =>
+      game.platforms.some((platform) =>
+        platform.platformName === selectedPlatform
+      )
+    )
   : games;
-
   useEffect(() => {
     axios
       .get("http://localhost:3000/games")

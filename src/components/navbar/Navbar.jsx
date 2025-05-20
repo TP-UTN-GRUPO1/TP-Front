@@ -40,10 +40,10 @@ const Navbar = ({setSelectedPlatform}) => {
       </div>
 
       <div className="navbar-bot">
-        <button className="button-console" onClick={handleFilterPlatform} value="PlayStation 5">PS5</button>
-        <button className="button-console" onClick={handleFilterPlatform} value="PlayStation 4">PS4</button>
-        <button className="button-console" onClick={handleFilterPlatform} value="Nintendo Switch">Nintendo</button>
-        <button className="button-console" onClick={handleFilterPlatform} value="Xbox Series X|S">XBOX Series</button>
+        <button className="button-console" onClick={handleFilterPlatform} value="PS5">PS5</button>
+        <button className="button-console" onClick={handleFilterPlatform} value="PS4">PS4</button>
+        <button className="button-console" onClick={handleFilterPlatform} value="Nintendo">Nintendo</button>
+        <button className="button-console" onClick={handleFilterPlatform} value="Xbox Series">XBOX Series S|X</button>
         <button className="button-console" onClick={handleFilterPlatform} value="Xbox One">XBOX ONE</button>
         <button className="button-console" onClick={handleFilterPlatform} value="PC">PC</button>
       </div>
