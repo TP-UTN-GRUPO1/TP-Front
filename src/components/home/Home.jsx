@@ -22,7 +22,7 @@ const Home = () => {
       .get("http://localhost:3000/games")
       .then((response) => {
         setGames(response.data);
-        console.log(response.data, "pedido de los juegos");
+        
       })
       .catch((error) => {
         console.error("Error fetching games", error);

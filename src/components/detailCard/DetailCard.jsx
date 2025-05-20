@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const DetailCard = () => {
 const  [gameDetail, setGameDetail] = useState({}); // es null porque no tengo nada al principio
@@ -42,6 +44,7 @@ if (!gameDetail) {
 
   return (
     <div>
+      <>
       <h1>{gameDetail.nameGame}</h1>
       <img src={gameDetail.imageUrl} alt={gameDetail.nameGame} />
       <p>Desarrollador: {gameDetail.developer}</p>
@@ -50,6 +53,13 @@ if (!gameDetail) {
       <p>Plataforma: {gameDetail.platforms?.map(g => g.platformName).join(' - ') || " "}</p>
       <p>Precio: ${gameDetail.price}</p>
       <p>Disponible: {gameDetail.available ? "Sí" : "No"}</p>
+      
+      </>
+      <>
+      <Button asChild><Link to="/">Volver</Link></Button>
+      <Button>Comprar!</Button>
+      
+      </>
     </div>
   )
 }
