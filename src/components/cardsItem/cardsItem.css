@@ -15,6 +15,7 @@
   width: 300px;
   margin: 40px auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: aliceblue;
 }
 
 .cards:hover {

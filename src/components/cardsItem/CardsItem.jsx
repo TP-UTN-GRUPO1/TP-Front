@@ -36,7 +36,7 @@ const Cardsitem = ({
   return (
     <div className="card-container">
     <Card className="cards">
-      <Card.Img height={300} variant="top" src={imageUrl} />
+      <Card.Img height={350} variant="top" src={imageUrl} />  
       <Card.Body>
         <div className="stock">
           {available ? (
@@ -50,8 +50,9 @@ const Cardsitem = ({
         <div>{platform.map(plt => plt.platformName)}</div>
         <div>{genre.map(gnr => gnr.genreName)}</div>
         <p>$ {price}</p>
-        <div className="">
-          <Button onClick={HandleGameSelected}>Seleccionar juego</Button>
+        <div className="d-grid gap-2">
+          <Button onClick={HandleGameSelected} className="me-3" size="sm">Seleccionar juego</Button>
+          <Button size="sm" className="me-3"  variant="secondary">Añadir al carrito</Button>
         </div>
       </Card.Body>
     </Card>
