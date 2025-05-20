@@ -12,7 +12,7 @@ useEffect(() => {
     try {
       const response = await axios.get(`http://localhost:3000/games/${id}`); // Usa el id real
       setGameDetail(response.data);
-      console.log(response.data)
+      
     } catch (error) {
       console.error("Error fetching game details", error);
     }
@@ -20,7 +20,6 @@ useEffect(() => {
   getDetailGame();
 }, [id]);
 
-console.log(gameDetail,"---")
 
   return (
     <div>
@@ -28,8 +27,8 @@ console.log(gameDetail,"---")
       <img src={gameDetail.imageUrl} alt={gameDetail.nameGame} />
       <p>Desarrollador: {gameDetail.developer}</p>
       <p>Rating: {gameDetail.rating}/10 ⭐</p>
-      <p>Género: {gameDetail.genres.map(g => g.genreName).join(' - ')}</p>
-      <p>Plataforma: {gameDetail.platforms.map(g => g.platformName).join(' - ')}</p>
+      <p>Género: {gameDetail.genres?.map(g => g.genreName).join(' - ') || " "}</p>
+      <p>Plataforma: {gameDetail.platforms?.map(g => g.platformName).join(' - ') || " "}</p>
       <p>Precio: ${gameDetail.price}</p>
       <p>Disponible: {gameDetail.available ? "Sí" : "No"}</p>
     </div>
