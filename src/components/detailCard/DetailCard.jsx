@@ -20,6 +20,25 @@ useEffect(() => {
   getDetailGame();
 }, [id]);
 
+if (!gameDetail) {
+  return (
+    <div style={{ paddingTop: '100%', position: 'relative' }}>
+      <iframe
+        src="https://gifer.com/embed/1fpC"
+        width="100%"
+        height="100%"
+        style={{ position: 'absolute', top: 0, left: 0 }}
+        frameBorder="0"
+        allowFullScreen
+        title="loading-gif"
+      ></iframe>
+      <p>
+        <a href="https://gifer.com" target="_blank" rel="noopener noreferrer"></a>
+      </p>
+    </div>
+  );
+}
+
 
   return (
     <div>
