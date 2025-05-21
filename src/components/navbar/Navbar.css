@@ -1,4 +1,7 @@
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
@@ -6,6 +9,7 @@
   padding: 15px 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
+  z-index: 9999; 
 }
 
 .navbar-top {
@@ -136,4 +140,16 @@
   font-size: 24px;
   font-weight: bold;
   color: #fff; 
+}
+.logo-image {
+  width: 50px; /* Ajusta según el diseño */
+  height: auto;
+  display: block;
+}
+
+.link-button button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }

@@ -3,6 +3,7 @@ import { House, Cart, Heart } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { DropdownMenu, NavDropdown } from "react-bootstrap";
+import imgLogo from "../../assets/img/theFrogGames1.png"
 
 const Navbar = ({setSelectedPlatform, setSelectedPrice}) => {
   const handleFilterPlatform = (e) => 
@@ -13,12 +14,11 @@ const Navbar = ({setSelectedPlatform, setSelectedPrice}) => {
     <nav className="navbar">
       <div className="navbar-top">
         <div className="navbar-left">
-          <Link to="/" className="link-button">
-            <button>
-              <House size={28} className="icon" />
-              <span className="logo">TheFrog</span>
-            </button>
-          </Link>
+        <Link to="/" className="link-button">
+        <button onClick={() => setSelectedPrice("reset")} aria-label="Cargar inicio">
+  <img src={imgLogo} alt="The Frog Games Logo - Redirect to Home" className="logo-image" />
+</button>
+        </Link>
         </div>
 
         <input
