@@ -49,8 +49,8 @@ const Navbar = ({setSelectedPlatform, setSelectedPrice}) => {
         <NavDropdown className="button-console" menuVariant="dark" title="Ordenar por" >
           <NavDropdown.Item onClick={() => setSelectedPrice("lowToHigh")} >Precio Menor-Mayor</NavDropdown.Item>
           <NavDropdown.Item onClick={() => setSelectedPrice("highToLow")}>Precio Mayor-Menor</NavDropdown.Item>
-          <NavDropdown.Item>A-Z</NavDropdown.Item>
-          <NavDropdown.Item>Z-A</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => setSelectedPrice("A-Z")}>A-Z</NavDropdown.Item>
+          <NavDropdown.Item onClick={() => setSelectedPrice("Z-A")}>Z-A</NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item onClick={() => setSelectedPrice("reset")}>Reiniciar Filtros </NavDropdown.Item>
         </NavDropdown>

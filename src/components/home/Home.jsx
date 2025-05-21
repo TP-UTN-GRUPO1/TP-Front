@@ -25,6 +25,12 @@ const Home = () => {
       setGames(sortedGames);
     } else if (selectedPrice ==="reset"){
       setGames(originalGames);
+    }else if (selectedPrice === "A-Z"){
+      sortedGames.sort((a, b) => a.nameGame.localeCompare(b.nameGame))
+      setGames(sortedGames);
+    }else if (selectedPrice === "Z-A"){
+      sortedGames.sort((a, b) => b.nameGame.localeCompare(a.nameGame))
+      setGames(sortedGames);
     }
    }, [selectedPrice, originalGames]);
 
