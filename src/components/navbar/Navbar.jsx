@@ -1,4 +1,4 @@
-import { House, Cart, Heart } from "react-bootstrap-icons";
+import { Cart, Heart } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { DropdownMenu, NavDropdown } from "react-bootstrap";

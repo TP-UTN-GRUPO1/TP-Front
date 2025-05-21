@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cards from "../cards/Cards";
-import ProductCarousel from "../miniCarrousel/miniCarrousel";
 import GigantCarrousel from "../gigantCarrousel/gigantCarrousel";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
@@ -32,13 +31,14 @@ const Home = () => {
     }
   }, [selectedPrice, originalGames]);
 
-  const filteredGames = selectedPlatform && selectedPlatform !== ""
-    ? games.filter((game) =>
-        game.platforms.some((platform) =>
-          platform.platformName === selectedPlatform
+  const filteredGames =
+    selectedPlatform && selectedPlatform !== ""
+      ? games.filter((game) =>
+          game.platforms.some(
+            (platform) => platform.platformName === selectedPlatform
+          )
         )
-      )
-    : games;
+      : games;
 
   useEffect(() => {
     axios
@@ -54,7 +54,10 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar setSelectedPlatform={setSelectedPlatform} setSelectedPrice={setSelectedPrice} />
+      <Navbar
+        setSelectedPlatform={setSelectedPlatform}
+        setSelectedPrice={setSelectedPrice}
+      />
       <div className="main-content">
         <GigantCarrousel />
         <br />
