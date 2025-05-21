@@ -9,8 +9,24 @@ import Footer from "../footer/Footer";
 import "./Home.css";
 
 const Home = () => {
+  const [originalGames, setOriginalGames] = useState([]); //lo cree para poder resetear los filtros de precios en en el useEffect, si no hace un bucle infinito
   const [games, setGames] = useState([]);
   const [selectedPlatform, setSelectedPlatform] = useState("");
+  const [selectedPrice, setSelectedPrice] = useState("");
+
+
+  useEffect(() => {
+    let sortedGames = [...originalGames];
+    if (selectedPrice === "lowToHigh") {
+      sortedGames.sort((a, b) => a.price - b.price);
+      setGames(sortedGames);
+    } else if (selectedPrice === "highToLow") {
+      sortedGames.sort((a, b) => b.price - a.price);
+      setGames(sortedGames);
+    } else if (selectedPrice ==="reset"){
+      setGames(originalGames);
+    }
+   }, [selectedPrice, originalGames]);
 
   const filteredGames = selectedPlatform && selectedPlatform !== ""
   ? games.filter((game) =>
@@ -23,6 +39,7 @@ const Home = () => {
     axios
       .get("http://localhost:3000/games")
       .then((response) => {
+        setOriginalGames(response.data);
         setGames(response.data);
         
       })
@@ -32,15 +49,9 @@ const Home = () => {
   }, []); //muy muy importante el arreglo vacio, xq se ejecuta una vez cuando se monta el componente
   return (
     <div>
-        <Navbar setSelectedPlatform={setSelectedPlatform} />
+        <Navbar setSelectedPlatform={setSelectedPlatform} setSelectedPrice={setSelectedPrice}/>
       <br />
       <GigantCarrousel />
-      {/* <ProductCarousel></ProductCarousel>
-      <ProductCarousel></ProductCarousel>
-      <ProductCarousel></ProductCarousel>
-      <ProductCarousel></ProductCarousel>
-      <ProductCarousel></ProductCarousel>
-      <ProductCarousel></ProductCarousel> */}
       <br />
       <br />
       <br />
