@@ -4,7 +4,7 @@ import "./Navbar.css";
 import { DropdownMenu, NavDropdown } from "react-bootstrap";
 import imgLogo from "../../assets/img/theFrogGames1.png";
 
-const Navbar = ({ setSelectedPlatform, setSelectedPrice }) => {
+const Navbar = ({ selectedPrice,setSelectedPlatform, onSelectedPrice }) => {
   const handleFilterPlatform = (e) => setSelectedPlatform(e.target.value);
 
   return (
@@ -13,7 +13,7 @@ const Navbar = ({ setSelectedPlatform, setSelectedPrice }) => {
         <div className="navbar-left">
           <Link to="/" className="link-button">
             <button
-              onClick={() => setSelectedPrice("reset")}
+              onClick={() => onSelectedPrice("reset")}
               aria-label="Cargar inicio"
             >
               <img
@@ -89,23 +89,34 @@ const Navbar = ({ setSelectedPlatform, setSelectedPrice }) => {
         <NavDropdown
           className="button-console"
           menuVariant="dark"
-          title="Ordenar por"
+          title={selectedPrice === "lowToHigh" ? " Menor-Mayor" : "Ordenar por"}
         >
-          <NavDropdown.Item onClick={() => setSelectedPrice("lowToHigh")}>
-            Precio Menor-Mayor
+          <NavDropdown
+          menuVariant="dark"
+          title="Precio"
+          
+        >
+          <NavDropdown.Item active={selectedPrice === "lowToHigh"} onClick={() => onSelectedPrice("lowToHigh")}>
+            Menor-Mayor
           </NavDropdown.Item>
-          <NavDropdown.Item onClick={() => setSelectedPrice("highToLow")}>
-            Precio Mayor-Menor
+          <NavDropdown.Item onClick={() => onSelectedPrice("highToLow")}>
+            Mayor-Menor
           </NavDropdown.Item>
-          <NavDropdown.Item onClick={() => setSelectedPrice("A-Z")}>
+          </NavDropdown>
+          <NavDropdown
+          menuVariant="dark"
+          title="Nombre"
+        >
+          <NavDropdown.Item onClick={() => onSelectedPrice("A-Z")}>
             A-Z
           </NavDropdown.Item>
-          <NavDropdown.Item onClick={() => setSelectedPrice("Z-A")}>
+          <NavDropdown.Item onClick={() => onSelectedPrice("Z-A")}>
             Z-A
           </NavDropdown.Item>
+          </NavDropdown>
           <NavDropdown.Divider />
-          <NavDropdown.Item onClick={() => setSelectedPrice("reset")}>
-            Reiniciar Filtros{" "}
+          <NavDropdown.Item onClick={() => onSelectedPrice("reset")}>
+            Reiniciar Filtros
           </NavDropdown.Item>
         </NavDropdown>
       </div>

@@ -12,24 +12,28 @@ const Home = () => {
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
 
-  useEffect(() => {
+
+
+
+  const handleSelectPrice = (newPriceFilter) => {
     let sortedGames = [...originalGames];
-    if (selectedPrice === "lowToHigh") {
+    setSelectedPrice(newPriceFilter)
+    if (newPriceFilter === "lowToHigh") {
       sortedGames.sort((a, b) => a.price - b.price);
       setGames(sortedGames);
-    } else if (selectedPrice === "highToLow") {
+    } else if (newPriceFilter === "highToLow") {
       sortedGames.sort((a, b) => b.price - a.price);
       setGames(sortedGames);
-    } else if (selectedPrice === "reset") {
+    } else if (newPriceFilter === "reset") {
       setGames(originalGames);
-    } else if (selectedPrice === "A-Z") {
+    } else if (newPriceFilter === "A-Z") {
       sortedGames.sort((a, b) => a.nameGame.localeCompare(b.nameGame));
       setGames(sortedGames);
-    } else if (selectedPrice === "Z-A") {
+    } else if (newPriceFilter === "Z-A") {
       sortedGames.sort((a, b) => b.nameGame.localeCompare(a.nameGame));
       setGames(sortedGames);
     }
-  }, [selectedPrice, originalGames]);
+  }
 
   const filteredGames =
     selectedPlatform && selectedPlatform !== ""
@@ -55,14 +59,13 @@ const Home = () => {
   return (
     <div>
       <Navbar
+      selectedPrice={selectedPrice}
         setSelectedPlatform={setSelectedPlatform}
-        setSelectedPrice={setSelectedPrice}
+        onSelectedPrice={handleSelectPrice}
       />
       <div className="main-content">
         <GigantCarrousel />
-        <br />
-        <br />
-        <br />
+      
         {filteredGames.length === 0 ? (
           <p className="d-flex justify-content-center flex-wrap">
             No se encontraron juegos.
