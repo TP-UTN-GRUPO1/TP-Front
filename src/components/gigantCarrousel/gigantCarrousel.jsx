@@ -1,5 +1,5 @@
 import "./gigantCarrousel.css";
-import data from "../../../data/data.json";
+import data from "./imgs.js";
 import { useRef, useState, useEffect } from "react";
 
 const gigantCarrousel = () => {
