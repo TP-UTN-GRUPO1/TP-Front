@@ -24,7 +24,6 @@ function Login() {
     if (!emailRef.current.value.length || !validateEmail(email)) {
       setErrors({ ...errors, email: true });
       errorToast("Email invalido");
-      ExclamationCircleFill.current.focus();
       return;
     } else if (
       !password.length ||
@@ -48,9 +47,9 @@ function Login() {
     } catch (err) {
       console.error("Error al iniciar sesión:", err);
       if (err.response) {
-        setError(err.response.data.message || "Error al iniciar sesión");
+        setErrors(err.response.data.message || "Error al iniciar sesión");
       } else {
-        setError("Error de conexión con el servidor");
+        setErrors("Error de conexión con el servidor");
       }
     }
   };

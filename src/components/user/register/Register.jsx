@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  validateString,
+  validateEmail,
+  validatePassword,
+  isOverMinimumAge,
+} from "./register.services.js";
 import styles from "../login/login.module.css";
 import axios from "axios";
 
@@ -15,13 +21,29 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setError("Las contraseñas no coinciden");
+    // Validaciones
+    if (!validateString(name, 3, 30)) {
+      setError("Nombre debe tener entre 3 y 30 caracteres");
       return;
     }
 
-    if (!name || !email || !date || !password || !confirmPassword) {
-      setError("Por favor completa todos los campos");
+    if (!validateEmail(email)) {
+      setError("Email inválido");
+      return;
+    }
+
+    if (!date || !isOverMinimumAge(date, 13)) {
+      setError("Debes tener al menos 13 años");
+      return;
+    }
+
+    if (!validatePassword(password, 7, 50, true, true, true)) {
+      setError("Contraseña inválida: debe tener mayúscula, número y símbolo");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Las contraseñas no coinciden");
       return;
     }
 
