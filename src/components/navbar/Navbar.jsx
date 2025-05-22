@@ -4,18 +4,22 @@ import "./Navbar.css";
 import { DropdownMenu, NavDropdown } from "react-bootstrap";
 import imgLogo from "../../assets/img/theFrogGames1.png";
 
-const Navbar = ({ selectedPrice,setSelectedPlatform, onSelectedPrice }) => {
-  const handleFilterPlatform = (e) => setSelectedPlatform(e.target.value);
+const Navbar = ({
+  selectedPrice,
+  setSelectedPlatform,
+  onSelectedPrice,
+  showFilters = true,
+  showSearch = true,
+  showUserButtons = true,
+}) => {
+  const handleFilterPlatform = (e) => setSelectedPlatform?.(e.target.value);
 
   return (
     <nav className="custom-navbar">
       <div className="navbar-top">
         <div className="navbar-left">
           <Link to="/" className="link-button">
-            <button
-              onClick={() => onSelectedPrice("reset")}
-              aria-label="Cargar inicio"
-            >
+            <button onClick={() => onSelectedPrice?.("reset")} aria-label="Cargar inicio">
               <img
                 src={imgLogo}
                 alt="The Frog Games Logo - Redirect to Home"
@@ -25,101 +29,65 @@ const Navbar = ({ selectedPrice,setSelectedPlatform, onSelectedPrice }) => {
           </Link>
         </div>
 
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Buscar juegos..."
-        />
+        {showSearch && (
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Buscar juegos..."
+          />
+        )}
 
-        <div className="navbar-right">
-          <Cart size={24} className="icon" />
-          <Heart size={24} className="icon" />
-          <Link to="/login">
-            <button className="nav-button">Mi Cuenta</button>
-          </Link>
-          <Link to="/register">
-            <button className="nav-button primary">Registrarse</button>
-          </Link>
+        {showUserButtons && (
+          <div className="navbar-right">
+            <Cart size={24} className="icon" />
+            <Heart size={24} className="icon" />
+            <Link to="/login">
+              <button className="nav-button">Mi Cuenta</button>
+            </Link>
+            <Link to="/register">
+              <button className="nav-button primary">Registrarse</button>
+            </Link>
+          </div>
+        )}
+      </div>
+
+      {showFilters && (
+        <div className="navbar-bot">
+          {["PS5", "PS4", "Nintendo Switch", "Xbox Series", "Xbox One", "PC"].map((platform) => (
+            <button
+              key={platform}
+              className="button-console"
+              onClick={handleFilterPlatform}
+              value={platform}
+            >
+              {platform === "Xbox Series" ? "XBOX Series S|X" : platform === "Xbox One" ? "XBOX ONE" : platform}
+            </button>
+          ))}
+
+          <NavDropdown className="button-console" menuVariant="dark" title={selectedPrice === "lowToHigh" ? " Menor-Mayor" : "Ordenar por"}>
+            <NavDropdown menuVariant="dark" title="Precio">
+              <NavDropdown.Item active={selectedPrice === "lowToHigh"} onClick={() => onSelectedPrice?.("lowToHigh")}>
+                Menor-Mayor
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => onSelectedPrice?.("highToLow")}>
+                Mayor-Menor
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown menuVariant="dark" title="Nombre">
+              <NavDropdown.Item onClick={() => onSelectedPrice?.("A-Z")}>
+                A-Z
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => onSelectedPrice?.("Z-A")}>
+                Z-A
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown.Divider />
+            <NavDropdown.Item onClick={() => onSelectedPrice?.("reset")}>
+              Reiniciar Filtros
+            </NavDropdown.Item>
+          </NavDropdown>
         </div>
-      </div>
-
-      <div className="navbar-bot">
-        <button
-          className="button-console"
-          onClick={handleFilterPlatform}
-          value="PS5"
-        >
-          PS5
-        </button>
-        <button
-          className="button-console"
-          onClick={handleFilterPlatform}
-          value="PS4"
-        >
-          PS4
-        </button>
-        <button
-          className="button-console"
-          onClick={handleFilterPlatform}
-          value="Nintendo Switch"
-        >
-          Nintendo
-        </button>
-        <button
-          className="button-console"
-          onClick={handleFilterPlatform}
-          value="Xbox Series"
-        >
-          XBOX Series S|X
-        </button>
-        <button
-          className="button-console"
-          onClick={handleFilterPlatform}
-          value="Xbox One"
-        >
-          XBOX ONE
-        </button>
-        <button
-          className="button-console"
-          onClick={handleFilterPlatform}
-          value="PC"
-        >
-          PC
-        </button>
-        <NavDropdown
-          className="button-console"
-          menuVariant="dark"
-          title={selectedPrice === "lowToHigh" ? " Menor-Mayor" : "Ordenar por"}
-        >
-          <NavDropdown
-          menuVariant="dark"
-          title="Precio"
-          
-        >
-          <NavDropdown.Item active={selectedPrice === "lowToHigh"} onClick={() => onSelectedPrice("lowToHigh")}>
-            Menor-Mayor
-          </NavDropdown.Item>
-          <NavDropdown.Item onClick={() => onSelectedPrice("highToLow")}>
-            Mayor-Menor
-          </NavDropdown.Item>
-          </NavDropdown>
-          <NavDropdown
-          menuVariant="dark"
-          title="Nombre"
-        >
-          <NavDropdown.Item onClick={() => onSelectedPrice("A-Z")}>
-            A-Z
-          </NavDropdown.Item>
-          <NavDropdown.Item onClick={() => onSelectedPrice("Z-A")}>
-            Z-A
-          </NavDropdown.Item>
-          </NavDropdown>
-          <NavDropdown.Divider />
-          <NavDropdown.Item onClick={() => onSelectedPrice("reset")}>
-            Reiniciar Filtros
-          </NavDropdown.Item>
-        </NavDropdown>
-      </div>
+      )}
     </nav>
   );
 };
