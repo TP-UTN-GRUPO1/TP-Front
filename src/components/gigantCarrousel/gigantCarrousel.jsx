@@ -1,23 +1,19 @@
 import "./gigantCarrousel.css";
 import data from "./imgs.js";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 
 const gigantCarrousel = () => {
   const listRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const scrollToImage = (direction) => {
-    if (direction === "prev") {
-      setCurrentIndex((curr) => {
-        const isFirstSlide = currentIndex === 0;
-        return isFirstSlide ? 0 : curr - 1;
-      });
-    } else {
-      const isLastSlide = currentIndex === data.length - 1;
-      if (!isLastSlide) {
-        setCurrentIndex((curr) => curr + 1);
+    setCurrentIndex((curr) => {
+      if (direction === "prev") {
+        return curr === 0 ? data.length - 1 : curr - 1;
+      } else {
+        return curr === data.length - 1 ? 0 : curr + 1;
       }
-    }
+    });
   };
 
   const goToSlide = (slideIndex) => {
@@ -40,7 +36,7 @@ const gigantCarrousel = () => {
           >
             {data.map((item) => (
               <li className="li-gigantCarrousel" key={item.id}>
-                <img src={item.imageUrl} width={500} height={280} />
+                <img src={item.imageUrl} width={900} height={400} />
               </li>
             ))}
           </ul>
