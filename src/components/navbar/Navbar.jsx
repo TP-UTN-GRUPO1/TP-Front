@@ -19,7 +19,10 @@ const Navbar = ({
       <div className="navbar-top">
         <div className="navbar-left">
           <Link to="/" className="link-button">
-            <button onClick={() => onSelectedPrice?.("reset")} aria-label="Cargar inicio">
+            <button
+              onClick={() => onSelectedPrice?.("reset")}
+              aria-label="Cargar inicio"
+            >
               <img
                 src={imgLogo}
                 alt="The Frog Games Logo - Redirect to Home"
@@ -42,7 +45,7 @@ const Navbar = ({
             <Cart size={24} className="icon" />
             <Heart size={24} className="icon" />
             <Link to="/login">
-              <button className="nav-button">Mi Cuenta</button>
+              <button className="nav-button">Iniciar Sesion</button>
             </Link>
             <Link to="/register">
               <button className="nav-button primary">Registrarse</button>
@@ -53,20 +56,40 @@ const Navbar = ({
 
       {showFilters && (
         <div className="navbar-bot">
-          {["PS5", "PS4", "Nintendo Switch", "Xbox Series", "Xbox One", "PC"].map((platform) => (
+          {[
+            "PS5",
+            "PS4",
+            "Nintendo Switch",
+            "Xbox Series",
+            "Xbox One",
+            "PC",
+          ].map((platform) => (
             <button
               key={platform}
               className="button-console"
               onClick={handleFilterPlatform}
               value={platform}
             >
-              {platform === "Xbox Series" ? "XBOX Series S|X" : platform === "Xbox One" ? "XBOX ONE" : platform}
+              {platform === "Xbox Series"
+                ? "XBOX Series S|X"
+                : platform === "Xbox One"
+                ? "XBOX ONE"
+                : platform}
             </button>
           ))}
 
-          <NavDropdown className="button-console" menuVariant="dark" title={selectedPrice === "lowToHigh" ? " Menor-Mayor" : "Ordenar por"}>
+          <NavDropdown
+            className="button-console"
+            menuVariant="dark"
+            title={
+              selectedPrice === "lowToHigh" ? " Menor-Mayor" : "Ordenar por"
+            }
+          >
             <NavDropdown menuVariant="dark" title="Precio">
-              <NavDropdown.Item active={selectedPrice === "lowToHigh"} onClick={() => onSelectedPrice?.("lowToHigh")}>
+              <NavDropdown.Item
+                active={selectedPrice === "lowToHigh"}
+                onClick={() => onSelectedPrice?.("lowToHigh")}
+              >
                 Menor-Mayor
               </NavDropdown.Item>
               <NavDropdown.Item onClick={() => onSelectedPrice?.("highToLow")}>

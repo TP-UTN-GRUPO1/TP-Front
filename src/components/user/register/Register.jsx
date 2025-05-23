@@ -115,6 +115,11 @@ function Register() {
         </Link>
         {error && <p className={styles.error}>{error}</p>}
       </form>
+      <p className={styles.loginRedirect}>
+        <Link to="/login" className={styles.link}>
+          ¿Ya tienes cuenta? ¡Inicia sesión!
+        </Link>
+      </p>
     </section>
   );
 }

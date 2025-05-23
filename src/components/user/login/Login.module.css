@@ -68,15 +68,38 @@
 }
 
 body {
-  background: linear-gradient(135deg, black, red);
+  background: linear-gradient(135deg, rgb(110, 4, 0), rgb(61, 0, 0));
+  background-size: 400% 400%;
+  animation: gradientWaves 10s ease infinite;
   min-height: 100vh;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Poppins', sans-serif;
   margin: 0;
 }
 
+@keyframes gradientWaves {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 a {
   text-decoration: none;
   color: inherit; 
+}
+
+.link{
+  color: white;
+}
+
+.loginRedirect{
+  margin-top: 10px;
 }
