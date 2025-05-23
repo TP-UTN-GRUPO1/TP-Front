@@ -1,32 +1,31 @@
-import React from 'react'
+import React from 'react';
+import CardsItem from "../cardsItem/CardsItem";
 
-import Cardsitem from "../cardsItem/CardsItem";
-
-
-
-
-const Cards = ({games}) => {
-
-
-  const gamesMapped = games
-  .map((games) =>
-      <Cardsitem
-          key={games.id}
-          id={games.id}
-          gameName={games.nameGame}
-          developer={games.developer}
-          price={games.price}
-          platform={games.platforms.map(game => game.platformName)}
-          genre={games.genres.map(game => game.genreName)}
-          imageUrl={games.imageUrl}
-          available={games.available}/>);
+const Cards = ({ games }) => {
  
+
+  const gamesMapped = games.map((game) => {
+    console.log('Mapeando juego:', game);
+    return (
+      <CardsItem
+        key={game.id}
+        id={game.id}
+        gameName={game.nameGame}
+        developer={game.developer}
+        price={game.price}
+        platform={game.platforms.map(p => p.platformName)}
+        genre={game.genres.map(g => g.genreName)}
+        imageUrl={game.imageUrl}
+        available={game.available}
+      />
+    );
+  });
+
   return (
     <div className="d-flex justify-content-center flex-wrap">
       {gamesMapped}
     </div>
-  )
-}
+  );
+};
 
-
-export default Cards
+export default Cards;

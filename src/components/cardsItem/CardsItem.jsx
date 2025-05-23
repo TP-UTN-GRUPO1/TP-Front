@@ -2,7 +2,7 @@ import { Card, Button, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./cardsItem.css";
 
-const Cardsitem = ({
+const CardsItem = ({
   id,
   gameName,
   developer,
@@ -35,29 +35,29 @@ const Cardsitem = ({
 
   return (
     <div className="card-container">
-    <Card className="cards">
-      <Card.Img height={350} variant="top" src={imageUrl} />  
-      <Card.Body>
-        <div className="stock">
-          {available ? (
-            <Badge bg="success">En Stock</Badge>
-          ) : (
-            <Badge bg="danger">Sin Stock</Badge>
-          )}
-        </div>
-        <Card.Title>{gameName}</Card.Title>
-        <Card.Subtitle>{developer}</Card.Subtitle>
-        <div>{platform.map(plt => plt.platformName)}</div>
-        <div>{genre.map(gnr => gnr.genreName)}</div>
-        <p>$ {price}</p>
-        <div className="d-grid gap-2">
-          <Button onClick={HandleGameSelected} className="me-3" size="sm">Seleccionar juego</Button>
-          <Button size="sm" className="me-3"  variant="secondary">Añadir al carrito</Button>
-        </div>
-      </Card.Body>
-    </Card>
+      <Card className="cards">
+        <Card.Img height={350} variant="top" src={imageUrl} />
+        <Card.Body>
+          <div className="stock">
+            {available ? (
+              <Badge bg="success">En Stock</Badge>
+            ) : (
+              <Badge bg="danger">Sin Stock</Badge>
+            )}
+          </div>
+          <Card.Title>{gameName}</Card.Title>
+          <Card.Subtitle>{developer}</Card.Subtitle>
+          <div>{Array.isArray(platform) ? platform.join(", ") : platform}</div>
+          <div>{Array.isArray(genre) ? genre.join(", ") : genre}</div>
+          <p>$ {price}</p>
+          <div className="d-grid gap-2">
+            <Button onClick={HandleGameSelected} className="me-3" size="sm">Seleccionar juego</Button>
+            <Button size="sm" className="me-3" variant="secondary">Añadir al carrito</Button>
+          </div>
+        </Card.Body>
+      </Card>
     </div>
   );
 };
 
-export default Cardsitem;
+export default CardsItem;

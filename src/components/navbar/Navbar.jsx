@@ -1,8 +1,10 @@
+import React, { useState } from 'react';
 import { Cart, Heart } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import { DropdownMenu, NavDropdown } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
 import imgLogo from "../../assets/img/theFrogGames1.png";
+import axios from 'axios';
 
 const Navbar = ({
   selectedPrice,
@@ -11,8 +13,42 @@ const Navbar = ({
   showFilters = true,
   showSearch = true,
   showUserButtons = true,
+  onSearch,
 }) => {
-  const handleFilterPlatform = (e) => setSelectedPlatform?.(e.target.value);
+  const [query, setQuery] = useState('');
+
+  const handleFilterPlatform = (e) => {
+    console.log('Plataforma seleccionada:', e.target.value);
+    setSelectedPlatform?.(e.target.value);
+  };
+
+  const handleSearchChange = (event) => {
+    setQuery(event.target.value);
+    console.log('Término de búsqueda actualizado:', event.target.value);
+  };
+
+  const handleSearch = async () => {
+    console.log('Iniciando búsqueda con query:', query);
+    if (query.trim() === '') {
+      console.log('Búsqueda vacía, enviando resultados vacíos');
+      onSearch?.('', []);
+      return;
+    }
+
+    try {
+      const response = await axios.get(`http://localhost:3000/game?name=${encodeURIComponent(query)}`);
+      onSearch?.(query, response.data);
+    } catch (error) {
+      console.error('Error al traer los datos:', error);
+      onSearch?.(query, []);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <nav className="custom-navbar">
@@ -33,11 +69,23 @@ const Navbar = ({
         </div>
 
         {showSearch && (
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Buscar juegos..."
-          />
+          <div className="search-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Buscar juegos..."
+              value={query}
+              onChange={handleSearchChange}
+              onKeyPress={handleKeyPress}
+            />
+            <button
+              className="search-button"
+              onClick={handleSearch}
+              aria-label="Buscar juegos"
+            >
+              Buscar
+            </button>
+          </div>
         )}
 
         {showUserButtons && (
@@ -85,25 +133,21 @@ const Navbar = ({
               selectedPrice === "lowToHigh" ? " Menor-Mayor" : "Ordenar por"
             }
           >
-            <NavDropdown menuVariant="dark" title="Precio">
-              <NavDropdown.Item
-                active={selectedPrice === "lowToHigh"}
-                onClick={() => onSelectedPrice?.("lowToHigh")}
-              >
-                Menor-Mayor
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => onSelectedPrice?.("highToLow")}>
-                Mayor-Menor
-              </NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown menuVariant="dark" title="Nombre">
-              <NavDropdown.Item onClick={() => onSelectedPrice?.("A-Z")}>
-                A-Z
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => onSelectedPrice?.("Z-A")}>
-                Z-A
-              </NavDropdown.Item>
-            </NavDropdown>
+            <NavDropdown.Item
+              active={selectedPrice === "lowToHigh"}
+              onClick={() => onSelectedPrice?.("lowToHigh")}
+            >
+              Menor-Mayor
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={() => onSelectedPrice?.("highToLow")}>
+              Mayor-Menor
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={() => onSelectedPrice?.("A-Z")}>
+              A-Z
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={() => onSelectedPrice?.("Z-A")}>
+              Z-A
+            </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={() => onSelectedPrice?.("reset")}>
               Reiniciar Filtros

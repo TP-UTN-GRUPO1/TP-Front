@@ -11,61 +11,74 @@ const Home = () => {
   const [games, setGames] = useState([]);
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
-
-
-
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSelectPrice = (newPriceFilter) => {
-    let sortedGames = [...originalGames];
-    setSelectedPrice(newPriceFilter)
+    console.log('Filtro de precio seleccionado:', newPriceFilter);
+    let sortedGames = [...games];
+    setSelectedPrice(newPriceFilter);
     if (newPriceFilter === "lowToHigh") {
       sortedGames.sort((a, b) => a.price - b.price);
-      setGames(sortedGames);
     } else if (newPriceFilter === "highToLow") {
       sortedGames.sort((a, b) => b.price - a.price);
-      setGames(sortedGames);
-    } else if (newPriceFilter === "reset") {
-      setGames(originalGames);
     } else if (newPriceFilter === "A-Z") {
       sortedGames.sort((a, b) => a.nameGame.localeCompare(b.nameGame));
-      setGames(sortedGames);
     } else if (newPriceFilter === "Z-A") {
       sortedGames.sort((a, b) => b.nameGame.localeCompare(a.nameGame));
-      setGames(sortedGames);
+    } else if (newPriceFilter === "reset") {
+      sortedGames = searchQuery ? games : [...originalGames];
+      setSelectedPlatform("");
     }
-  }
+    console.log('Juegos ordenados:', sortedGames);
+    setGames(sortedGames);
+  };
 
-  const filteredGames =
-    selectedPlatform && selectedPlatform !== ""
-      ? games.filter((game) =>
-          game.platforms.some(
-            (platform) => platform.platformName === selectedPlatform
-          )
-        )
-      : games;
+  const handleSearch = (query, searchResults) => {
+    console.log('handleSearch - Query:', query, 'Resultados:', searchResults);
+    setSearchQuery(query);
+    if (query.trim() === "") {
+      setGames([...originalGames]);
+    } else {
+      setGames(searchResults);
+    }
+  };
+
+  const filteredGames = selectedPlatform
+    ? games.filter((game) => {
+        const hasPlatform = game.platforms.some(
+          (platform) => platform.platformName === selectedPlatform
+        );
+        console.log(`Filtrando juego ${game.nameGame} para plataforma ${selectedPlatform}:`, hasPlatform);
+        return hasPlatform;
+      })
+    : games;
+
+  console.log('Juegos filtrados para Cards:', filteredGames);
 
   useEffect(() => {
+    console.log('Cargando juegos originales desde el backend');
     axios
       .get("http://localhost:3000/games")
       .then((response) => {
+        console.log('Juegos originales cargados:', response.data);
         setOriginalGames(response.data);
         setGames(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching games", error);
+        console.error("Error al cargar juegos originales:", error);
       });
   }, []);
 
   return (
     <div>
       <Navbar
-      selectedPrice={selectedPrice}
+        selectedPrice={selectedPrice}
         setSelectedPlatform={setSelectedPlatform}
         onSelectedPrice={handleSelectPrice}
+        onSearch={handleSearch}
       />
       <div className="main-content">
         <GigantCarrousel />
-      
         {filteredGames.length === 0 ? (
           <p className="d-flex justify-content-center flex-wrap">
             No se encontraron juegos.
