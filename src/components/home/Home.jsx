@@ -12,6 +12,8 @@ const Home = () => {
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const gamesPerPage = 9;
 
   const handleSelectPrice = (newPriceFilter) => {
     console.log('Filtro de precio seleccionado:', newPriceFilter);
@@ -31,6 +33,7 @@ const Home = () => {
     }
     console.log('Juegos ordenados:', sortedGames);
     setGames(sortedGames);
+    setCurrentPage(1); 
   };
 
   const handleSearch = (query, searchResults) => {
@@ -41,6 +44,7 @@ const Home = () => {
     } else {
       setGames(searchResults);
     }
+    setCurrentPage(1); 
   };
 
   const filteredGames = selectedPlatform
@@ -52,6 +56,12 @@ const Home = () => {
         return hasPlatform;
       })
     : games;
+
+  const indexOfLastGame = currentPage * gamesPerPage;
+  const indexOfFirstGame = indexOfLastGame - gamesPerPage;
+  const currentGames = filteredGames.slice(indexOfFirstGame, indexOfLastGame);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   console.log('Juegos filtrados para Cards:', filteredGames);
 
@@ -79,12 +89,21 @@ const Home = () => {
       />
       <div className="main-content">
         <GigantCarrousel />
-        {filteredGames.length === 0 ? (
+        {currentGames.length === 0 ? (
           <p className="d-flex justify-content-center flex-wrap">
             No se encontraron juegos.
           </p>
         ) : (
-          <Cards games={filteredGames} />
+          <>
+            <Cards games={currentGames} />
+            <div className="pagination">
+              {Array.from({ length: Math.ceil(filteredGames.length / gamesPerPage) }, (_, i) => (
+                <button key={i + 1} onClick={() => paginate(i + 1)}>
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+          </>
         )}
         <Footer />
       </div>
