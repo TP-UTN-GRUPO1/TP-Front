@@ -1,8 +1,8 @@
 import "./gigantCarrousel.css";
 import data from "./imgs.js";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
-const gigantCarrousel = () => {
+const GigantCarrousel = () => {
   const listRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -19,6 +19,15 @@ const gigantCarrousel = () => {
   const goToSlide = (slideIndex) => {
     setCurrentIndex(slideIndex);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      scrollToImage("next");
+    }, 5000); 
+
+    return () => clearInterval(interval); 
+  }, []);
+
   return (
     <div className="main-container">
       <div className="slider-container">
@@ -36,7 +45,7 @@ const gigantCarrousel = () => {
           >
             {data.map((item) => (
               <li className="li-gigantCarrousel" key={item.id}>
-                <img src={item.imageUrl} width={900} height={400} />
+                <img src={item.imageUrl} width={900} height={400} alt={`Slide ${item.id}`} />
               </li>
             ))}
           </ul>
@@ -59,4 +68,4 @@ const gigantCarrousel = () => {
   );
 };
 
-export default gigantCarrousel;
+export default GigantCarrousel;
