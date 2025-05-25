@@ -78,13 +78,13 @@ const Navbar = ({
               onChange={handleSearchChange}
               onKeyPress={handleKeyPress}
             />
-            <button
+            {/* <button
               className="search-button"
               onClick={handleSearch}
               aria-label="Buscar juegos"
             >
               Buscar
-            </button>
+            </button> */}
           </div>
         )}
 
