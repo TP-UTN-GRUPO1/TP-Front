@@ -31,13 +31,13 @@ const Home = () => {
       sortedGames = searchQuery ? games : [...originalGames];
       setSelectedPlatform("");
     }
-    console.log('Juegos ordenados:', sortedGames);
+    //console.log('Juegos ordenados:', sortedGames);
     setGames(sortedGames);
     setCurrentPage(1); 
   };
 
   const handleSearch = (query, searchResults) => {
-    console.log('handleSearch - Query:', query, 'Resultados:', searchResults);
+    //console.log('handleSearch - Query:', query, 'Resultados:', searchResults);
     setSearchQuery(query);
     if (query.trim() === "") {
       setGames([...originalGames]);
@@ -63,7 +63,7 @@ const Home = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  console.log('Juegos filtrados para Cards:', filteredGames);
+ // console.log('Juegos filtrados para Cards:', filteredGames);
 
   useEffect(() => {
     console.log('Cargando juegos originales desde el backend');
