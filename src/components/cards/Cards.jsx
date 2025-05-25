@@ -5,7 +5,7 @@ const Cards = ({ games }) => {
  
 
   const gamesMapped = games.map((game) => {
-    console.log('Mapeando juego:', game);
+    
     return (
       <CardsItem
         key={game.id}
