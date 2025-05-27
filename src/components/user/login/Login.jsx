@@ -79,9 +79,17 @@ function Login() {
         <button className={styles.button} type="submit">
           Iniciar sesion
         </button>
+        <>
+        <h3>¿No tienes cuenta?</h3>
+        <Link to="/register" className={styles.button}>
+          Registrarse
+        </Link>
+        </>
+        <>
         <Link to="/" className={styles.button}>
           Volver
         </Link>
+        </>
         {errors.email && <p className={styles.error}>Email inválido</p>}
         {errors.password && <p className={styles.error}>Contraseña inválida</p>}
       </form>

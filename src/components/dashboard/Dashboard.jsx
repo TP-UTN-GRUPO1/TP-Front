@@ -2,10 +2,12 @@
 asigando es decir que el usuario solo pueda ver mis datos e historial de compras (este ultimo podriamos hacerlo solo si llegamos
 con lo importante), el admin ...usuario , historial,productos y el sysadmin todas las funciones mas que nada la de modificar usuarios */
 
+import { Link } from "react-router-dom"
+
 const Dashboard = () => {
   return (
     <div>
-        <h1>Panel administrativo</h1>
+        <h1>Mi Cuenta</h1>
         <>
         <button>Mis Datos</button>
         </>  
@@ -16,8 +18,10 @@ const Dashboard = () => {
         <button>Modificar Usuarios</button>
         </>   
         <>
-        <button>Modificar productos</button> 
-        
+        <button>Modificar productos</button>         
+        </>
+        <>
+        <Link to="/">Volver</Link>
         </>
     </div>
   )

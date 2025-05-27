@@ -79,13 +79,6 @@ const Navbar = ({
               onChange={handleSearchChange}
               onKeyPress={handleKeyPress}
             />
-            {/* <button
-              className="search-button"
-              onClick={handleSearch}
-              aria-label="Buscar juegos"
-            >
-              Buscar
-            </button> */}
           </div>
         )}
 
@@ -93,11 +86,11 @@ const Navbar = ({
           <div className="navbar-right">
             <Cart size={24} className="icon" />
             <Heart size={24} className="icon" />
-            <Link to="/login">
-              <button className="nav-button">Iniciar Sesion</button>
+            <Link to="/dashboard">
+              <button className="nav-button">Panel</button>
             </Link>
-            <Link to="/register">
-              <button className="nav-button primary">Registrarse</button>
+            <Link to="/login">
+              <button className="nav-button primary">Iniciar Sesion</button>
             </Link>
           </div>
         )}
