@@ -61,7 +61,7 @@ const DetailCard = () => {
           <p>Precio: ${gameDetail.price}</p>
           <p>Disponible: {gameDetail.available ? "Sí" : "No"}</p>
 
-          <Button asChild><Link to="/">Volver</Link></Button>
+          <Button><Link to="/">Volver</Link></Button>
           <Button>Comprar!</Button>
         </div>
       </div>

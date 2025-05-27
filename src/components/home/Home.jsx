@@ -78,6 +78,7 @@ const Home = () => {
         setSelectedPlatform={setSelectedPlatform}
         onSelectedPrice={handleSelectPrice}
         onSearch={handleSearch}
+        resetGames={setOriginalGames}
       />
       <div className="main-content">
         <GigantCarrousel />
@@ -87,12 +88,23 @@ const Home = () => {
           </p>
         ) : (
           <>
+          <>
+          <CustomPagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(filteredGames.length / gamesPerPage)}
+              onPageChange={paginate}
+            />
+            </>
+            <>
             <Cards games={currentGames} />
+            </>
+            <>
             <CustomPagination
               currentPage={currentPage}
               totalPages={Math.ceil(filteredGames.length / gamesPerPage)}
               onPageChange={paginate}
             />
+            </>
           </>
         )}
         <Footer />

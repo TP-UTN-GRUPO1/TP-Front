@@ -14,6 +14,7 @@ const Navbar = ({
   showSearch = true,
   showUserButtons = true,
   onSearch,
+  setOriginalGames
 }) => {
   const [query, setQuery] = useState('');
 
@@ -54,9 +55,9 @@ const Navbar = ({
     <nav className="custom-navbar">
       <div className="navbar-top">
         <div className="navbar-left">
-          <Link to="/" className="link-button">
+         
             <button
-              onClick={() => onSelectedPrice?.("reset")}
+              onClick={() => setOriginalGames}
               aria-label="Cargar inicio"
             >
               <img
@@ -65,7 +66,7 @@ const Navbar = ({
                 className="logo-image"
               />
             </button>
-          </Link>
+         
         </div>
 
         {showSearch && (
