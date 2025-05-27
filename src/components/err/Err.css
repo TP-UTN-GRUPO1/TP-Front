@@ -1,0 +1,8 @@
+.error-heading {
+    color: gold; /* Color rojo para indicar error */
+    font-size: 2.5rem; /* Tamaño de fuente */
+    font-weight: bold; /* Negrita */
+    margin-bottom: 20px; /* Margen inferior */
+    text-align: center; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+  }

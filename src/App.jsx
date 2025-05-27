@@ -5,6 +5,7 @@ import Register from "./components/user/register/Register";
 import Cart from "./components/cart/Cart";
 import DetailCard from "./components/detailCard/DetailCard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Err from "./components/err/Err";
 
 function App() {
   
@@ -17,7 +18,7 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/games/:id" element={<DetailCard />}></Route>
-          <Route path="*" element={<h1>404 Not Found</h1>} />
+          <Route path="*" element={<Err/>} />
         </Routes>
       </BrowserRouter>
     </>
