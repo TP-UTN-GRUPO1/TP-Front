@@ -1,16 +1,30 @@
 import "./Cart.css";
-import  { useState } from "react";
- 
+import { Children, createContext, useState } from "react";
 
-const Cart = () => {
+const CartContext = createContext();
 
-  /* generar un estado donde vaya guardando la info del producto precio, nombre del juego y
-   plataforma seleccionada, para luego generar una OC o un pago a mercado libre (la OC es la opcion mas rapida la de meli es
-   por si tenemos tiempo), dentro del carrito se pueda agregar + de un producto y eliminar juegos seleccionados, ademas de que vaya sumando
-   el total de los juegos 
-   depues podemos usar un custom hook para añadir al carrito y un useContext para acceder desde carrito a los juegos de favoritos
-   para que se puedan añadir a la compra */
-  return <div>Cart</div>;
+export const CartProvider = ({ children }) => {
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (product) => {
+    setCart((prevCart) => {
+      const ifProductExist = prevCart.findIndex(
+        (article) => article.id === product.id
+      );
+      if (ifProductExist >= 0) {
+        const cartUpdate = [...prevCart];
+        cartUpdate[ifProductExist].amount + 1;
+        return cartUpdate;
+      } else {
+        return [...prevCart, { ...product, amount: 1 }];
+      }
+    });
+  };
+  return (
+    <CartContext.Provider value={{ cart, addToCart }}>
+      {children}
+    </CartContext.Provider>
+  );
 };
 
-export default Cart;
+export const useCart = () => useContext(CartContext);
