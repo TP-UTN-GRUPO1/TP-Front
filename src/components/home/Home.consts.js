@@ -1,3 +1,7 @@
 export const SORT_ORDERS = {
-    HIGH_TO_LOW: "high"
+    LOW_TO_HIGH: "lowToHigh",
+    HIGH_TO_LOW: "highToLow",
+    A_Z: "A-Z",
+    Z_A: "Z-A",
+    RESET: "reset",
 }

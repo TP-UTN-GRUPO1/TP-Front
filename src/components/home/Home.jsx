@@ -6,6 +6,7 @@ import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 import CustomPagination from '../pagination/Pagination.jsx'; // Importa el componente personalizado
 import "./Home.css";
+import { SORT_ORDERS } from './Home.consts.js';
 
 const Home = () => {
   const [originalGames, setOriginalGames] = useState([]);
@@ -14,20 +15,22 @@ const Home = () => {
   const [selectedPrice, setSelectedPrice] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [showCarrousel, setShowCarrousel] = useState(true)
   const gamesPerPage = 9;
+
 
   const handleSelectPrice = (newPriceFilter) => {
     let sortedGames = [...games];
     setSelectedPrice(newPriceFilter);
-    if (newPriceFilter === "lowToHigh") {
+    if (newPriceFilter === SORT_ORDERS.LOW_TO_HIGH) {
       sortedGames.sort((a, b) => a.price - b.price);
-    } else if (newPriceFilter === "highToLow") {
+    } else if (newPriceFilter === SORT_ORDERS.HIGH_TO_LOW) {
       sortedGames.sort((a, b) => b.price - a.price);
-    } else if (newPriceFilter === "A-Z") {
+    } else if (newPriceFilter === SORT_ORDERS.A_Z) {
       sortedGames.sort((a, b) => a.nameGame.localeCompare(b.nameGame));
-    } else if (newPriceFilter === "Z-A") {
+    } else if (newPriceFilter === SORT_ORDERS.Z_A) {
       sortedGames.sort((a, b) => b.nameGame.localeCompare(a.nameGame));
-    } else if (newPriceFilter === "reset") {
+    } else if (newPriceFilter === SORT_ORDERS.RESET) {
       sortedGames = searchQuery ? games : [...originalGames];
       setSelectedPlatform("");
     }
@@ -41,6 +44,7 @@ const Home = () => {
       setGames([...originalGames]);
     } else {
       setGames(searchResults);
+      setShowCarrousel(false)
     }
     setCurrentPage(1);
   };
@@ -81,7 +85,10 @@ const Home = () => {
         resetGames={setOriginalGames}
       />
       <div className="main-content">
-        <GigantCarrousel />
+        
+        {showCarrousel && <GigantCarrousel /> }
+  
+         
         {currentGames.length === 0 ? (
           <p className="d-flex justify-content-center flex-wrap">
             No se encontraron juegos.

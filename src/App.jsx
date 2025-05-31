@@ -8,14 +8,12 @@ import Dashboard from "./components/dashboard/Dashboard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Err from "./components/err/Err";
 import Cart from "./components/cart/Cart";
-import AnimatedBackground from "./components/AnimatedBackground/AnimatedBackground.jsx";
 
 function App() {
   return (
     <>
       <CartProvider>
         <BrowserRouter>
-          <AnimatedBackground />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

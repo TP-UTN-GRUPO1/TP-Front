@@ -5,6 +5,8 @@ import "./Navbar.css";
 import { NavDropdown } from "react-bootstrap";
 import imgLogo from "../../assets/img/theFrogGames1.png";
 import axios from "axios";
+import { SORT_ORDERS } from "../home/Home.consts";
+
 
 const Navbar = ({
   selectedPrice,
@@ -17,6 +19,7 @@ const Navbar = ({
   setOriginalGames,
 }) => {
   const [query, setQuery] = useState("");
+  
 
   const handleFilterPlatform = (e) => {
     console.log("Plataforma seleccionada:", e.target.value);
@@ -116,7 +119,6 @@ const Navbar = ({
                 : platform}
             </button>
           ))}
-
           <NavDropdown
             className="button-console"
             menuVariant="dark"
@@ -124,23 +126,25 @@ const Navbar = ({
               selectedPrice === "lowToHigh" ? " Menor-Mayor" : "Ordenar por"
             }
           >
+
+
             <NavDropdown.Item
               active={selectedPrice === "lowToHigh"}
-              onClick={() => onSelectedPrice?.("lowToHigh")}
+              onClick={() => onSelectedPrice?.(SORT_ORDERS.LOW_TO_HIGH)}
             >
               Menor-Mayor
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => onSelectedPrice?.("highToLow")}>
+            <NavDropdown.Item onClick={() => onSelectedPrice?.(SORT_ORDERS.HIGH_TO_LOW) }>
               Mayor-Menor
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => onSelectedPrice?.("A-Z")}>
+            <NavDropdown.Item onClick={() => onSelectedPrice?.(SORT_ORDERS.A_Z)}>
               A-Z
             </NavDropdown.Item>
-            <NavDropdown.Item onClick={() => onSelectedPrice?.("Z-A")}>
+            <NavDropdown.Item onClick={() => onSelectedPrice?.(SORT_ORDERS.Z_A)}>
               Z-A
             </NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item onClick={() => onSelectedPrice?.("reset")}>
+            <NavDropdown.Item onClick={() => onSelectedPrice?.(SORT_ORDERS.RESET)}>
               Reiniciar Filtros
             </NavDropdown.Item>
           </NavDropdown>
@@ -151,3 +155,5 @@ const Navbar = ({
 };
 
 export default Navbar;
+
+
