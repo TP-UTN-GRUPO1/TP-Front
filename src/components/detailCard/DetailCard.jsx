@@ -56,32 +56,36 @@ const DetailCard = () => {
 
       <div className="card-container">
         <div className="cards">
-          <h1>{gameDetail.nameGame}</h1>
-          <img
-            src={gameDetail.imageUrl}
-            alt={gameDetail.nameGame}
-            style={{ width: "100%", borderRadius: "10px" }}
-          />
-          <p>Desarrollador: {gameDetail.developer}</p>
-          <p>Rating: {gameDetail.rating}/10 ⭐</p>
-          <p>
-            Género:{" "}
-            {gameDetail.genres?.map((g) => g.genreName).join(" - ") || " "}
-          </p>
-          <p>
-            Plataforma:{" "}
-            {gameDetail.platforms?.map((p) => p.platformName).join(" - ") ||
-              " "}
-          </p>
-          <p>Precio: ${gameDetail.price}</p>
-          <p>Disponible: {gameDetail.available ? "Sí" : "No"}</p>
+          <div className="card-content">
+            <h1>{gameDetail.nameGame}</h1>
+            <img
+              src={gameDetail.imageUrl}
+              alt={gameDetail.nameGame}
+              style={{ width: "100%", borderRadius: "10px" }}
+            />
+            <p>Desarrollador: {gameDetail.developer}</p>
+            <p>Rating: {gameDetail.rating}/10 ⭐</p>
+            <p>
+              Género:{" "}
+              {gameDetail.genres?.map((g) => g.genreName).join(" - ") || " "}
+            </p>
+            <p>
+              Plataforma:{" "}
+              {gameDetail.platforms?.map((p) => p.platformName).join(" - ") ||
+                " "}
+            </p>
+            <p>Precio: ${gameDetail.price}</p>
+            <p>Disponible: {gameDetail.available ? "Sí" : "No"}</p>
+          </div>
 
-          <Button>
-            <Link to="/">Volver</Link>
-          </Button>
-          <Button className="add-to-cart" onClick={handleAddToCart}>
-            Añadir al carrito!
-          </Button>
+          <div className="card-buttons">
+            <Button>
+              <Link to="/">Volver</Link>
+            </Button>
+            <Button className="add-to-cart" onClick={handleAddToCart}>
+              Añadir al carrito!
+            </Button>
+          </div>
         </div>
       </div>
     </>

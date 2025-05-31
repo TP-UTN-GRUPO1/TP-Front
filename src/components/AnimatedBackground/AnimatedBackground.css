@@ -1,0 +1,47 @@
+.background-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(135deg, var(--negro), var(--gris-oscuro));
+  background-size: 200% 200%;
+  animation: backgroundShift 30s ease-in-out infinite;
+  overflow: hidden;
+}
+
+/* Ola suave con CSS puro */
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 150px;
+  background: var(--gris-oscuro);
+  border-radius: 100% 50%;
+  transform: translateX(-25%) scaleX(1.5);
+  animation: waveMotion 8s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+@keyframes waveMotion {
+  0%, 100% {
+    transform: translateX(-25%) scaleX(1.5);
+  }
+  50% {
+    transform: translateX(-35%) scaleX(1.7);
+  }
+}
+
+@keyframes backgroundShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
