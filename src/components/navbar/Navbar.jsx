@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 import { Cart, Heart } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { NavDropdown } from "react-bootstrap";
 import imgLogo from "../../assets/img/theFrogGames1.png";
-import axios from 'axios';
+import axios from "axios";
 
 const Navbar = ({
   selectedPrice,
@@ -14,39 +14,41 @@ const Navbar = ({
   showSearch = true,
   showUserButtons = true,
   onSearch,
-  setOriginalGames
+  setOriginalGames,
 }) => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const handleFilterPlatform = (e) => {
-    console.log('Plataforma seleccionada:', e.target.value);
+    console.log("Plataforma seleccionada:", e.target.value);
     setSelectedPlatform?.(e.target.value);
   };
 
   const handleSearchChange = (event) => {
     setQuery(event.target.value);
-    console.log('Término de búsqueda actualizado:', event.target.value);
+    console.log("Término de búsqueda actualizado:", event.target.value);
   };
 
   const handleSearch = async () => {
-    console.log('Iniciando búsqueda con query:', query);
-    if (query.trim() === '') {
-      console.log('Búsqueda vacía, enviando resultados vacíos');
-      onSearch?.('', []);
+    console.log("Iniciando búsqueda con query:", query);
+    if (query.trim() === "") {
+      console.log("Búsqueda vacía, enviando resultados vacíos");
+      onSearch?.("", []);
       return;
     }
 
     try {
-      const response = await axios.get(`http://localhost:3000/game?name=${encodeURIComponent(query)}`);
+      const response = await axios.get(
+        `http://localhost:3000/game?name=${encodeURIComponent(query)}`
+      );
       onSearch?.(query, response.data);
     } catch (error) {
-      console.error('Error al traer los datos:', error);
+      console.error("Error al traer los datos:", error);
       onSearch?.(query, []);
     }
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       handleSearch();
     }
   };
@@ -55,18 +57,13 @@ const Navbar = ({
     <nav className="custom-navbar">
       <div className="navbar-top">
         <div className="navbar-left">
-         
-            <button
-              onClick={() => setOriginalGames}
-              aria-label="Cargar inicio"
-            >
-              <img
-                src={imgLogo}
-                alt="The Frog Games Logo - Redirect to Home"
-                className="logo-image"
-              />
-            </button>
-         
+          <button onClick={() => setOriginalGames} aria-label="Cargar inicio">
+            <img
+              src={imgLogo}
+              alt="The Frog Games Logo - Redirect to Home"
+              className="logo-image"
+            />
+          </button>
         </div>
 
         {showSearch && (
