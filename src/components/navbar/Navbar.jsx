@@ -84,7 +84,7 @@ const Navbar = ({
             <Cart size={24} className="icon" />
             <Heart size={24} className="icon" />
             <Link to="/dashboard">
-              <button className="nav-button">Panel</button>
+              <button className="nav-button primary">Panel</button>
             </Link>
             <Link to="/login">
               <button className="nav-button primary">Iniciar Sesion</button>

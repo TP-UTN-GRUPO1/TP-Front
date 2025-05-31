@@ -1,22 +1,24 @@
 .container {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(26, 26, 26, 0.85);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid #f5b940;
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
   text-align: center;
   width: 350px;
   margin: auto;
   margin-top: 80px;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .title {
   margin-bottom: 20px;
   font-size: 28px;
-  color: #ffffff;
+  color: #f5b940;
   font-weight: bold;
-  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 3px #000;
 }
 
 .form {
@@ -27,37 +29,39 @@
 
 .input {
   padding: 12px 15px;
-  border: none;
+  border: 1px solid #63ffa1;
   border-radius: 12px;
   font-size: 16px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
   color: #fff;
   outline: none;
-  transition: background 0.3s;
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .input::placeholder {
-  color: #e0e0e0;
+  color: #a1ffda;
 }
 
 .input:focus {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #f5b940;
 }
 
 .button {
   padding: 14px;
-  background: black;
+  background: #63ffa1;
   border: none;
   border-radius: 12px;
-  color: white;
+  color: #000;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .button:hover {
-  background: red;
+  background: #f5b940;
+  transform: scale(1.05);
 }
 
 .error {
@@ -67,39 +71,20 @@
   font-weight: bold;
 }
 
-body {
-  background: linear-gradient(135deg, rgb(110, 4, 0), rgb(61, 0, 0));
-  background-size: 400% 400%;
-  animation: gradientWaves 10s ease infinite;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-}
-
-@keyframes gradientWaves {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 a {
   text-decoration: none;
-  color: inherit; 
+  color: inherit;
 }
 
-.link{
-  color: white;
+.link {
+  color: #63ffa1;
+  transition: color 0.3s;
 }
 
-.loginRedirect{
+.link:hover {
+  color: #f5b940;
+}
+
+.loginRedirect {
   margin-top: 10px;
 }
