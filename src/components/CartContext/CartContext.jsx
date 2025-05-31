@@ -1,5 +1,4 @@
-import "./Cart.css";
-import { Children, createContext, useState } from "react";
+import { Children, createContext, useState, useContext } from "react";
 
 const CartContext = createContext();
 

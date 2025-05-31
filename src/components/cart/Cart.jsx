@@ -2,13 +2,13 @@ import { useCart } from "../CartContext/CartContext";
 import "./Cart.css";
 
 const Cart = () => {
-  const { cartDash } = useCart();
+  const { cart } = useCart();
   return (
     <div className="cart-container">
       <h2>
         TU <span>CARRITO</span>
       </h2>
-      {cartDash.length === 0 ? (
+      {cart.lengh === 0 ? (
         <p>Tu carrito esta vacio</p>
       ) : (
         <>
@@ -19,7 +19,7 @@ const Cart = () => {
             <p>Accion</p>
           </div>
           <ul className="cart-items">
-            {cartDash.map((product) => {
+            {cart.map((product) => {
               return (
                 <li className="cart-item" key={product.id}>
                   <div className="product-info">
@@ -52,3 +52,5 @@ const Cart = () => {
     </div>
   );
 };
+
+export default Cart;

@@ -13,11 +13,11 @@ const DetailCard = () => {
 
   const { addToCart } = useCart();
   const handleAddToCart = () => {
-    if (product) {
+    if (gameDetail) {
       addToCart({
-        id: product.id,
-        img: product.img,
-        price: product.price,
+        id: gameDetail.id,
+        img: gameDetail.imageUrl,
+        price: gameDetail.price,
         amount: 1,
       });
     }
