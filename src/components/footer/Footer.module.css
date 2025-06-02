@@ -44,13 +44,12 @@
 }
 
 .footerSection ul li a {
-  color: #63ffa1;
   text-decoration: none;
   transition: color 0.3s;
 }
 
 .footerSection ul li a:hover {
-  color: #f5b940;
+  color: #63ffa1;
 }
 
 .footerBottom {
@@ -68,10 +67,9 @@
 }
 
 .footerSection a {
-  color: #63ffa1;
   transition: color 0.3s;
 }
 
 .footerSection a:hover {
-  color: #f5b940;
+  color: #63ffa1;
 }

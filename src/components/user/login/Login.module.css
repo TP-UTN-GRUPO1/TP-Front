@@ -76,15 +76,6 @@ a {
   color: inherit;
 }
 
-.link {
-  color: #63ffa1;
-  transition: color 0.3s;
-}
-
-.link:hover {
-  color: #f5b940;
-}
-
 .loginRedirect {
   margin-top: 10px;
 }

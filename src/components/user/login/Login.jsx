@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import axios from "axios";
-import { validateEmail, validatePassword } from "./login.services.js";
+import { validateEmail, validatePassword } from "./Login.services.js";
 import { errorToast } from "../../../utils/notification.jsx";
 
 function Login() {
@@ -80,15 +80,15 @@ function Login() {
           Iniciar sesion
         </button>
         <>
-        <h3>¿No tienes cuenta?</h3>
-        <Link to="/register" className={styles.button}>
-          Registrarse
-        </Link>
+          <h3>¿No tienes cuenta?</h3>
+          <Link to="/register" className={styles.button}>
+            Registrarse
+          </Link>
         </>
         <>
-        <Link to="/" className={styles.button}>
-          Volver
-        </Link>
+          <Link to="/" className={styles.button}>
+            Volver
+          </Link>
         </>
         {errors.email && <p className={styles.error}>Email inválido</p>}
         {errors.password && <p className={styles.error}>Contraseña inválida</p>}

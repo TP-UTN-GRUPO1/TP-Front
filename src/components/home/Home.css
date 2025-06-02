@@ -40,13 +40,10 @@ h1, h2, h3, h4 {
   }
 
   a {
-  color: var(--verde-neon);
   text-decoration: none;
   transition: color 0.3s;
 }
-a:hover {
-  color: var(--dorado);
-}
+
 
 input, select, textarea {
   background: rgba(40, 90, 45, 0.3);

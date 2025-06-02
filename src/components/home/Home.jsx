@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cards from "../cards/Cards";
-import GigantCarrousel from "../gigantCarrousel/gigantCarrousel";
+import GigantCarrousel from "../gigantCarrousel/GigantCarrousel.jsx";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
-import CustomPagination from '../pagination/Pagination.jsx'; // Importa el componente personalizado
+import CustomPagination from "../pagination/Pagination.jsx"; // Importa el componente personalizado
 import "./Home.css";
-import { SORT_ORDERS } from './Home.consts.js';
+import { SORT_ORDERS } from "./Home.consts.js";
 
 const Home = () => {
   const [originalGames, setOriginalGames] = useState([]);
@@ -15,9 +15,8 @@ const Home = () => {
   const [selectedPrice, setSelectedPrice] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [showCarrousel, setShowCarrousel] = useState(true)
+  const [showCarrousel, setShowCarrousel] = useState(true);
   const gamesPerPage = 9;
-
 
   const handleSelectPrice = (newPriceFilter) => {
     let sortedGames = [...games];
@@ -44,7 +43,7 @@ const Home = () => {
       setGames([...originalGames]);
     } else {
       setGames(searchResults);
-      setShowCarrousel(false)
+      setShowCarrousel(false);
     }
     setCurrentPage(1);
   };
@@ -85,32 +84,30 @@ const Home = () => {
         resetGames={setOriginalGames}
       />
       <div className="main-content">
-        
-        {showCarrousel && <GigantCarrousel /> }
-  
-         
+        {showCarrousel && <GigantCarrousel />}
+
         {currentGames.length === 0 ? (
           <p className="d-flex justify-content-center flex-wrap">
             No se encontraron juegos.
           </p>
         ) : (
           <>
-          <>
-          <CustomPagination
-              currentPage={currentPage}
-              totalPages={Math.ceil(filteredGames.length / gamesPerPage)}
-              onPageChange={paginate}
-            />
+            <>
+              <CustomPagination
+                currentPage={currentPage}
+                totalPages={Math.ceil(filteredGames.length / gamesPerPage)}
+                onPageChange={paginate}
+              />
             </>
             <>
-            <Cards games={currentGames} />
+              <Cards games={currentGames} />
             </>
             <>
-            <CustomPagination
-              currentPage={currentPage}
-              totalPages={Math.ceil(filteredGames.length / gamesPerPage)}
-              onPageChange={paginate}
-            />
+              <CustomPagination
+                currentPage={currentPage}
+                totalPages={Math.ceil(filteredGames.length / gamesPerPage)}
+                onPageChange={paginate}
+              />
             </>
           </>
         )}
