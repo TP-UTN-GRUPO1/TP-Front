@@ -1,14 +1,9 @@
-// src/components/navbar/SearchBar.jsx
-import { useEffect } from "react";
-
 const SearchBar = ({ query, onQueryChange, onSearch }) => {
-  useEffect(() => {
-    const delayDebounce = setTimeout(() => {
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
       onSearch();
-    }, 400);
-
-    return () => clearTimeout(delayDebounce);
-  }, [query, onSearch]);
+    }
+  };
 
   return (
     <div className="search-container">
@@ -18,6 +13,7 @@ const SearchBar = ({ query, onQueryChange, onSearch }) => {
         placeholder="Buscar juegos..."
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
+        onKeyPress={handleKeyPress}
       />
     </div>
   );

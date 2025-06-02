@@ -48,6 +48,11 @@ const Home = () => {
     setCurrentPage(1);
   };
 
+  const handleSelectPlatform = (platform) => {
+    setSelectedPlatform(platform);
+    setCurrentPage(1);
+  };
+
   const filteredGames = selectedPlatform
     ? games.filter((game) =>
         game.platforms.some(
@@ -78,7 +83,7 @@ const Home = () => {
     <div>
       <Navbar
         selectedPrice={selectedPrice}
-        setSelectedPlatform={setSelectedPlatform}
+        setSelectedPlatform={handleSelectPlatform}
         onSelectedPrice={handleSelectPrice}
         onSearch={handleSearch}
         resetGames={setOriginalGames}
