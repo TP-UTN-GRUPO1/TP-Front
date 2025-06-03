@@ -52,7 +52,7 @@ const DetailCard = () => {
 
   return (
     <>
-      <Navbar showSearch={true} showUserButtons={true} showFilters={false} />
+      {/* <Navbar showSearch={true} showUserButtons={true} showFilters={false} /> */}
 
       <div className="card-container">
         <div className="cards">

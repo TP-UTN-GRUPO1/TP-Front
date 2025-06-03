@@ -13,9 +13,7 @@ const Navbar = ({
   selectedPrice,
   setSelectedPlatform,
   onSelectedPrice,
-  showFilters = true,
-  showSearch = true,
-  showUserButtons = true,
+  hideUserButtons,
   onSearch,
 }) => {
   const [query, setQuery] = useState("");
@@ -58,48 +56,42 @@ const Navbar = ({
             />
           </a>
         </div>
+        <SearchBar
+          query={query}
+          onQueryChange={setQuery}
+          onSearch={handleSearch}
+        />
+        <div className="navbar-right">
+          <Link to="/cart" className="icon-button">
+            <Cart size={24} className="icon" />
+          </Link>
 
-        {showSearch && (
-          <SearchBar
-            query={query}
-            onQueryChange={setQuery}
-            onSearch={handleSearch}
-          />
-        )}
+          <Heart size={24} className="icon" />
 
-        {showUserButtons && (
-          <div className="navbar-right">
-            <Link to="/cart" className="icon-button">
-              <Cart size={24} className="icon" />
-            </Link>
-
-            <Heart size={24} className="icon" />
-
-            {isLoggedIn ? (
-              <>
-                <Link to="/dashboard">
-                  <button className="nav-button primary">Panel</button>
-                </Link>
-                <button
-                  className="nav-button primary"
-                  onClick={() => {
-                    handleUserLogout();
-                    navigate("/");
-                  }}
-                >
-                  Cerrar sesión
-                </button>
-              </>
-            ) : (
-              <Link to="/login">
-                <button className="nav-button primary">Iniciar Sesión</button>
+          {isLoggedIn ? (
+            <>
+              <Link to="/dashboard">
+                <button className="nav-button primary">Panel</button>
               </Link>
-            )}
-          </div>
-        )}
+              <button
+                className="nav-button primary"
+                onClick={() => {
+                  handleUserLogout();
+                  navigate("/");
+                }}
+              >
+                Cerrar sesión
+              </button>
+            </>
+          ) : (
+            <Link to="/login">
+              <button className="nav-button primary">Iniciar Sesión</button>
+            </Link>
+          )}
+        </div>
       </div>
 
-      {showFilters && (
+      {!hideUserButtons && (
         <PlatformFilters
           onFilter={handleFilterPlatform}
           selectedPrice={selectedPrice}
