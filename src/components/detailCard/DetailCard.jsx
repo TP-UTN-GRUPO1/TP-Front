@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import "./detailCard.css";
-import { useCart } from "../cartContext/CartContext";
+import { useCart } from "../CartContext/CartContext";
 
 const DetailCard = () => {
   const [gameDetail, setGameDetail] = useState({});

@@ -62,7 +62,10 @@ const Navbar = ({
 
         {showUserButtons && (
           <div className="navbar-right">
-            <Cart size={24} className="icon" />
+            <Link to="/cart" className="icon-button">
+              <Cart size={24} className="icon" />
+            </Link>
+            
             <Heart size={24} className="icon" />
             <Link to="/dashboard">
               <button className="nav-button primary">Panel</button>
