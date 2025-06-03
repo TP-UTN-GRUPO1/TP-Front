@@ -1,11 +1,12 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
-import axios from "axios";
 import { validateEmail, validatePassword } from "./Login.services.js";
 import { errorToast } from "../../../utils/notification.jsx";
+import { AuthContext } from "../../../auth/Auth.Context.jsx";
+import { loginUser } from "./Login.services.js";
 
-function Login() {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
@@ -15,6 +16,8 @@ function Login() {
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+
+  const { handleUserLogin } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -34,24 +37,18 @@ function Login() {
       passwordRef.current.focus();
       return;
     }
-    try {
-      const response = await axios.post("http://localhost:3000/login", {
-        email,
-        password,
-      });
 
-      localStorage.setItem("token", response.data.token);
-      console.log("Login exitoso. Token guardado.");
-
-      navigate("/");
-    } catch (err) {
-      console.error("Error al iniciar sesión:", err);
-      if (err.response) {
-        setErrors(err.response.data.message || "Error al iniciar sesión");
-      } else {
-        setErrors("Error de conexión con el servidor");
+    loginUser(
+      email,
+      password,
+      (token) => {
+        handleUserLogin(token);
+        navigate("/");
+      },
+      (err) => {
+        errorToast(err);
       }
-    }
+    );
   };
 
   return (
@@ -65,6 +62,7 @@ function Login() {
           className={styles.input}
           placeholder="Ingresa email"
           value={email}
+          name="email"
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
@@ -74,6 +72,7 @@ function Login() {
           className={styles.input}
           placeholder="Contraseña"
           value={password}
+          name="password"
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className={styles.button} type="submit">
@@ -95,6 +94,5 @@ function Login() {
       </form>
     </section>
   );
-}
-
+};
 export default Login;

@@ -8,23 +8,26 @@ import Dashboard from "./components/dashboard/Dashboard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Err from "./components/err/Err";
 import Cart from "./components/cart/Cart";
+import { AuthContextProvider } from "./auth/AuthContextProvider";
 
 function App() {
   return (
     <>
-      <CartProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/games/:id" element={<DetailCard />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="*" element={<Err />} />
-          </Routes>
-        </BrowserRouter>
+      <AuthContextProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/games/:id" element={<DetailCard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="*" element={<Err />} />
+            </Routes>
+          </BrowserRouter>
         </CartProvider>
+      </AuthContextProvider>
     </>
   );
 }

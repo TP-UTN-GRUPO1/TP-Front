@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const validateString = (str, minLength, maxLength) => {
   if (minLength && str.length < minLength) return false;
   else if (maxLength && str.length > maxLength) return false;
@@ -26,4 +28,25 @@ export const validatePassword = (
     return false;
 
   return true;
+};
+
+export const loginUser = async (email, password, onSuccess, onError) => {
+  try {
+    const response = await axios.post("http://localhost:3000/login", {
+      email,
+      password,
+    });
+
+    const token = response.data.token;
+    localStorage.setItem("theFrog-token", token);
+
+    onSuccess(token);
+  } catch (err) {
+    console.error("Error al iniciar sesión:", err);
+    if (err.response && err.response.data.message) {
+      onError(err.response.data.message);
+    } else {
+      onError("Error de conexión con el servidor");
+    }
+  }
 };

@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
 import { Cart, Heart } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
@@ -6,6 +6,8 @@ import imgLogo from "../../assets/img/theFrogGames1.png";
 import axios from "axios";
 import PlatformFilters from "../platformFilters/PlatformFilters";
 import SearchBar from "../searchBar/SearchBar";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../auth/Auth.Context";
 
 const Navbar = ({
   selectedPrice,
@@ -17,10 +19,15 @@ const Navbar = ({
   onSearch,
 }) => {
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const { token, handleUserLogout } = useContext(AuthContext);
 
   const handleFilterPlatform = (e) => {
     setSelectedPlatform?.(e.target.value);
   };
+
+  const isLoggedIn = Boolean(token);
 
   const handleSearch = useCallback(async () => {
     if (query.trim() === "") {
@@ -65,14 +72,29 @@ const Navbar = ({
             <Link to="/cart" className="icon-button">
               <Cart size={24} className="icon" />
             </Link>
-            
+
             <Heart size={24} className="icon" />
-            <Link to="/dashboard">
-              <button className="nav-button primary">Panel</button>
-            </Link>
-            <Link to="/login">
-              <button className="nav-button primary">Iniciar Sesion</button>
-            </Link>
+
+            {isLoggedIn ? (
+              <>
+                <Link to="/dashboard">
+                  <button className="nav-button primary">Panel</button>
+                </Link>
+                <button
+                  className="nav-button primary"
+                  onClick={() => {
+                    handleUserLogout();
+                    navigate("/");
+                  }}
+                >
+                  Cerrar sesión
+                </button>
+              </>
+            ) : (
+              <Link to="/login">
+                <button className="nav-button primary">Iniciar Sesión</button>
+              </Link>
+            )}
           </div>
         )}
       </div>

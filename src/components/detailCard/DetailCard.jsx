@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Navbar from "../navbar/Navbar";
+import Navbar from "../nav/Navbar";
 import "./detailCard.css";
 import { useCart } from "../CartContext/CartContext";
 
