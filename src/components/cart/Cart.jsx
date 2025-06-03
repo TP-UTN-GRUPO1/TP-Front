@@ -5,6 +5,10 @@ import "./Cart.css";
 const Cart = () => {
   const { cart, updateAmount, deleteProduct } = useCart();
 
+  const total = cart.reduce((acc, product) => acc + product.price * product.amount, 0);
+
+
+
   const handleIncreaseAmount =(productId) =>{
     updateAmount(productId, 1)
   }
@@ -29,10 +33,11 @@ const Cart = () => {
             <p>Precio</p>
             <p>Cantidad</p>
             <p>Total</p>
-            <p>Accion</p>
+            <p>Eliminar producto</p>
           </div>
           <ul className="cart-items">
             {cart.map((product) => {
+              const totalPrice =product.price * product.amount
               return (
                 <li className="cart-item" key={product.id}>
                   <div className="product-info">
@@ -55,7 +60,7 @@ const Cart = () => {
                     onClick={()=> handleIncreaseAmount(product.id)}>+</button>
                   </div>
 
-                  <p>$0</p>
+                  <p>${totalPrice.toFixed(2)} </p>
                   <button className="delete-btn" 
                   onClick={()=> deleteProduct(product.id)}>
                     <i className="fas fa-trash"></i>
@@ -66,6 +71,13 @@ const Cart = () => {
           </ul>
         </>
       )}
+
+      <div className="cart-summary">
+      <h2>TU <span>CARRITO</span> </h2>
+      <p className="total">Total a pagar: ${total.toFixed(2)} </p>
+        <button className="checkout-btn" >Pagar</button>
+      </div>
+
     </div>
   );
 };

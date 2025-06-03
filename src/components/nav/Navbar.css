@@ -25,6 +25,27 @@
   gap: 10px;
 }
 
+.counter {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  color: black;
+  background-color: #63ffa1;;
+}
+
+.icon-button{
+  position: relative;
+  display: inline-block;
+}
+
+
 .logo {
   font-size: 28px;
   font-weight: bold;

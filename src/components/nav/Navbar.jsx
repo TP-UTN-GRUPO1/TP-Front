@@ -8,6 +8,7 @@ import PlatformFilters from "../platformFilters/PlatformFilters";
 import SearchBar from "../searchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/Auth.Context";
+import { useCart } from "../CartContext/CartContext";
 
 const Navbar = ({
   selectedPrice,
@@ -20,6 +21,11 @@ const Navbar = ({
   const navigate = useNavigate();
 
   const { token, handleUserLogout } = useContext(AuthContext);
+
+  const {cart} = useCart()
+
+
+  const totalProduct = cart.reduce((acc, product) => acc + product.amount, 0)
 
   const handleFilterPlatform = (e) => {
     setSelectedPlatform?.(e.target.value);
@@ -63,6 +69,7 @@ const Navbar = ({
         />
         <div className="navbar-right">
           <Link to="/cart" className="icon-button">
+            <span className="counter">{totalProduct} </span>
             <Cart size={24} className="icon" />
           </Link>
 
