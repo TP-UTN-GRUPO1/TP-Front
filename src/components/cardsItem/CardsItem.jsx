@@ -11,7 +11,7 @@ const CardsItem = ({
   price,
   available,
   onGameSelected,
-  genre
+  genre,
 }) => {
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const CardsItem = ({
           platform,
           price,
           available,
-          genre
+          genre,
         },
       },
     });
@@ -51,8 +51,9 @@ const CardsItem = ({
           <div>{Array.isArray(genre) ? genre.join(", ") : genre}</div>
           <p>$ {price}</p>
           <div className="d-grid gap-2">
-            <Button onClick={HandleGameSelected} className="me-3" size="sm">Seleccionar juego</Button>
-            <Button size="sm" className="me-3" variant="secondary">Añadir al carrito</Button>
+            <Button onClick={HandleGameSelected} className="me-3" size="sm">
+              Seleccionar juego
+            </Button>
           </div>
         </Card.Body>
       </Card>
