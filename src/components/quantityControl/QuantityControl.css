@@ -1,0 +1,9 @@
+.quantity-control {
+  align-items: center;
+  gap: 5px;
+}
+
+.quantity-control button {
+  padding: 5px 10px;
+  font-size: 16px;
+}

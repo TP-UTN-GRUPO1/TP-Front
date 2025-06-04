@@ -41,10 +41,6 @@
     gap: 10px;
 }
 
-.product-images{
-    width: 70px;
-    object-fit: cover;
-}
 
 .quantity-controls{
     display: flex;
@@ -62,18 +58,6 @@
     outline: none;
 }
 
-.delete-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #333;
-    font-size: 20px;
-    transition: transform 0.2s ease;
-}
-
-.delete-btn:hover{
-    color: #9893fb;
-}
 
 .cart-summary{
     margin-top: 20px;
@@ -144,9 +128,6 @@
     .product-info{
         flex-direction: column;
         align-items: flex-start;
-    }
-    .product-images{
-        width: 50px;
     }
 
     .quantity-controls{
