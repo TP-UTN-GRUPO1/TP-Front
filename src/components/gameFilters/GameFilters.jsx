@@ -1,15 +1,15 @@
 import Navbar from "../nav/Navbar";
 
 const GameFilters = ({
-  selectedPrice,
-  onSelectedPrice,
+  selectedOrder,
+  onselectedOrder,
   onSearch,
   setSelectedPlatform,
 }) => {
   return (
     <Navbar
-      selectedPrice={selectedPrice}
-      onSelectedPrice={onSelectedPrice}
+      selectedOrder={selectedOrder}
+      onselectedOrder={onselectedOrder}
       onSearch={onSearch}
       setSelectedPlatform={setSelectedPlatform}
     />

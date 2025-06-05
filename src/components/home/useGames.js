@@ -6,26 +6,26 @@ const useGames = () => {
   const [originalGames, setOriginalGames] = useState([]);
   const [games, setGames] = useState([]);
   const [selectedPlatform, setSelectedPlatform] = useState("");
-  const [selectedPrice, setSelectedPrice] = useState("");
+  const [selectedOrder, setselectedOrder] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [showCarrousel, setShowCarrousel] = useState(true);
   const gamesPerPage = 9;
 
-  const handleSelectPrice = (newPriceFilter) => {
+  const handleSelectOrder = (newOrderBy) => {
     let sortedGames = [...games];
-    setSelectedPrice(newPriceFilter);
+    setselectedOrder(newOrderBy);
     setShowCarrousel(false);
 
-    if (newPriceFilter === SORT_ORDERS.LOW_TO_HIGH) {
+    if (newOrderBy === SORT_ORDERS.LOW_TO_HIGH) {
       sortedGames.sort((a, b) => a.price - b.price);
-    } else if (newPriceFilter === SORT_ORDERS.HIGH_TO_LOW) {
+    } else if (newOrderBy === SORT_ORDERS.HIGH_TO_LOW) {
       sortedGames.sort((a, b) => b.price - a.price);
-    } else if (newPriceFilter === SORT_ORDERS.A_Z) {
+    } else if (newOrderBy === SORT_ORDERS.A_Z) {
       sortedGames.sort((a, b) => a.nameGame.localeCompare(b.nameGame));
-    } else if (newPriceFilter === SORT_ORDERS.Z_A) {
+    } else if (newOrderBy === SORT_ORDERS.Z_A) {
       sortedGames.sort((a, b) => b.nameGame.localeCompare(a.nameGame));
-    } else if (newPriceFilter === SORT_ORDERS.RESET) {
+    } else if (newOrderBy === SORT_ORDERS.RESET) {
       sortedGames = searchQuery ? games : [...originalGames];
       setSelectedPlatform("");
       setShowCarrousel(true);
@@ -82,9 +82,9 @@ const useGames = () => {
     currentGames,
     currentPage,
     setCurrentPage,
-    selectedPrice,
+    selectedOrder,
     handleSelectPlatform,
-    handleSelectPrice,
+    handleSelectOrder,
     handleSearch,
     showCarrousel,
     gamesPerPage,

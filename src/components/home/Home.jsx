@@ -11,9 +11,9 @@ const Home = () => {
     currentGames,
     currentPage,
     setCurrentPage,
-    selectedPrice,
+    selectedOrder,
     handleSelectPlatform,
-    handleSelectPrice,
+    handleSelectOrder,
     handleSearch,
     showCarrousel,
     gamesPerPage,
@@ -22,8 +22,8 @@ const Home = () => {
   return (
     <div>
       <GameFilters
-        selectedPrice={selectedPrice}
-        onSelectedPrice={handleSelectPrice}
+        selectedOrder={selectedOrder}
+        onselectedOrder={handleSelectOrder}
         onSearch={handleSearch}
         setSelectedPlatform={handleSelectPlatform}
       />

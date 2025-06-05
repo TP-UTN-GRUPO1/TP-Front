@@ -11,9 +11,9 @@ import { AuthContext } from "../../auth/Auth.Context";
 import { useCart } from "../cartContext/CartContext";
 
 const Navbar = ({
-  selectedPrice,
+  selectedOrder,
   setSelectedPlatform,
-  onSelectedPrice,
+  onselectedOrder,
   hideUserButtons,
   onSearch,
 }) => {
@@ -100,8 +100,8 @@ const Navbar = ({
       {!hideUserButtons && (
         <PlatformFilters
           onFilter={handleFilterPlatform}
-          selectedPrice={selectedPrice}
-          onSelectedPrice={onSelectedPrice}
+          selectedOrder={selectedOrder}
+          onselectedOrder={onselectedOrder}
         />
       )}
     </nav>
