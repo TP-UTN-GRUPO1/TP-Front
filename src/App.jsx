@@ -14,6 +14,7 @@ import LayoutNavbar from "./components/nav/LayoutNavbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CartProvider } from "./components/cartContext/CartContext";
+import Favorites from "./components/favorites/favorites";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/games/:id" element={<CardPage />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/favorites" element={<Favorites/>}/>
             </Route>
             <Route path="/" element={<Home />} />
             <Route path="*" element={<Err />} />

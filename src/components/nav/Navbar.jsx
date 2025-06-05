@@ -72,7 +72,9 @@ const Navbar = ({
             <Cart size={24} className="icon" />
           </Link>
 
+          <Link to="/favorites" className="icon-button">
           <Heart size={24} className="icon" />
+          </Link>
 
           {isLoggedIn ? (
             <>
