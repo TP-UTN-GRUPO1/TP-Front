@@ -1,11 +1,20 @@
 .custom-navbar {
+  position: static;
+  width: 100%;
+  background: rgba(26, 26, 26, 0.85); 
+  border-bottom: 2px solid #ffc542;
+  padding: 15px 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  z-index: 9999;
+}
+.home-navbar{
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(26, 26, 26, 0.85); /* negro con opacidad */
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid #ffc542; /* verde lima brillante */
+  background: rgba(26, 26, 26, 0.85); 
+  border-bottom: 2px solid #ffc542;
   padding: 15px 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;

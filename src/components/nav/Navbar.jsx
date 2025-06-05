@@ -50,7 +50,7 @@ const Navbar = ({
   }, [query, onSearch]);
 
   return (
-    <nav className="custom-navbar">
+    <nav className={hideUserButtons ? "custom-navbar" : "home-navbar"}>
       <div className="navbar-top">
         <div className="navbar-left">
           <a href="/" aria-label="Cargar inicio">
