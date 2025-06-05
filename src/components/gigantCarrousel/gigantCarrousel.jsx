@@ -47,6 +47,7 @@ const GigantCarrousel = () => {
             {data.map((item) => (
               <li className="li-gigantCarrousel" key={item.id}>
                 <img
+                  className="imgCarousel"
                   src={item.imageUrl}
                   width={900}
                   height={400}
@@ -68,6 +69,7 @@ const GigantCarrousel = () => {
               <img
                 src={imgLogo}
                 alt="🐸"
+                className="imgCarousel"
                 style={{
                   width: "24px",
                   height: "24px",
