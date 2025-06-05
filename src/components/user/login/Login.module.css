@@ -1,4 +1,4 @@
-.container {
+.containerLogin {
   background: rgba(26, 26, 26, 0.85);
   backdrop-filter: blur(10px);
   border: 2px solid #f5b940;
@@ -13,7 +13,7 @@
   font-family: 'Orbitron', sans-serif;
 }
 
-.title {
+.h1Login {
   margin-bottom: 20px;
   font-size: 28px;
   color: #f5b940;
@@ -21,13 +21,13 @@
   text-shadow: 1px 1px 3px #000;
 }
 
-.form {
+.formLogin {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.input {
+.inputLogin {
   padding: 12px 15px;
   border: 1px solid #63ffa1;
   border-radius: 12px;
@@ -38,16 +38,16 @@
   transition: background 0.3s, border-color 0.3s;
 }
 
-.input::placeholder {
+.inputLogin::placeholder {
   color: #a1ffda;
 }
 
-.input:focus {
+.inputLogin:focus {
   background: rgba(255, 255, 255, 0.1);
   border-color: #f5b940;
 }
 
-.button {
+.buttonLogin {
   padding: 14px;
   background: #63ffa1;
   border: none;
@@ -59,12 +59,12 @@
   transition: background 0.3s, transform 0.2s;
 }
 
-.button:hover {
+.buttonLogin:hover {
   background: #f5b940;
   transform: scale(1.05);
 }
 
-.error {
+.errorLogin {
   color: #ff4d4d;
   font-size: 14px;
   margin-top: 10px;

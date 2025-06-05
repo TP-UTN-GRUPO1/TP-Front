@@ -6,6 +6,7 @@ import CardPage from "./components/cardPage/CardPage";
 import Dashboard from "./components/dashboard/Dashboard";
 import Err from "./components/err/Err";
 import Cart from "./components/cart/Cart";
+import Contact from "./components/contactForm/ContactForm";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthContextProvider } from "./auth/AuthContextProvider";
 
@@ -23,6 +24,7 @@ function App() {
             <Route element={<LayoutNavbar hideUserButtons={true} />}>
               <Route path="/cart" element={<Cart />} />
               <Route path="/games/:id" element={<CardPage />} />
+              <Route path="/contact" element={<Contact />} />
             </Route>
             <Route path="/" element={<Home />} />
             <Route path="*" element={<Err />} />

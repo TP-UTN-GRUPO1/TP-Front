@@ -52,14 +52,14 @@ const Login = () => {
   };
 
   return (
-    <section className={styles.container}>
-      <h1 className={styles.title}>Iniciar sesión</h1>
-      <form className={styles.form} onSubmit={handleSubmit}>
+    <section className={styles.containerLogin}>
+      <h1 className={styles.h1Login}>Iniciar sesión</h1>
+      <form className={styles.formLogin} onSubmit={handleSubmit}>
         <input
           type="text"
           required
           ref={emailRef}
-          className={styles.input}
+          className="inputLogin"
           placeholder="Ingresa email"
           value={email}
           name="email"
@@ -69,28 +69,30 @@ const Login = () => {
           type="password"
           required
           ref={passwordRef}
-          className={styles.input}
+          className="inputLogin"
           placeholder="Contraseña"
           value={password}
           name="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className={styles.button} type="submit">
+        <button className={styles.buttonLogin} type="submit">
           Iniciar sesion
         </button>
         <>
           <h3>¿No tienes cuenta?</h3>
-          <Link to="/register" className={styles.button}>
+          <Link to="/register" className={styles.buttonLogin}>
             Registrarse
           </Link>
         </>
         <>
-          <Link to="/" className={styles.button}>
+          <Link to="/" className={styles.linkLogin}>
             Volver
           </Link>
         </>
-        {errors.email && <p className={styles.error}>Email inválido</p>}
-        {errors.password && <p className={styles.error}>Contraseña inválida</p>}
+        {errors.email && <p className={styles.errorLogin}>Email inválido</p>}
+        {errors.password && (
+          <p className={styles.errorLogin}>Contraseña inválida</p>
+        )}
       </form>
     </section>
   );

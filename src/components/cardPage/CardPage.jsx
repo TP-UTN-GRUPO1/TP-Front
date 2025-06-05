@@ -4,7 +4,6 @@ import axios from "axios";
 import ProductCard from "../productCard/ProductCard";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import { useCart } from "../cartContext/CartContext";
-import "./CardPage.css";
 
 const CardPage = () => {
   const [gameDetail, setGameDetail] = useState(null);

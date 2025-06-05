@@ -5,7 +5,6 @@ body {
   font-family: 'Orbitron', sans-serif;
   background: linear-gradient(135deg, var(--negro), var(--gris-oscuro));
   background-size: 400% 400%;
-  animation: backgroundAnimation 20s ease infinite;
   color: var(--beige);
 }
 
@@ -52,6 +51,3 @@ input, select, textarea {
   backdrop-filter: blur(6px);
 }
 
-input::placeholder, textarea::placeholder {
-  color: var(--dorado);
-}
