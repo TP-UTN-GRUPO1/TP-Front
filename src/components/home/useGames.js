@@ -15,6 +15,7 @@ const useGames = () => {
   const handleSelectPrice = (newPriceFilter) => {
     let sortedGames = [...games];
     setSelectedPrice(newPriceFilter);
+    setShowCarrousel(false);
 
     if (newPriceFilter === SORT_ORDERS.LOW_TO_HIGH) {
       sortedGames.sort((a, b) => a.price - b.price);
@@ -27,6 +28,7 @@ const useGames = () => {
     } else if (newPriceFilter === SORT_ORDERS.RESET) {
       sortedGames = searchQuery ? games : [...originalGames];
       setSelectedPlatform("");
+      setShowCarrousel(true);
     }
 
     setGames(sortedGames);
@@ -47,6 +49,7 @@ const useGames = () => {
   const handleSelectPlatform = (platform) => {
     setSelectedPlatform(platform);
     setCurrentPage(1);
+    setShowCarrousel(false);
   };
 
   const filteredGames = selectedPlatform

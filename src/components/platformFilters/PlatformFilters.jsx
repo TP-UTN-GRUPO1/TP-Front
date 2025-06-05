@@ -28,30 +28,26 @@ const PlatformFilters = ({ onFilter, selectedPrice, onSelectedPrice }) => {
         </button>
       ))}
 
-      <NavDropdown
-        className="button-console"
-        menuVariant="dark"
-        title={selectedPrice === "lowToHigh" ? " Menor-Mayor" : "Ordenar por"}
-      >
+      <NavDropdown className="button-console" menuVariant="dark">
         <NavDropdown.Item
-          active={selectedPrice === "lowToHigh"}
-          onClick={() => onSelectedPrice?.(SORT_ORDERS.LOW_TO_HIGH)}
+          active={selectedPrice === SORT_ORDERS.LOW_TO_HIGH}
+          onClick={() => onSelectedPrice(SORT_ORDERS.LOW_TO_HIGH)}
         >
           Menor-Mayor
         </NavDropdown.Item>
         <NavDropdown.Item
-          onClick={() => onSelectedPrice?.(SORT_ORDERS.HIGH_TO_LOW)}
+          onClick={() => onSelectedPrice(SORT_ORDERS.HIGH_TO_LOW)}
         >
           Mayor-Menor
         </NavDropdown.Item>
-        <NavDropdown.Item onClick={() => onSelectedPrice?.(SORT_ORDERS.A_Z)}>
+        <NavDropdown.Item onClick={() => onSelectedPrice(SORT_ORDERS.A_Z)}>
           A-Z
         </NavDropdown.Item>
-        <NavDropdown.Item onClick={() => onSelectedPrice?.(SORT_ORDERS.Z_A)}>
+        <NavDropdown.Item onClick={() => onSelectedPrice(SORT_ORDERS.Z_A)}>
           Z-A
         </NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item onClick={() => onSelectedPrice?.(SORT_ORDERS.RESET)}>
+        <NavDropdown.Item onClick={() => onSelectedPrice(SORT_ORDERS.RESET)}>
           Reiniciar Filtros
         </NavDropdown.Item>
       </NavDropdown>

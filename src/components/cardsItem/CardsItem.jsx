@@ -35,7 +35,7 @@ const CardsItem = ({
 
   return (
     <div className="card-container">
-      <Card className="cards">
+      <Card className="cards" onClick={HandleGameSelected}>
         <Card.Img height={350} variant="top" src={imageUrl} />
         <Card.Body>
           <div className="stock">
@@ -46,14 +46,17 @@ const CardsItem = ({
             )}
           </div>
           <Card.Title>{gameName}</Card.Title>
-          <Card.Subtitle>{developer}</Card.Subtitle>
+          {/* <Card.Subtitle>{developer}</Card.Subtitle> */}
           <div>{Array.isArray(platform) ? platform.join(", ") : platform}</div>
-          <div>{Array.isArray(genre) ? genre.join(", ") : genre}</div>
+          {/* <div>{Array.isArray(genre) ? genre.join(", ") : genre}</div> */}
           <p>$ {price}</p>
           <div className="d-grid gap-2">
-            <Button onClick={HandleGameSelected} className="me-3" size="sm">
+            {/* <Button onClick={HandleGameSelected} className="me-3" size="sm">
               Seleccionar juego
-            </Button>
+            </Button> */}
+            {/* <Button size="sm" className="me-3" variant="secondary">
+              Añadir al carrito
+            </Button> */}
           </div>
         </Card.Body>
       </Card>

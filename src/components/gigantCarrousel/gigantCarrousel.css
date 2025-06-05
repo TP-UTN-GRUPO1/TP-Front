@@ -37,6 +37,7 @@ img {
     max-width: 85vw;
     margin: 0 auto;
     height: auto;
+    padding-top: 1.5em;
   }
   .slider-container {
     position: relative;
@@ -89,9 +90,17 @@ img {
   margin: 0 auto;
 }
 
-div.active {
-  background: #ccc;
-  width: 30px;
-  height: 20px;
+
+.dot-container-item img {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
   border-radius: 50%;
+  transition: all 0.3s ease;
+  border: 2px solid transparent; 
+}
+
+.dot-container-item.active img {
+  border: 2px solid green; 
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); 
 }

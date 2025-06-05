@@ -11,40 +11,35 @@ import { AuthContextProvider } from "./auth/AuthContextProvider";
 
 import LayoutNavbar from "./components/nav/LayoutNavbar";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { CartProvider } from "./components/CartContext/CartContext";
+import "react-toastify/dist/ReactToastify.css";
+import { CartProvider } from "./components/cartContext/CartContext";
 
 function App() {
   return (
     <AuthContextProvider>
       <CartProvider>
-
         <BrowserRouter>
           <Routes>
             <Route element={<LayoutNavbar hideUserButtons={true} />}>
               <Route path="/cart" element={<Cart />} />
               <Route path="/games/:id" element={<CardPage />} />
             </Route>
-            <Route element={<LayoutNavbar />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-            </Route>
+            <Route path="/" element={<Home />} />
             <Route path="*" element={<Err />} />
-              <Route path="/dashboard" element={<Dashboard />}>
-                <Route path="user" element={<Dashboard />} />
-                <Route path="products" element={<Dashboard />} />
-                <Route path="purchasedHistory" element={<Dashboard />} />
-                <Route path="account" element={<Dashboard/>}/>
-              </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route path="user" element={<Dashboard />} />
+              <Route path="products" element={<Dashboard />} />
+              <Route path="purchasedHistory" element={<Dashboard />} />
+              <Route path="account" element={<Dashboard />} />
+            </Route>
           </Routes>
         </BrowserRouter>
         <ToastContainer />
       </CartProvider>
-   
-      </AuthContextProvider>
+    </AuthContextProvider>
   );
 }
 
 export default App;
-

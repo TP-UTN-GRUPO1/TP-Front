@@ -8,7 +8,7 @@ import PlatformFilters from "../platformFilters/PlatformFilters";
 import SearchBar from "../searchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/Auth.Context";
-import { useCart } from "../CartContext/CartContext";
+import { useCart } from "../cartContext/CartContext";
 
 const Navbar = ({
   selectedPrice,
@@ -22,13 +22,12 @@ const Navbar = ({
 
   const { token, handleUserLogout } = useContext(AuthContext);
 
-  const {cart} = useCart()
+  const { cart } = useCart();
 
-
-  const totalProduct = cart.reduce((acc, product) => acc + product.amount, 0)
+  const totalProduct = cart.reduce((acc, product) => acc + product.amount, 0);
 
   const handleFilterPlatform = (e) => {
-    setSelectedPlatform?.(e.target.value);
+    setSelectedPlatform(e.target.value);
   };
 
   const isLoggedIn = Boolean(token);

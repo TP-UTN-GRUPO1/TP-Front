@@ -1,6 +1,7 @@
 import "./gigantCarrousel.css";
 import data from "./imgs.js";
 import { useRef, useState, useEffect } from "react";
+import imgLogo from "../../assets/img/theFrogGames2.png";
 
 const GigantCarrousel = () => {
   const listRef = useRef();
@@ -23,9 +24,9 @@ const GigantCarrousel = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       scrollToImage("next");
-    }, 5000); 
+    }, 5000);
 
-    return () => clearInterval(interval); 
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -45,7 +46,12 @@ const GigantCarrousel = () => {
           >
             {data.map((item) => (
               <li className="li-gigantCarrousel" key={item.id}>
-                <img src={item.imageUrl} width={900} height={400} alt={`Slide ${item.id}`} />
+                <img
+                  src={item.imageUrl}
+                  width={900}
+                  height={400}
+                  alt={`Slide ${item.id}`}
+                />
               </li>
             ))}
           </ul>
@@ -59,7 +65,16 @@ const GigantCarrousel = () => {
               } `}
               onClick={() => goToSlide(idx)}
             >
-              🐸
+              <img
+                src={imgLogo}
+                alt="🐸"
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  objectFit: "cover",
+                  borderRadius: "50%",
+                }}
+              />
             </div>
           ))}
         </div>

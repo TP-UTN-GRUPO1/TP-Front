@@ -1,5 +1,5 @@
 .custom-navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
@@ -59,13 +59,13 @@
   display: flex;
   margin: 0 20px;
   padding: 0;
-  background: rgba(40, 90, 45, 0.3);
+  background: rgba(3, 6, 3, 0.3);
   border: 1px solid #ffc542;
   border-radius: 12px;
   overflow: hidden; 
 }
 .search-input::placeholder {
-  color: #ffc542;
+  color: #fff;
 }
 
 .search-input {
@@ -96,7 +96,7 @@
 
 
 .icon {
-  color: #63ffa1;
+  color: green;
   cursor: pointer;
   transition: color 0.3s;
 }
