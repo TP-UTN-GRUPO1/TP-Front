@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "../productCard/ProductCard";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
-import { useCart } from "../cartContext/CartContext";
+import { useCart } from "../cartContext/CartContext.jsx";
 
 const CardPage = () => {
   const [gameDetail, setGameDetail] = useState(null);
