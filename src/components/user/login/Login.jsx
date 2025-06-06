@@ -7,40 +7,54 @@ import { AuthContext } from "../../../auth/Auth.Context.jsx";
 import { loginUser } from "./Login.services.js";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({
-    email: false,
-    password: false,
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    errors: { email: false, password: false },
   });
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
+  const navigate = useNavigate();
+
   const { handleUserLogin } = useContext(AuthContext);
 
-  const navigate = useNavigate();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+      errors: { ...prev.errors, [name]: false },
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!emailRef.current.value.length || !validateEmail(email)) {
-      setErrors({ ...errors, email: true });
+    if (!emailRef.current.value.length || !validateEmail(form.email)) {
+      setForm((prev) => ({
+        ...prev,
+        errors: { ...prev.errors, email: true },
+      }));
       errorToast("Email invalido");
       return;
     } else if (
-      !password.length ||
-      !validatePassword(password, 7, null, true, true)
+      !form.password.length ||
+      !validatePassword(form.password, 7, null, true, true, true)
     ) {
-      setErrors({ ...errors, password: true });
+      setForm((prev) => ({
+        ...prev,
+        errors: { ...prev.errors, password: true },
+      }));
       errorToast("Contraseña incorrecta!");
       passwordRef.current.focus();
       return;
     }
 
     loginUser(
-      email,
-      password,
+      form.email,
+      form.password,
       (token) => {
         handleUserLogin(token);
         navigate("/");
@@ -61,9 +75,9 @@ const Login = () => {
           ref={emailRef}
           className="inputLogin"
           placeholder="Ingresa email"
-          value={email}
+          value={form.email}
           name="email"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleChange}
         />
         <input
           type="password"
@@ -71,9 +85,11 @@ const Login = () => {
           ref={passwordRef}
           className="inputLogin"
           placeholder="Contraseña"
-          value={password}
+          value={form.password}
           name="password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            handleChange(e);
+          }}
         />
         <button className={styles.buttonLogin} type="submit">
           Iniciar sesion
@@ -89,8 +105,10 @@ const Login = () => {
             Volver
           </Link>
         </>
-        {errors.email && <p className={styles.errorLogin}>Email inválido</p>}
-        {errors.password && (
+        {form.errors.email && (
+          <p className={styles.errorLogin}>Email inválido</p>
+        )}
+        {form.errors.password && (
           <p className={styles.errorLogin}>Contraseña inválida</p>
         )}
       </form>

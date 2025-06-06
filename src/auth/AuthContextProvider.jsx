@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AuthContext } from "./Auth.context.jsx";
+import { AuthContext } from "./Auth.Context";
 
 const tokenSaved = localStorage.getItem("theFrog-token");
 
