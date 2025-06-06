@@ -8,14 +8,14 @@ const Footer = () => {
           <h4>Sobre Nosotros</h4>
           <p>
             Estudiantes de la Tecnicatura de Programación en la UTN de Rosario.
+          </p>
+          <span className={styles.spanFooter}>Integrantes:</span>
+          <p>
+            Saporiti Martin
             <br />
-            Integrantes:
+            Chieu Santiago
             <br />
-            La Rana
-            <br />
-            Santi Chewi
-            <br />
-            Kiki Lopez
+            Lopez Quimey Alejo
           </p>
         </div>
 
@@ -23,16 +23,7 @@ const Footer = () => {
           <h4>Enlaces Rápidos</h4>
           <ul>
             <li>
-              <a href="/about">Sobre Nosotros</a>
-            </li>
-            <li>
               <a href="/contact">Contáctanos</a>
-            </li>
-            <li>
-              <a href="/terms">Términos y Condiciones</a>
-            </li>
-            <li>
-              <a href="/privacy">Política de Privacidad</a>
             </li>
           </ul>
         </div>
