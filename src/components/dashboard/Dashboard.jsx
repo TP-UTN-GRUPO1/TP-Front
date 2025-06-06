@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import {Outlet, Link } from "react-router-dom";
 
 const Dashboard = () => {
   return (
@@ -16,19 +16,19 @@ const Dashboard = () => {
       </div>
       <div>
         <button>
-          <Link to="user">Modificar Usuarios</Link>
+          <Link to="user">Panel de usuarios</Link>
         </button>
       </div>
       <div>
         <button>
-          <Link to="products">Modificar productos</Link>
+          <Link to="products">Panel de productos</Link>
         </button>
       </div>
       <div>
         <Link to="/">Volver</Link>
       </div>
+      <Outlet/>
     </div>
   );
 };
-
-export default Dashboard;
+ export default  Dashboard;
