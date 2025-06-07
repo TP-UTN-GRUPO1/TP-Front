@@ -1,64 +1,97 @@
 .modify-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-    justify-content: center;
-    background-color: #0dad3d;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  justify-content: center;
+  background-color: #121212;
+}
+
+.game-card {
+  background-color: #1e1e1e;
+  border: 2px solid gold;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 250px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  color: #f5f5f5;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+.game-card:hover {
+  transform: scale(1.02);
+}
+
+.game-card h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  color: gold;
+  text-align: center;
+  border-bottom: 1px solid gold;
+  padding-bottom: 0.4rem;
+}
+
+.game-card p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.status.available {
+  color: #00cc66;
+}
+
+.status.unavailable {
+  color: #ff4d4d;
+}
+
+.game-card button {
+  margin: 6px 6px 0 0;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: gold;
+  color: #121212;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.game-card button:hover {
+  background-color: #ffdb4d;
+  transform: translateY(-1px);
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #2a2a2a;
+  color: white;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border 0.2s ease;
+}
+
+input[type="number"]:focus {
+  border: 1px solid gold;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .modify-container {
+    flex-direction: column;
+    align-items: center;
   }
-  
+
   .game-card {
-    background-color: black;
-    border: 1px solid gold;
-    border-radius: 12px;
-    padding: 20px;
-    width: 250px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
   }
-  
-  .game-card h3 {
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-  }
-  
-  .game-card p {
-    margin: 5px 0;
-    font-size: 0.95rem;
-  }
-  
-  .status {
-    font-weight: bold;
-  }
-  
-  .status.available {
-    color: green;
-  }
-  
-  .status.unavailable {
-    color: red;
-  }
-  
-  .game-card button {
-    margin: 5px 5px 0 0;
-    padding: 6px 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: black;
-    font-size: 0.9rem;
-    transition: background-color 0.2s;
-  }
-  
-  .game-card button:hover {
-    background-color: #0056b3;
-  }
-  
-  input[type="number"] {
-    width: 100%;
-    padding: 6px;
-    margin-bottom: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-  }
-  
+}

@@ -1,0 +1,53 @@
+.dashboardContainer {
+  padding: 2rem;
+  background-color: #121212;
+  color: #f5f5f5;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title {
+  font-size: 2rem;
+  color: #ffd700;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #ffd700;
+  padding-bottom: 0.5rem;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.navButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #1e1e1e;
+  border: 2px solid #ffd700;
+  color: #f5f5f5;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.navButton:hover {
+  background-color: #ffd700;
+  color: #1e1e1e;
+}
+
+.backButton {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: #aaa;
+  border: 1px solid #555;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.backButton:hover {
+  color: #fff;
+  border-color: #ffd700;
+}

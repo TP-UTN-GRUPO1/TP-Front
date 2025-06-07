@@ -1,140 +1,155 @@
-
 .form-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-    justify-content: center;
-    background-color: #0dad3d;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  justify-content: center;
+  background-color: #121212;
+}
+
+.game-card,
+.summary-card {
+  background-color: #1e1e1e;
+  border: 2px solid gold;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 420px;
+  color: #f5f5f5;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px #00000080;
+}
+
+.game-card h3,
+.summary-card h4 {
+  margin-bottom: 1rem;
+  color: gold;
+  text-align: center;
+  font-size: 1.4rem;
+  border-bottom: 1px solid gold;
+  padding-bottom: 0.5rem;
+}
+
+.game-card input,
+.game-card select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  font-size: 1rem;
+  background-color: #2a2a2a;
+  color: white;
+  box-sizing: border-box;
+  transition: border 0.2s ease;
+}
+
+.game-card input:focus,
+.game-card select:focus {
+  border: 1px solid gold;
+  outline: none;
+}
+
+.game-card label {
+  font-weight: bold;
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #ddd;
+}
+
+.game-card button {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: gold;
+  color: #121212;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.game-card button:hover {
+  background-color: #ffdb4d;
+}
+
+.game-card p {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
+.platformsSelec,
+.genresSelec {
+  background-color: #1e1e1e;
+  border: 2px dashed gold;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.platformsSelec h4,
+.genresSelec h4 {
+  color: gold;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.itemX {
+  display: inline-flex;
+  align-items: center;
+  background-color: #2d2d2d;
+  color: gold;
+  padding: 0.4rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid gold;
+  font-size: 0.95rem;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.butonX {
+  background-color: transparent;
+  border: none;
+  color: #ff4d4d;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0;
+  margin-left: 4px;
+  transition: color 0.2s ease;
+}
+
+.butonX:hover {
+  color: #ff7777;
+}
+
+input[type="checkbox"] {
+  accent-color: gold;
+  transform: scale(1.1);
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    flex-direction: column;
+    align-items: center;
   }
-  
 
   .game-card,
-  .summary-card {
-    background-color: black;
-    border: 1px solid gold;
-    border-radius: 12px;
-    padding: 20px;
-    width: 100%;
-    max-width: 400px;
-    color: white;
-    box-sizing: border-box;
-  }
- 
-  .game-card h3,
-  .summary-card h4 {
-    margin-bottom: 15px;
-    color: gold;
-    text-align: center;
-  }
-  
-
-  .game-card input,
-  .game-card select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 0.95rem;
-    background-color: #111;
-    color: white;
-    box-sizing: border-box;
-  }
-  
-  .game-card label {
-    font-weight: bold;
-    display: block;
-    margin-top: 12px;
-    margin-bottom: 6px;
-    color: white;
-  }
-  
- 
-  .game-card button {
-    margin-top: 15px;
-    padding: 12px;
-    width: 100%;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    background-color: gold;
-    color: black;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-  }
-  
-  .game-card button:hover {
-    background-color: #ffcc00;
-  }
-  
-
-  .game-card p {
-    color: #ff4444;
-    font-size: 0.85rem;
-    margin-top: -6px;
-    margin-bottom: 12px;
-  }
-  
- 
   .platformsSelec,
   .genresSelec {
-    background-color: black;
-    border: 1px solid gold;
-    border-radius: 12px;
-    padding: 16px;
     width: 100%;
-    max-width: 400px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    max-width: 90%;
   }
-  
-  .platformsSelec h4,
-  .genresSelec h4 {
-    color: gold;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  
-
-  .itemX {
-    display: inline-flex;
-    align-items: center;
-    background-color: #222;
-    color: gold;
-    padding: 6px 10px;
-    border-radius: 8px;
-    border: 1px solid gold;
-    gap: 8px;
-    font-size: 0.95rem;
-  }
- 
-  .butonX {
-    background-color: transparent;
-    border: none;
-    color: red;
-    font-size: 1rem;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 0;
-    margin-left: 4px;
-  }
-  
-
-  @media (max-width: 768px) {
-    .form-container {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .game-card,
-    .platformsSelec,
-    .genresSelec {
-      width: 100%;
-      max-width: 90%;
-    }
-  }
-  
+}
