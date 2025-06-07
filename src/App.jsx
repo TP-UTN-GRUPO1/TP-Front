@@ -17,6 +17,7 @@ import { CartProvider } from "./components/cartContext/CartContext";
 import Favorites from "./components/favorites/favorites";
 import Account from "./components/dashboard/account/Account.jsx"
 import Newproduct from "./components/dashboard/products/Newproduct.jsx";
+import ModifyProduct from "./components/dashboard/products/Modifyproduct.jsx";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />}>
                 <Route path="user" element={<Dashboard />} />
                 <Route path="products" element={<Newproduct />} />
+                <Route path="modifyproducts" element={<ModifyProduct/>} />
                 <Route path="purchasedHistory" element={<Dashboard />} />
                 <Route path="account" element={<Account/>}/>
               </Route>

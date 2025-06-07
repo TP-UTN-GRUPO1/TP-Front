@@ -21,7 +21,9 @@ const Dashboard = () => {
       </div>
       <div>
         <button>
-          <Link to="products">Panel de productos</Link>
+          <Link to="products">Agregar producto</Link>
+        </button><button>
+          <Link to="modifyproducts">Modificar producto</Link>
         </button>
       </div>
       <div>
