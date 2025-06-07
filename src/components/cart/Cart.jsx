@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useCart } from "../cartContext/CartContext";
 import CartItem from "../cartItem/CartItem";
 import Button from "../button/Button";
@@ -17,6 +18,43 @@ const Cart = () => {
 
   const handleDecreaseAmount = (productId) => {
     updateAmount(productId, -1);
+  };
+
+  const handleCheckout = async () => {
+    try {
+      // Suponiendo que el usuario está logueado y su ID está en localStorage
+      const userId = JSON.parse(localStorage.getItem("user"))?.id;
+
+      if (!userId) {
+        alert("Tenés que iniciar sesión para finalizar la compra.");
+        return;
+      }
+
+      const orderData = {
+        userId,
+        items: cart.map((product) => ({
+          gameId: product.id,
+          quantity: product.amount,
+          unitPrice: product.price,
+        })),
+        totalAmount: total,
+      };
+
+      const response = await axios.post(
+        "http://localhost:3000/orders",
+        orderData
+      );
+
+      if (response.status === 201) {
+        alert("¡Compra realizada con éxito!");
+        // Podés limpiar el carrito si querés agregar esa función en el contexto
+      } else {
+        alert("Ocurrió un error al procesar tu compra.");
+      }
+    } catch (error) {
+      console.error("Error al enviar la orden:", error);
+      alert("No se pudo completar la compra.");
+    }
   };
 
   return (
@@ -50,7 +88,7 @@ const Cart = () => {
             <p className="total">Total a pagar: ${total.toFixed(2)}</p>
             <Button
               text="Pagar"
-              onClick={() => alert("Procediendo al pago")}
+              onClick={handleCheckout}
               className="checkout-btn"
             />
           </div>
