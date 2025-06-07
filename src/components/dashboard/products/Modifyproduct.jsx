@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './ModifyProduct.css';
 
 const ModifyProduct = () => {
   const [games, setGames] = useState([]);
@@ -64,36 +65,35 @@ const ModifyProduct = () => {
   };
 
   return (
-    <div>
-     {games.map(game => (
-  <div key={game.id}>
-    <h3>{game.nameGame}</h3>
-    <p>Precio: ${game.price}</p>
-    <p style={{ color: game.available ? 'green' : 'red' }}>
-      {game.available ? 'Disponible' : 'Oculto'}
-    </p>
+    <div className="modify-container">
+  {games.map(game => (
+    <div className="game-card" key={game.id}>
+      <h3>{game.nameGame}</h3>
+      <p>Precio: ${game.price}</p>
+      <p className={`status ${game.available ? 'available' : 'unavailable'}`}>
+        {game.available ? 'Disponible' : 'Oculto'}
+      </p>
 
-    {editingPrice === game.id ? (
-      <div>
-        <input
-          type="number"
-          value={newPrice}
-          onChange={(e) => setNewPrice(e.target.value)}
-        />
-        <button onClick={() => handleSavePrice(game.id)}>Guardar</button>
-        <button onClick={() => setEditingPrice(null)}>Cancelar</button>
-      </div>
-    ) : (
-      <button onClick={() => handleEditPrice(game.id)}>Editar Precio</button>
-    )}
+      {editingPrice === game.id ? (
+        <div>
+          <input
+            type="number"
+            value={newPrice}
+            onChange={(e) => setNewPrice(e.target.value)}
+          />
+          <button onClick={() => handleSavePrice(game.id)}>Guardar</button>
+          <button onClick={() => setEditingPrice(null)}>Cancelar</button>
+        </div>
+      ) : (
+        <button onClick={() => handleEditPrice(game.id)}>Editar Precio</button>
+      )}
 
-    <button onClick={() => handleToggleAvailability(game.id)}>
-      {game.available ? 'Ocultar' : 'Mostrar'}
-    </button>
-  </div>
-))}
-
+      <button onClick={() => handleToggleAvailability(game.id)}>
+        {game.available ? 'Ocultar' : 'Mostrar'}
+      </button>
     </div>
+  ))}
+</div>
   );
 };
 

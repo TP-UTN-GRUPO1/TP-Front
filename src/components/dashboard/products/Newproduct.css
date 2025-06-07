@@ -1,0 +1,140 @@
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+    background-color: #0dad3d;
+  }
+  
+
+  .game-card,
+  .summary-card {
+    background-color: black;
+    border: 1px solid gold;
+    border-radius: 12px;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    color: white;
+    box-sizing: border-box;
+  }
+ 
+  .game-card h3,
+  .summary-card h4 {
+    margin-bottom: 15px;
+    color: gold;
+    text-align: center;
+  }
+  
+
+  .game-card input,
+  .game-card select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    background-color: #111;
+    color: white;
+    box-sizing: border-box;
+  }
+  
+  .game-card label {
+    font-weight: bold;
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    color: white;
+  }
+  
+ 
+  .game-card button {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: gold;
+    color: black;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .game-card button:hover {
+    background-color: #ffcc00;
+  }
+  
+
+  .game-card p {
+    color: #ff4444;
+    font-size: 0.85rem;
+    margin-top: -6px;
+    margin-bottom: 12px;
+  }
+  
+ 
+  .platformsSelec,
+  .genresSelec {
+    background-color: black;
+    border: 1px solid gold;
+    border-radius: 12px;
+    padding: 16px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .platformsSelec h4,
+  .genresSelec h4 {
+    color: gold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+
+  .itemX {
+    display: inline-flex;
+    align-items: center;
+    background-color: #222;
+    color: gold;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid gold;
+    gap: 8px;
+    font-size: 0.95rem;
+  }
+ 
+  .butonX {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0;
+    margin-left: 4px;
+  }
+  
+
+  @media (max-width: 768px) {
+    .form-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .game-card,
+    .platformsSelec,
+    .genresSelec {
+      width: 100%;
+      max-width: 90%;
+    }
+  }
+  
