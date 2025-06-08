@@ -6,9 +6,11 @@ const tokenSaved = localStorage.getItem("theFrog-token");
 export const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(tokenSaved);
 
-  const handleUserLogin = (newToken) => {
+  const handleUserLogin = (newToken, id) => {
     localStorage.setItem("theFrog-token", JSON.stringify(newToken));
     setToken(newToken);
+
+    // localStorage.setItem("userId", id)
   };
 
   const handleUserLogout = () => {

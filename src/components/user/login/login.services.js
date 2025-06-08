@@ -37,8 +37,9 @@ export const loginUser = async (email, password, onSuccess, onError) => {
       password,
     });
 
-    const token = response.data.token;
+    const { token, user } = response.data;
     localStorage.setItem("theFrog-token", token);
+    localStorage.setItem("user", JSON.stringify(user));
 
     onSuccess(token);
   } catch (err) {

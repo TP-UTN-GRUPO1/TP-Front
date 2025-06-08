@@ -21,38 +21,31 @@ const Cart = () => {
   };
 
   const handleCheckout = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user?.id) {
+      alert("Tenés que iniciar sesión para finalizar la compra.");
+      return;
+    }
+
+    const orderData = {
+      userId: user.id,
+      items: cart.map((p) => ({
+        gameId: p.id,
+        quantity: p.amount,
+        unitPrice: p.price,
+      })),
+      totalAmount: total,
+    };
+
     try {
-      // Suponiendo que el usuario está logueado y su ID está en localStorage
-      const userId = JSON.parse(localStorage.getItem("user"))?.id;
-
-      if (!userId) {
-        alert("Tenés que iniciar sesión para finalizar la compra.");
-        return;
-      }
-
-      const orderData = {
-        userId,
-        items: cart.map((product) => ({
-          gameId: product.id,
-          quantity: product.amount,
-          unitPrice: product.price,
-        })),
-        totalAmount: total,
-      };
-
       const response = await axios.post(
         "http://localhost:3000/orders",
         orderData
       );
-
-      if (response.status === 201) {
-        alert("¡Compra realizada con éxito!");
-        // Podés limpiar el carrito si querés agregar esa función en el contexto
-      } else {
-        alert("Ocurrió un error al procesar tu compra.");
-      }
-    } catch (error) {
-      console.error("Error al enviar la orden:", error);
+      if (response.status === 201) alert("¡Compra realizada con éxito!");
+      else alert("Ocurrió un error al procesar tu compra.");
+    } catch (e) {
+      console.error("Error al enviar la orden:", e);
       alert("No se pudo completar la compra.");
     }
   };
