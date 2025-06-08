@@ -2,7 +2,7 @@ import { useState, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { validateEmail, validatePassword } from "./Login.services.js";
-import { errorToast } from "../../../utils/notification.jsx";
+import { errorToast, successToast } from "../../../utils/notification.jsx";
 import { AuthContext } from "../../../auth/Auth.Context.jsx";
 import { loginUser } from "./Login.services.js";
 
@@ -58,6 +58,7 @@ const Login = () => {
       (token) => {
         handleUserLogin(token);
         navigate("/");
+        successToast("Sesion iniciada correctamente")
       },
       (err) => {
         errorToast(err);

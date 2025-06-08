@@ -9,6 +9,7 @@ import SearchBar from "../searchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/Auth.Context";
 import { useCart } from "../cartContext/CartContext";
+import { successToast } from "../../utils/notification";
 
 const Navbar = ({
   selectedOrder,
@@ -86,6 +87,7 @@ const Navbar = ({
                 onClick={() => {
                   handleUserLogout();
                   navigate("/");
+                  successToast("Sesion cerrada! Hasta pronto!")
                 }}
               >
                 Cerrar sesión
