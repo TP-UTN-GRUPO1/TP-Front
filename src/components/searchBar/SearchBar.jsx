@@ -14,6 +14,7 @@ const SearchBar = ({ query, onQueryChange, onSearch }) => {
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         onKeyPress={handleKeyPress}
+        name="searchBar"
       />
     </div>
   );

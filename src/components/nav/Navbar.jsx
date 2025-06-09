@@ -21,7 +21,7 @@ const Navbar = ({
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
-  const { token, handleUserLogout } = useContext(AuthContext);
+  const { token, username, handleUserLogout } = useContext(AuthContext);
 
   const { cart } = useCart();
 
@@ -74,20 +74,22 @@ const Navbar = ({
           </Link>
 
           <Link to="/favorites" className="icon-button">
-          <Heart size={24} className="icon" />
+            <Heart size={24} className="icon" />
           </Link>
 
           {isLoggedIn ? (
             <>
               <Link to="/dashboard">
-                <button className="nav-button primary">Panel</button>
+                <button className="nav-button primary">
+                  Panel de {username}
+                </button>
               </Link>
               <button
                 className="nav-button primary"
                 onClick={() => {
                   handleUserLogout();
                   navigate("/");
-                  successToast("Sesion cerrada! Hasta pronto!")
+                  successToast("Sesion cerrada! Hasta pronto!");
                 }}
               >
                 Cerrar sesión

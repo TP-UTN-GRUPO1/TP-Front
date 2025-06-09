@@ -41,7 +41,7 @@ export const loginUser = async (email, password, onSuccess, onError) => {
     localStorage.setItem("theFrog-token", token);
     localStorage.setItem("user", JSON.stringify(user));
 
-    onSuccess(token);
+    onSuccess(token, user);
   } catch (err) {
     console.error("Error al iniciar sesión:", err);
     if (err.response && err.response.data.message) {

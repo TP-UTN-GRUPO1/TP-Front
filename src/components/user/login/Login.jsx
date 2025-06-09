@@ -55,14 +55,14 @@ const Login = () => {
     loginUser(
       form.email,
       form.password,
-      (token) => {
-        handleUserLogin(token);
+      (token, userData) => {
+        console.log("Token:", token);
+        console.log("UserData:", userData);
+        handleUserLogin(token, userData);
         navigate("/");
-        successToast("Sesion iniciada correctamente");
+        successToast("Sesión iniciada correctamente");
       },
-      (err) => {
-        errorToast(err);
-      }
+      (err) => errorToast(err)
     );
   };
 
