@@ -1,9 +1,9 @@
 import { useState, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./Login.module.css";
 import { validateEmail, validatePassword } from "./Login.services.js";
 import { errorToast, successToast } from "../../../utils/notification.jsx";
 import { AuthContext } from "../../../auth/Auth.Context.jsx";
+import "./Login.css";
 import { loginUser } from "./Login.services.js";
 
 const Login = () => {
@@ -58,7 +58,7 @@ const Login = () => {
       (token) => {
         handleUserLogin(token);
         navigate("/");
-        successToast("Sesion iniciada correctamente")
+        successToast("Sesion iniciada correctamente");
       },
       (err) => {
         errorToast(err);
@@ -67,9 +67,9 @@ const Login = () => {
   };
 
   return (
-    <section className={styles.containerLogin}>
-      <h1 className={styles.h1Login}>Iniciar sesión</h1>
-      <form className={styles.formLogin} onSubmit={handleSubmit}>
+    <section className="containerLogin">
+      <h1 className="h1Login">Iniciar sesión</h1>
+      <form className="formLogin" onSubmit={handleSubmit}>
         <input
           type="text"
           required
@@ -92,25 +92,23 @@ const Login = () => {
             handleChange(e);
           }}
         />
-        <button className={styles.buttonLogin} type="submit">
+        <button className="buttonLogin" type="submit">
           Iniciar sesion
         </button>
         <>
           <h3>¿No tienes cuenta?</h3>
-          <Link to="/register" className={styles.buttonLogin}>
+          <Link to="/register" className="buttonLogin">
             Registrarse
           </Link>
         </>
         <>
-          <Link to="/" className={styles.linkLogin}>
+          <Link to="/" className="linkLogin">
             Volver
           </Link>
         </>
-        {form.errors.email && (
-          <p className={styles.errorLogin}>Email inválido</p>
-        )}
+        {form.errors.email && <p className="errorLogin">Email inválido</p>}
         {form.errors.password && (
-          <p className={styles.errorLogin}>Contraseña inválida</p>
+          <p className="errorLogin">Contraseña inválida</p>
         )}
       </form>
     </section>

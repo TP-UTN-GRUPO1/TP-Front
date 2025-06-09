@@ -6,7 +6,7 @@ import {
   validatePassword,
   isOverMinimumAge,
 } from "./register.services.js";
-import styles from "../login/login.module.css";
+import "../login/Login.css";
 import axios from "axios";
 
 function Register() {
@@ -63,60 +63,55 @@ function Register() {
     }
   };
 
-  const handleBack = (e) => {
-    e.preventDefault();
-    navigate("/");
-  };
-
   return (
-    <section className={styles.container}>
-      <h1 className={styles.title}>Registrarse</h1>
-      <form className={styles.form} onSubmit={handleSubmit}>
+    <section className="containerLogin">
+      <h1 className="h1Login">Registrarse</h1>
+      <form className="formLogin" onSubmit={handleSubmit}>
         <input
           type="text"
-          className={styles.input}
+          className="inputLogin"
           placeholder="Usuario"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
           type="text"
-          className={styles.input}
+          className="inputLogin"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value.toLowerCase())}
         />
         <input
           type="date"
-          className={styles.input}
+          className="inputLogin"
           placeholder="Fecha de nacimiento"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
         <input
           type="password"
-          className={styles.input}
+          className="inputLogin"
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
           type="password"
-          className={styles.input}
+          className="inputLogin"
           placeholder="Confirmar contraseña"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <button className={styles.button} type="submit">
+        <button className="buttonLogin" type="submit">
           Registrarse
         </button>
-        <Link to="/" className={styles.button}>
+        <Link to="/" className="buttonLogin">
           Volver
         </Link>
-        {error && <p className={styles.error}>{error}</p>}
+        {error && <p className="errorLogin">{error}</p>}
       </form>
-      <p className={styles.loginRedirect}>
-        <Link to="/login" className={styles.link}>
+      <p className="loginRedirect">
+        <Link to="/login" className="linkLogin">
           ¿Ya tienes cuenta? ¡Inicia sesión!
         </Link>
       </p>
