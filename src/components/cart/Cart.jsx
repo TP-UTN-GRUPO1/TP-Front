@@ -5,7 +5,7 @@ import Button from "../button/Button";
 import "./Cart.css";
 
 const Cart = () => {
-  const { cart, updateAmount, deleteProduct } = useCart();
+  const { cart, updateAmount, deleteProduct, clearCart } = useCart();
 
   const total = cart.reduce(
     (acc, product) => acc + product.price * product.amount,
@@ -42,8 +42,10 @@ const Cart = () => {
         "http://localhost:3000/orders",
         orderData
       );
-      if (response.status === 201) alert("¡Compra realizada con éxito!");
-      else alert("Ocurrió un error al procesar tu compra.");
+      if (response.status === 201) {
+        alert("¡Compra realizada con éxito!");
+        clearCart();
+      } else alert("Ocurrió un error al procesar tu compra.");
     } catch (e) {
       console.error("Error al enviar la orden:", e);
       alert("No se pudo completar la compra.");
