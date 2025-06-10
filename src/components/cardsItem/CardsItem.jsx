@@ -1,6 +1,8 @@
 import { Card, Button, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./cardsItem.css";
+import { useFavorites } from "../FavoritesContext/FavoritesContext";
+import { useState } from "react";
 
 const CardsItem = ({
   id,
@@ -14,7 +16,16 @@ const CardsItem = ({
   genre,
 }) => {
   const navigate = useNavigate();
+  const [isFavorited, setIsFavorited] = useState(false);
+  const {addToFavorites} = useFavorites();
 
+  const handleAddToFavorites = () => {
+  addToFavorites({
+    gameName,
+    imageUrl,
+  });
+  setIsFavorited(true)
+};
   const HandleGameSelected = () => {
     if (onGameSelected) onGameSelected(gameName);
     navigate(`/games/${id}`, {
@@ -47,20 +58,18 @@ const CardsItem = ({
             )}
           </div>
           <Card.Title>{gameName}</Card.Title>
-          {/* <Card.Subtitle>{developer}</Card.Subtitle> */}
           <div>{Array.isArray(platform) ? platform.join(", ") : platform}</div>
-          {/* <div>{Array.isArray(genre) ? genre.join(", ") : genre}</div> */}
           <p>$ {price}</p>
           <div className="d-grid gap-2">
-             <Button onClick={HandleGameSelected} className="me-3" size="sm">
-              Seleccionar juego
-            </Button>
-            {/* <Button size="sm" className="me-3" variant="secondary">
-              Añadir al carrito
-            </Button> */}
           </div>
         </Card.Body>
         </div>
+             <Button onClick={HandleGameSelected} className="me-3" size="sm">
+              Seleccionar juego
+            </Button>
+            <Button size="sm" className={`favorite-button ${isFavorited ? "favorited" : ""}`} variant="secondary" onClick={handleAddToFavorites}>
+              <i className={`fa${isFavorited ? 's' : 'r'} fa-heart`}></i>
+            </Button>
       </Card>
     </div>
   );

@@ -14,16 +14,18 @@ import { AuthContextProvider } from "./auth/AuthContextProvider";
 import LayoutNavbar from "./components/nav/LayoutNavbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { CartProvider } from "./components/cartContext/CartContext";
+import { CartProvider } from "./components/cartContext/CartContext.jsx";
 import Favorites from "./components/favorites/favorites";
 import Account from "./components/dashboard/account/Account.jsx";
 import Newproduct from "./components/dashboard/products/Newproduct.jsx";
 import ModifyProduct from "./components/dashboard/products/Modifyproduct.jsx";
+import { FavoritesProvider } from "./components/FavoritesContext/FavoritesContext.jsx";
 
 function App() {
   return (
     <AuthContextProvider>
       <CartProvider>
+        <FavoritesProvider>
         <BrowserRouter>
           <Routes>
             <Route element={<LayoutNavbar hideUserButtons={true} />}>
@@ -46,6 +48,7 @@ function App() {
           </Routes>
         </BrowserRouter>
         <ToastContainer />
+        </FavoritesProvider>
       </CartProvider>
     </AuthContextProvider>
   );

@@ -37,3 +37,17 @@
   padding: 10px 20px;
   font-weight: 600;
 }
+
+
+.favorite-button i {
+  color: gray;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.favorite-button.favorited i {
+  color: red;
+}
+
+.favorite-button:hover i {
+  transform: scale(1.2);
+}
