@@ -56,9 +56,27 @@ const PurchasedHistory = () => {
           <h4>Juegos:</h4>
           <ul>
             {order.orderItems.map((item) => (
-              <li key={item.order_item_id}>
-                {item.game.title} - Cantidad: {item.quantity}, Precio Unitario:
-                ${item.unitPrice.toFixed(2)}
+              <li
+                key={item.order_item_id}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                <img
+                  src={item.game.imageUrl}
+                  alt={item.game.nameGame}
+                  style={{
+                    width: "60px",
+                    height: "60px",
+                    objectFit: "cover",
+                    marginRight: "1rem",
+                    borderRadius: "8px",
+                  }}
+                />
+                {item.game.nameGame} - Cantidad: {item.quantity}, Precio
+                Unitario: ${item.unitPrice.toFixed(2)}
               </li>
             ))}
           </ul>
