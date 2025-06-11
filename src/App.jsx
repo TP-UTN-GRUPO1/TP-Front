@@ -20,6 +20,7 @@ import Account from "./components/dashboard/account/Account.jsx";
 import Newproduct from "./components/dashboard/products/Newproduct.jsx";
 import ModifyProduct from "./components/dashboard/products/Modifyproduct.jsx";
 import { FavoritesProvider } from "./components/FavoritesContext/FavoritesContext.jsx";
+import AdminPanel from "./components/dashboard/admin/AdminPanel.jsx";
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />}>
-              <Route path="user" element={<Dashboard />} />
+              <Route path="user" element={<AdminPanel />} />
               <Route path="products" element={<Newproduct />} />
               <Route path="modifyproducts" element={<ModifyProduct />} />
               <Route path="purchasedHistory" element={<PurchasedHistory />} />
