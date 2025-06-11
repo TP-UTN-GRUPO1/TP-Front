@@ -11,10 +11,12 @@ export const FavoritesProvider = ({ children }) => {
 
   const addToFavorites = async (game) => {
     try {
+      console.log("Juego a agregar a favoritos:", game); //control (despues cambiar por tostifi)
       const res = await axios.post(
         "http://localhost:3000/favorites",
         {
-          userId,
+          idUser: userId,
+          gameId: game.id,
           gameName: game.gameName,
           imageUrl: game.imageUrl,
         },

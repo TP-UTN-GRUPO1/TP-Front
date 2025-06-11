@@ -21,6 +21,7 @@ const CardsItem = ({
 
   const handleAddToFavorites = () => {
   addToFavorites({
+    id,
     gameName,
     imageUrl,
   });

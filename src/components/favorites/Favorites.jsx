@@ -19,55 +19,25 @@ const Favorites = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+  const getFavoritesById = async () => {
+    try {
+      const res = await axios.get(`http://localhost:3000/favorites/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const getFavoritesById = async () => {
-      try {
-        const res = await axios.get(`http://localhost:3000/favorites?userId=${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            }
-          }
-        );
-        setFavorites(res.data)
-      } catch (err) {
-        console.error("Error fetching favorites", err)
-      } finally {
-        setLoading(false);
-      }
+      setFavorites(res.data.Game || []);
+    } catch (err) {
+      console.error("Error fetching favorites", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    };
-    if (userId) getFavoritesById();
-  }, [userId, token]);
+  if (userId) getFavoritesById();
+}, [userId, token]);
 
-
-
-  // const addToFavorites = async (newFavorite) => {
-  //   try {
-  //     const isAlreadyFavorite = favorites.some(
-  //       (fav) => fav.nameGame === newFavorite.nameGame
-  //     );
-  //     if (isAlreadyFavorite) {
-  //       return console.log("Este juego ya está en tus favoritos");
-  //     }
-  //     const res = await axios.post(
-  //       "http://localhost:3000/favorites",
-  //       {
-  //         userId: userId,
-  //         nameGame: newFavorite.nameGame,
-  //         imageUrl: newFavorite.imageUrl,
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         }
-  //       },
-  //     );
-  //     setFavorites((prev) => [...prev, res.data]);
-  //   } catch (err) {
-  //     console.error("Error adding to favorites", err);
-  //   }
-  // };
 
 
 
@@ -94,17 +64,34 @@ const Favorites = () => {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div>
-      <h2>Tus Favoritos</h2>
+    <div className="container mt-4">
+      <h2 className="mb-4">Tus Favoritos</h2>
 
-      <div className="cart-header">
-        <span>Juego</span>
-        <span></span>
-        <span></span>
-        <span>Eliminar</span>
-      </div>
+      {favorites.length === 0 ? (
+        <p>No tenés juegos en favoritos todavía.</p>
+      ) : (
+        <div className="row">
+          {favorites.map((fav) => (
+            <div className="col-md-4 mb-4" key={fav.id}>
+              <div className="card h-100">
+                <img src={fav.imageUrl} className="card-img-top" alt={fav.nameGame} />
+                <div className="card-body">
+                  <h5 className="card-title">{fav.nameGame}</h5>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDeleteFavorite(fav.id)}
+                  >
+                    Eliminar de favoritos
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-  )
+  );
+
 }
 
 export default Favorites
