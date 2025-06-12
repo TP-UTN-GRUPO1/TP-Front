@@ -15,7 +15,7 @@ function getLocalJSON(key, defaultValue) {
 }
 
 export const AuthContextProvider = ({ children }) => {
-  const tokenSaved = getLocalJSON("theFrog-token", "");
+  const tokenSaved =localStorage.getItem("theFrog-token");
   const userSaved = getLocalJSON("theFrog-user", {});
 
   const [token, setToken] = useState(tokenSaved);
@@ -23,7 +23,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const handleUserLogin = (newToken, userData) => {
 
-    localStorage.setItem("theFrog-token", JSON.stringify(newToken));
+    localStorage.setItem("theFrog-token", newToken);
     localStorage.setItem("theFrog-user", JSON.stringify(userData));
     setToken(newToken);
     setUsername(userData.name);

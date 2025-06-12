@@ -107,9 +107,12 @@ const Newproduct = () => {
     }
     setErrors({});
     try {
+      const token = localStorage.getItem("theFrog-token")
       const resp = await fetch("http://localhost:3000/games", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+         },
         body: JSON.stringify(formData),
       });
       const result = await resp.json();
