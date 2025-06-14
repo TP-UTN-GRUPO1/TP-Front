@@ -7,10 +7,12 @@ const AdminPanel = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [selectedRole, setSelectedRole] = useState("all");
   const [searchEmail, setSearchEmail] = useState("");
+  const [selectedUserOrders, setSelectedUserOrders] = useState([]);
+const [selectedUserEmail, setSelectedUserEmail] = useState("");
+
 
   const token = localStorage.getItem("token");
 
-  // Cargar usuarios al montar el componente
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -38,7 +40,6 @@ const AdminPanel = () => {
     fetchUsers();
   }, []);
 
-  // Función para buscar usuarios por email
   const handleSearch = () => {
     const result = users.filter((u) =>
       u.email.toLowerCase().includes(searchEmail.toLowerCase())
@@ -48,10 +49,6 @@ const AdminPanel = () => {
       toast.error("No se encontró ningún email coincidente", {
         position: "top-right",
         autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
       });
       setFilteredUsers([]);
       return;
@@ -64,7 +61,6 @@ const AdminPanel = () => {
     }
   };
 
-  // Función para filtrar usuarios por rol
   const handleRoleFilter = (role) => {
     setSelectedRole(role);
     if (role === "all") {
@@ -74,8 +70,10 @@ const AdminPanel = () => {
     }
   };
 
-  // Función para cambiar el rol de un usuario
   const handleChangeRole = async (userId, newRole) => {
+    const confirm = window.confirm(`¿Estás seguro que querés cambiar el rol a "${newRole}"?`);
+    if (!confirm) return;
+
     try {
       const response = await fetch(`http://localhost:3000/users/${userId}/role`, {
         method: "PUT",
@@ -107,6 +105,7 @@ const AdminPanel = () => {
       } else {
         setFilteredUsers(data.filter((u) => u.Role?.roleName === selectedRole));
       }
+
       toast.success("Rol actualizado correctamente", {
         position: "top-right",
         autoClose: 3000,
@@ -119,10 +118,12 @@ const AdminPanel = () => {
     }
   };
 
-  // Función para eliminar un usuario
   const handleDelete = async (id) => {
+    const confirm = window.confirm("¿Estás seguro que querés eliminar este usuario?");
+    if (!confirm) return;
+
     try {
-      const response = await fetch(`http://localhost:3000/users/${id}`, { // Corregida la URL (era /user/, ahora /users/)
+      const response = await fetch(`http://localhost:3000/users/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -140,6 +141,7 @@ const AdminPanel = () => {
           (u) => selectedRole === "all" || u.Role?.roleName === selectedRole
         )
       );
+
       toast.success("Usuario eliminado correctamente", {
         position: "top-right",
         autoClose: 3000,
@@ -151,6 +153,30 @@ const AdminPanel = () => {
       });
     }
   };
+
+  const handleViewPurchases = async (id, email) => {
+    try {
+      const response = await fetch(`http://localhost:3000/orders/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error("No se pudo obtener el historial de compras");
+      }
+  
+      const data = await response.json();
+      setSelectedUserOrders(data);
+      setSelectedUserEmail(email);
+    } catch (err) {
+      toast.error(`Error al obtener compras: ${err.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
+  };
+  
 
   return (
     <div>
@@ -168,10 +194,7 @@ const AdminPanel = () => {
       </div>
 
       <div>
-        <select
-          onChange={(e) => handleRoleFilter(e.target.value)}
-          value={selectedRole}
-        >
+        <select onChange={(e) => handleRoleFilter(e.target.value)} value={selectedRole}>
           <option value="all">Todos</option>
           <option value="user">Usuario</option>
           <option value="admin">Admin</option>
@@ -182,7 +205,7 @@ const AdminPanel = () => {
       <ul>
         {filteredUsers.map((user) => (
           <li key={user.id}>
-            {user.name} | {user.email} | Rol: {user.Role?.roleName || "Sin rol"}
+            {user.name} | {user.email} | Rol: {user.Role?.roleName || "Sin rol"}{" "}
             <select
               onChange={(e) => handleChangeRole(user.id, e.target.value)}
               value={user.Role?.roleName || "user"}
@@ -192,9 +215,39 @@ const AdminPanel = () => {
               <option value="sysadmin">Sysadmin</option>
             </select>
             <button onClick={() => handleDelete(user.id)}>Eliminar</button>
+            <button onClick={() => handleViewPurchases(user.id, user.email)}>Ver compras</button>
+
           </li>
         ))}
       </ul>
+
+      {selectedUserOrders.length > 0 && (
+  <div style={{ marginTop: "2rem" }}>
+    <h3>Compras de: {selectedUserEmail}</h3>
+    {selectedUserOrders.map((order) => (
+      <div
+        key={order.orderId}
+        
+      >
+        <p><strong>Fecha:</strong> {new Date(order.createdAt).toLocaleString()}</p>
+        <p><strong>Total:</strong> ${order.totalAmount.toFixed(2)}</p>
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          {order.orderItems.map((item) => (
+            <li key={item.order_item_id} style={{ marginBottom: "0.5rem" }}>
+              <img
+                src={item.game.imageUrl}
+                alt={item.game.nameGame}
+                
+              />
+              {item.game.nameGame} - Cant: {item.quantity}, Precio: ${item.unitPrice.toFixed(2)}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+)}
+
     </div>
   );
 };

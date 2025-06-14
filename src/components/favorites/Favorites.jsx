@@ -1,12 +1,7 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../auth/Auth.Context';
-
-
-
-
-
 
 const Favorites = () => {
 
@@ -26,8 +21,8 @@ const Favorites = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      setFavorites(res.data.Game || []);
+      console.log(res.data)
+      setFavorites(res.data.games || []);
     } catch (err) {
       console.error("Error fetching favorites", err);
     } finally {
@@ -38,31 +33,28 @@ const Favorites = () => {
   if (userId) getFavoritesById();
 }, [userId, token]);
 
+const handleDeleteFavorite = async (favoriteId) => {
+  try {
+    await axios.delete("http://localhost:3000/favorites", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        gameId: favoriteId,
+        idUser: userId,
+      },
+    });
 
-
-
-  const handleDeleteFavorite = async (favoriteId) => {
-    try {
-      await axios.delete(`http://localhost:3000/favorites/${favoriteId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setFavorites(prev => prev.filter(fav => fav.id !== favoriteId));
-    } catch (err) {
-      console.error("Error deleting favorite", err)
-    }
+    setFavorites(prev => prev.filter(fav => fav.id !== favoriteId));
+  } catch (err) {
+    console.error("Error deleting favorite", err.response?.data || err.message);
   }
-
-
-
-
-
+};
 
 
 
   if (loading) return <LoadingSpinner />;
-
+  console.log(favorites, "como lo trae")
   return (
     <div className="container mt-4">
       <h2 className="mb-4">Tus Favoritos</h2>
