@@ -2,7 +2,9 @@ import { Card, Button, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./cardsItem.css";
 import { useFavorites } from "../FavoritesContext/FavoritesContext";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { warningToast, successToast } from "/src/utils/notification";
+import { AuthContext } from "../../auth/Auth.context";
 
 const CardsItem = ({
   id,
@@ -17,16 +19,23 @@ const CardsItem = ({
 }) => {
   const navigate = useNavigate();
   const [isFavorited, setIsFavorited] = useState(false);
-  const {addToFavorites} = useFavorites();
+  const { addToFavorites } = useFavorites();
+  const { token } = useContext(AuthContext);
 
   const handleAddToFavorites = () => {
-  addToFavorites({
-    id,
-    gameName,
-    imageUrl,
-  });
-  setIsFavorited(true)
-};
+    if (!token) {
+      warningToast("Debes iniciar sesión para añadir a favoritos.");
+      return;
+    }
+    addToFavorites({
+      id,
+      gameName,
+      imageUrl,
+    });
+    setIsFavorited(true);
+    successToast("Juego añadido a lista de deseos")
+  };
+
   const HandleGameSelected = () => {
     if (onGameSelected) onGameSelected(gameName);
     navigate(`/games/${id}`, {
@@ -47,30 +56,34 @@ const CardsItem = ({
 
   return (
     <div className="card-container">
-      <Card className="cards" >
+      <Card className="cards">
         <div className="button-card" onClick={HandleGameSelected}>
-        <Card.Img height={350} variant="top" src={imageUrl} />
-        <Card.Body>
-          <div className="stock">
-            {available ? (
-              <Badge bg="success">En Stock</Badge>
-            ) : (
-              <Badge bg="danger">Sin Stock</Badge>
-            )}
-          </div>
-          <Card.Title>{gameName}</Card.Title>
-          <div>{Array.isArray(platform) ? platform.join(", ") : platform}</div>
-          <p>$ {price}</p>
-          <div className="d-grid gap-2">
-          </div>
-        </Card.Body>
+          <Card.Img height={350} variant="top" src={imageUrl} />
+          <Card.Body>
+            <div className="stock">
+              {available ? (
+                <Badge bg="success">En Stock</Badge>
+              ) : (
+                <Badge bg="danger">Sin Stock</Badge>
+              )}
+            </div>
+            <Card.Title>{gameName}</Card.Title>
+            <div>{Array.isArray(platform) ? platform.join(", ") : platform}</div>
+            <p>$ {price}</p>
+            <div className="d-grid gap-2"></div>
+          </Card.Body>
         </div>
-             <Button onClick={HandleGameSelected} className="me-3" size="sm">
-              Seleccionar juego
-            </Button>
-            <Button size="sm" className={`favorite-button ${isFavorited ? "favorited" : ""}`} variant="secondary" onClick={handleAddToFavorites}>
-              <i className={`fa${isFavorited ? 's' : 'r'} fa-heart`}></i>
-            </Button>
+        <Button onClick={HandleGameSelected} className="me-3" size="sm">
+          Seleccionar juego
+        </Button>
+        <Button
+          size="sm"
+          className={`favorite-button ${isFavorited ? "favorited" : ""}`}
+          variant="secondary"
+          onClick={handleAddToFavorites}
+        >
+          <i className={`fa${isFavorited ? "s" : "r"} fa-heart`}></i>
+        </Button>
       </Card>
     </div>
   );

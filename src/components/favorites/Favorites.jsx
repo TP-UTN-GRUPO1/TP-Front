@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react'
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../auth/Auth.Context';
+import {errorToast, successToast}from "../../utils/notification"
 
 const Favorites = () => {
 
@@ -44,10 +45,12 @@ const handleDeleteFavorite = async (favoriteId) => {
         idUser: userId,
       },
     });
+    successToast("Juego eliminado de favoritos con exito")
 
     setFavorites(prev => prev.filter(fav => fav.id !== favoriteId));
   } catch (err) {
     console.error("Error deleting favorite", err.response?.data || err.message);
+    errorToast("Ups error no se pudo quitar el juego de favo =(")
   }
 };
 
