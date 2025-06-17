@@ -3,6 +3,7 @@ import { useCart } from "../cartContext/CartContext";
 import CartItem from "../cartItem/CartItem";
 import Button from "../button/Button";
 import "./Cart.css";
+import { errorToast, successToast } from "../../utils/notification";
 
 const Cart = () => {
   const { cart, updateAmount, deleteProduct, clearCart } = useCart();
@@ -43,12 +44,12 @@ const Cart = () => {
         orderData
       );
       if (response.status === 201) {
-        alert("¡Compra realizada con éxito!");
+        successToast("¡Compra realizada con éxito!");
         clearCart();
       } else alert("Ocurrió un error al procesar tu compra.");
     } catch (e) {
       console.error("Error al enviar la orden:", e);
-      alert("No se pudo completar la compra.");
+      errorToast("No se pudo completar la compra.");
     }
   };
 

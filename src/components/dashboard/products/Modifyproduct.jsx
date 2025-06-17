@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./ModifyProduct.css";
+import { AuthContext } from "../../../auth/Auth.Context";
 
 const ModifyProduct = () => {
   const [games, setGames] = useState([]);
   const [editingPrice, setEditingPrice] = useState(null);
   const [newPrice, setNewPrice] = useState("");
-
+  const { token } = useContext(AuthContext);
   useEffect(() => {
     fetch("http://localhost:3000/games")
       .then((response) => response.json())
@@ -16,7 +17,10 @@ const ModifyProduct = () => {
     const game = games.find((g) => g.id === id);
     fetch(`http://localhost:3000/updateGame/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         nameGame: game.nameGame,
         price: game.price,
@@ -46,7 +50,10 @@ const ModifyProduct = () => {
     const game = games.find((g) => g.id === id);
     fetch(`http://localhost:3000/updateGame/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         nameGame: game.nameGame,
         price: parseFloat(newPrice),

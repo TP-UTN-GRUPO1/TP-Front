@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "../productCard/ProductCard";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import { useCart } from "../cartContext/CartContext.jsx";
+import { AuthContext } from "../../auth/Auth.Context.jsx";
+import { warningToast } from "../../utils/notification.jsx";
 
 const CardPage = () => {
   const [gameDetail, setGameDetail] = useState(null);
   const { id } = useParams();
   const { addToCart } = useCart();
+  const {token} = useContext(AuthContext);
 
   useEffect(() => {
     const getDetailGame = async () => {
@@ -23,6 +26,10 @@ const CardPage = () => {
   }, [id]);
 
   const handleAddToCart = () => {
+    if (!token) {
+      warningToast("Debes iniciar sesión para añadir al carrito.");
+      return;
+    }
     if (gameDetail) {
       addToCart({
         id: gameDetail.id,

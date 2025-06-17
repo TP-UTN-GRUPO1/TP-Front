@@ -4,7 +4,8 @@ import "./cardsItem.css";
 import { useFavorites } from "../FavoritesContext/FavoritesContext";
 import { useState, useContext } from "react";
 import { warningToast, successToast } from "/src/utils/notification";
-import { AuthContext } from "../../auth/Auth.context";
+import { AuthContext } from "../../auth/Auth.Context";
+
 
 const CardsItem = ({
   id,

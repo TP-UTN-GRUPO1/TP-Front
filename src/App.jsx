@@ -32,10 +32,10 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<LayoutNavbar hideUserButtons={true} />}>
-              <Route path="/cart" element={ <Cart /> } />
+              <Route path="/cart" element={ <ProtectedRoute> <Cart /> </ProtectedRoute> } />
               <Route path="/games/:id" element={<CardPage />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/favorites" element={<ProtectedRoute> <Favorites /> </ProtectedRoute> } />
+              <Route path="/favorites" element={<Favorites />} />
             </Route>
             <Route path="/" element={<Home />} />
             <Route path="/unauthorized" element={ <Unauthorized/> } />
