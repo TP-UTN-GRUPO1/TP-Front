@@ -4,8 +4,9 @@ import { AuthContext } from "../../../auth/Auth.Context";
 
 const ModifyProduct = () => {
   const [games, setGames] = useState([]);
-  const [editingPrice, setEditingPrice] = useState(null);
+  const [editingProduct, seteditingProduct] = useState(null);
   const [newPrice, setNewPrice] = useState("");
+  const [newTitle, setNewTitle] = useState("")
   const { token } = useContext(AuthContext);
   useEffect(() => {
     fetch("http://localhost:3000/games")
@@ -42,7 +43,8 @@ const ModifyProduct = () => {
 
   const handleEditPrice = (id) => {
     const game = games.find((g) => g.id === id);
-    setEditingPrice(id);
+    seteditingProduct(id);
+    // setEditingTitle(id);
     setNewPrice(game.price);
   };
 
@@ -55,7 +57,7 @@ const ModifyProduct = () => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        nameGame: game.nameGame,
+        nameGame: newTitle,
         price: parseFloat(newPrice),
         developer: game.developer,
         rating: game.rating,
@@ -71,8 +73,9 @@ const ModifyProduct = () => {
       .then((response) => response.json())
       .then((data) => setGames(data))
       .catch((error) => console.error("Error:", error));
-    setEditingPrice(null);
+    seteditingProduct(null);
     setNewPrice("");
+    setNewTitle("");
   };
 
   return (
@@ -87,19 +90,25 @@ const ModifyProduct = () => {
             {game.available ? "Disponible" : "Oculto"}
           </p>
 
-          {editingPrice === game.id ? (
+          {editingProduct === game.id ? (
             <div>
+              <input type="text"
+                placeholder="Inserte nuevo titulo"
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+              />
               <input
+                placeholder="Inserte nuevo precio"
                 type="number"
                 value={newPrice}
                 onChange={(e) => setNewPrice(e.target.value)}
               />
               <button onClick={() => handleSavePrice(game.id)}>Guardar</button>
-              <button onClick={() => setEditingPrice(null)}>Cancelar</button>
+              <button onClick={() => { seteditingProduct(null) }}>Cancelar</button>
             </div>
           ) : (
             <button onClick={() => handleEditPrice(game.id)}>
-              Editar Precio
+              Editar Producto
             </button>
           )}
 
