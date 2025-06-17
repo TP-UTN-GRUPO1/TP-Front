@@ -1,0 +1,155 @@
+.containerAdmin {
+  background-color: #121212;
+  color: #e0e0e0;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.containerAdmin h2 {
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.filterSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filterSection input,
+.filterSection select,
+.filterSection button {
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #666;
+  border-radius: 4px;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+.filterSection input::placeholder {
+  color: #888;
+}
+
+.filterSection input:focus,
+.filterSection select:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+.filterSection button {
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.filterSection button:hover {
+  background-color: #357ab8;
+}
+
+.userList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.userList li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #333;
+}
+
+.userList li:last-child {
+  border-bottom: none;
+}
+
+.userList span {
+  flex: 1;
+  color: #ccc;
+}
+
+.userList select,
+.userList button {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #666;
+  border-radius: 4px;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.userList select:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+.userList button:hover {
+  background-color: #333;
+}
+
+.sectionOrders {
+  margin-top: 2rem;
+}
+
+.sectionOrders div {
+  padding: 1rem;
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  background-color: #1e1e1e;
+}
+
+.sectionOrders h3 {
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.sectionOrders ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sectionOrders li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+  color: #ccc;
+}
+
+.sectionOrders img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  background-color: #333;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .filterSection {
+    flex-direction: column;
+  }
+  .userList li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .userList select,
+  .userList button {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  .sectionOrders img {
+    width: 100%;
+    height: auto;
+  }
+}

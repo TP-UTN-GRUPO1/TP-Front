@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./AdminPanel.css";
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -8,24 +9,17 @@ const AdminPanel = () => {
   const [selectedRole, setSelectedRole] = useState("all");
   const [searchEmail, setSearchEmail] = useState("");
   const [selectedUserOrders, setSelectedUserOrders] = useState([]);
-const [selectedUserEmail, setSelectedUserEmail] = useState("");
-
-
+  const [selectedUserEmail, setSelectedUserEmail] = useState("");
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await fetch("http://localhost:3000/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
-
-        if (!response.ok) {
+        if (!response.ok)
           throw new Error("No autorizado o error en la solicitud");
-        }
-
         const data = await response.json();
         setUsers(data);
         setFilteredUsers(data);
@@ -36,16 +30,14 @@ const [selectedUserEmail, setSelectedUserEmail] = useState("");
         });
       }
     };
-
     fetchUsers();
-  }, []);
+  }, [token]);
 
   const handleSearch = () => {
     const result = users.filter((u) =>
       u.email.toLowerCase().includes(searchEmail.toLowerCase())
     );
-
-    if (!result || result.length === 0) {
+    if (result.length === 0) {
       toast.error("No se encontró ningún email coincidente", {
         position: "top-right",
         autoClose: 3000,
@@ -53,29 +45,27 @@ const [selectedUserEmail, setSelectedUserEmail] = useState("");
       setFilteredUsers([]);
       return;
     }
-
-    if (selectedRole === "all") {
-      setFilteredUsers(result);
-    } else {
-      setFilteredUsers(result.filter((u) => u.Role?.roleName === selectedRole));
-    }
+    setFilteredUsers(
+      selectedRole === "all"
+        ? result
+        : result.filter((u) => u.Role?.roleName === selectedRole)
+    );
   };
 
   const handleRoleFilter = (role) => {
     setSelectedRole(role);
-    if (role === "all") {
-      setFilteredUsers(users);
-    } else {
-      setFilteredUsers(users.filter((u) => u.Role?.roleName === role));
-    }
+    setFilteredUsers(
+      role === "all" ? users : users.filter((u) => u.Role?.roleName === role)
+    );
   };
 
   const handleChangeRole = async (userId, newRole) => {
-    const confirm = window.confirm(`¿Estás seguro que querés cambiar el rol a "${newRole}"?`);
+    const confirm = window.confirm(
+      `¿Estás seguro que querés cambiar el rol a "${newRole}"?`
+    );
     if (!confirm) return;
-
     try {
-      const response = await fetch(`http://localhost:3000/users/${userId}/role`, {
+      let response = await fetch(`http://localhost:3000/users/${userId}/role`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -83,29 +73,18 @@ const [selectedUserEmail, setSelectedUserEmail] = useState("");
         },
         body: JSON.stringify({ roleName: newRole }),
       });
-
-      if (!response.ok) {
-        throw new Error("Error al cambiar el rol");
-      }
-
-      const res = await fetch("http://localhost:3000/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      if (!response.ok) throw new Error("Error al cambiar el rol");
+      response = await fetch("http://localhost:3000/users", {
+        headers: { Authorization: `Bearer ${token}` },
       });
-
-      if (!res.ok) {
-        throw new Error("Error al recargar usuarios");
-      }
-
-      const data = await res.json();
+      if (!response.ok) throw new Error("Error al recargar usuarios");
+      const data = await response.json();
       setUsers(data);
-      if (selectedRole === "all") {
-        setFilteredUsers(data);
-      } else {
-        setFilteredUsers(data.filter((u) => u.Role?.roleName === selectedRole));
-      }
-
+      setFilteredUsers(
+        selectedRole === "all"
+          ? data
+          : data.filter((u) => u.role?.roleName === selectedRole)
+      );
       toast.success("Rol actualizado correctamente", {
         position: "top-right",
         autoClose: 3000,
@@ -119,21 +98,16 @@ const [selectedUserEmail, setSelectedUserEmail] = useState("");
   };
 
   const handleDelete = async (id) => {
-    const confirm = window.confirm("¿Estás seguro que querés eliminar este usuario?");
+    const confirm = window.confirm(
+      "¿Estás seguro que querés eliminar este usuario?"
+    );
     if (!confirm) return;
-
     try {
-      const response = await fetch(`http://localhost:3000/users/${id}`, {
+      const response = await fetch(`http://localhost:3000/user/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
-      if (!response.ok) {
-        throw new Error("Error al eliminar usuario");
-      }
-
+      if (!response.ok) throw new Error("Error al eliminar usuario");
       const updatedUsers = users.filter((u) => u.id !== id);
       setUsers(updatedUsers);
       setFilteredUsers(
@@ -141,7 +115,6 @@ const [selectedUserEmail, setSelectedUserEmail] = useState("");
           (u) => selectedRole === "all" || u.Role?.roleName === selectedRole
         )
       );
-
       toast.success("Usuario eliminado correctamente", {
         position: "top-right",
         autoClose: 3000,
@@ -157,15 +130,10 @@ const [selectedUserEmail, setSelectedUserEmail] = useState("");
   const handleViewPurchases = async (id, email) => {
     try {
       const response = await fetch(`http://localhost:3000/orders/user/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-  
-      if (!response.ok) {
+      if (!response.ok)
         throw new Error("No se pudo obtener el historial de compras");
-      }
-  
       const data = await response.json();
       setSelectedUserOrders(data);
       setSelectedUserEmail(email);
@@ -176,14 +144,13 @@ const [selectedUserEmail, setSelectedUserEmail] = useState("");
       });
     }
   };
-  
 
   return (
-    <div>
+    <div className="containerAdmin">
       <h2>Panel de Administración</h2>
       <ToastContainer />
 
-      <div>
+      <div className="filterSection">
         <input
           type="text"
           placeholder="Buscar por email"
@@ -191,10 +158,10 @@ const [selectedUserEmail, setSelectedUserEmail] = useState("");
           onChange={(e) => setSearchEmail(e.target.value)}
         />
         <button onClick={handleSearch}>Buscar</button>
-      </div>
-
-      <div>
-        <select onChange={(e) => handleRoleFilter(e.target.value)} value={selectedRole}>
+        <select
+          onChange={(e) => handleRoleFilter(e.target.value)}
+          value={selectedRole}
+        >
           <option value="all">Todos</option>
           <option value="user">Usuario</option>
           <option value="admin">Admin</option>
@@ -202,52 +169,54 @@ const [selectedUserEmail, setSelectedUserEmail] = useState("");
         </select>
       </div>
 
-      <ul>
+      <ul className="userList">
         {filteredUsers.map((user) => (
           <li key={user.id}>
-            {user.name} | {user.email} | Rol: {user.Role?.roleName || "Sin rol"}{" "}
+            <span>
+              {user.name} | {user.email} | Rol:{" "}
+              {user.role?.roleName || "Sin rol"}
+            </span>
             <select
               onChange={(e) => handleChangeRole(user.id, e.target.value)}
-              value={user.Role?.roleName || "user"}
+              value={user.role?.roleName || "user"}
             >
               <option value="user">Usuario</option>
               <option value="admin">Admin</option>
               <option value="sysadmin">Sysadmin</option>
             </select>
             <button onClick={() => handleDelete(user.id)}>Eliminar</button>
-            <button onClick={() => handleViewPurchases(user.id, user.email)}>Ver compras</button>
-
+            <button onClick={() => handleViewPurchases(user.id, user.email)}>
+              Ver compras
+            </button>
           </li>
         ))}
       </ul>
 
       {selectedUserOrders.length > 0 && (
-  <div style={{ marginTop: "2rem" }}>
-    <h3>Compras de: {selectedUserEmail}</h3>
-    {selectedUserOrders.map((order) => (
-      <div
-        key={order.orderId}
-        
-      >
-        <p><strong>Fecha:</strong> {new Date(order.createdAt).toLocaleString()}</p>
-        <p><strong>Total:</strong> ${order.totalAmount.toFixed(2)}</p>
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {order.orderItems.map((item) => (
-            <li key={item.order_item_id} style={{ marginBottom: "0.5rem" }}>
-              <img
-                src={item.game.imageUrl}
-                alt={item.game.nameGame}
-                
-              />
-              {item.game.nameGame} - Cant: {item.quantity}, Precio: ${item.unitPrice.toFixed(2)}
-            </li>
+        <div className="sectionOrders">
+          <h3>Compras de: {selectedUserEmail}</h3>
+          {selectedUserOrders.map((order) => (
+            <div key={order.orderId}>
+              <p>
+                <strong>Fecha:</strong>{" "}
+                {new Date(order.createdAt).toLocaleString()}
+              </p>
+              <p>
+                <strong>Total:</strong> ${order.totalAmount.toFixed(2)}
+              </p>
+              <ul>
+                {order.orderItems.map((item) => (
+                  <li key={item.order_item_id}>
+                    <img src={item.game.imageUrl} alt={item.game.nameGame} />
+                    {item.game.nameGame} - Cant: {item.quantity}, Precio: $
+                    {item.unitPrice.toFixed(2)}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
-      </div>
-    ))}
-  </div>
-)}
-
+        </div>
+      )}
     </div>
   );
 };

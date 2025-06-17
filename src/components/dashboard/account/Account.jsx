@@ -1,15 +1,43 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Account.css";
 
 const Account = () => {
   const [address, setAddress] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [lastName, setLastname] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [province, setProvince] = useState("");
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("theFrog-user"));
+  const userId = user?.id;
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const confirm = window.confirm("¿Querés guardar los cambios en tu cuenta?");
+    if (!confirm) return;
+
+    const body = { id: userId, address, lastName, city, province, country };
+
+    try {
+      const response = await fetch("http://localhost:3000/account", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al guardar los cambios");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta del servidor:", data);
+    } catch (err) {
+      console.error("Error:", err);
+    }
   };
 
   return (
@@ -61,12 +89,14 @@ const Account = () => {
           <input
             type="text"
             placeholder="Apellido"
-            value={lastname}
+            value={lastName}
             onChange={(e) => setLastname(e.target.value)}
           />
         </label>
 
-        <button type="submit">Guardar Cambios</button>
+        <button type="submit" onClick={handleSubmit}>
+          Guardar Cambios
+        </button>
       </form>
     </section>
   );
