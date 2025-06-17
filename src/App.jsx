@@ -21,6 +21,8 @@ import Newproduct from "./components/dashboard/products/Newproduct.jsx";
 import ModifyProduct from "./components/dashboard/products/Modifyproduct.jsx";
 import { FavoritesProvider } from "./components/FavoritesContext/FavoritesContext.jsx";
 import AdminPanel from "./components/dashboard/admin/AdminPanel.jsx";
+import ProtectedRoute from "./components/routes/protected/ProtectedRoute.jsx";
+import Unauthorized from "./components/err/Unauthorized.jsx";
 
 function App() {
   return (
@@ -30,19 +32,20 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<LayoutNavbar hideUserButtons={true} />}>
-              <Route path="/cart" element={<Cart />} />
+              <Route path="/cart" element={ <Cart /> } />
               <Route path="/games/:id" element={<CardPage />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/favorites" element={<ProtectedRoute> <Favorites /> </ProtectedRoute> } />
             </Route>
             <Route path="/" element={<Home />} />
+            <Route path="/unauthorized" element={ <Unauthorized/> } />
             <Route path="*" element={<Err />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />}>
-              <Route path="user" element={<AdminPanel />} />
-              <Route path="products" element={<Newproduct />} />
-              <Route path="modifyproducts" element={<ModifyProduct />} />
+            <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>}>
+              <Route path="user" element={<ProtectedRoute requiredRole={1}> <AdminPanel /> </ProtectedRoute>} />
+              <Route path="products" element={<ProtectedRoute requiredRole={[1, 3]}><Newproduct /></ProtectedRoute>} />
+              <Route path="modifyproducts" element={<ProtectedRoute requiredRole={[1, 3]}><ModifyProduct /></ProtectedRoute>} />
               <Route path="purchasedHistory" element={<PurchasedHistory />} />
               <Route path="account" element={<Account />} />
             </Route>

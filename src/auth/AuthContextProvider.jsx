@@ -15,18 +15,21 @@ function getLocalJSON(key, defaultValue) {
 }
 
 export const AuthContextProvider = ({ children }) => {
-  const tokenSaved =localStorage.getItem("theFrog-token");
+  const tokenSaved = localStorage.getItem("theFrog-token");
   const userSaved = getLocalJSON("theFrog-user", {});
+  const roleSaved = getLocalJSON("roleUser", null);
 
   const [token, setToken] = useState(tokenSaved);
   const [username, setUsername] = useState(userSaved.name || "");
+  const [userRole, setUserRole] = useState(roleSaved);
 
   const handleUserLogin = (newToken, userData) => {
-
+    localStorage.setItem("roleUser", JSON.stringify(userData.roleId));
     localStorage.setItem("theFrog-token", newToken);
     localStorage.setItem("theFrog-user", JSON.stringify(userData));
     setToken(newToken);
     setUsername(userData.name);
+    setUserRole(userData.roleId); 
   };
 
   const handleUserLogout = () => {
@@ -38,7 +41,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ token, username, handleUserLogin, handleUserLogout }}
+      value={{ token, username, userRole, handleUserLogin, handleUserLogout }}
     >
       {children}
     </AuthContext.Provider>
