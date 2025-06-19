@@ -1,8 +1,8 @@
 import { Card, Button, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./cardsItem.css";
+import "./CardsItem.css";
 import { useFavorites } from "../FavoritesContext/FavoritesContext";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { warningToast, successToast } from "/src/utils/notification";
 import { AuthContext } from "../../auth/Auth.Context";
 
@@ -19,7 +19,6 @@ const CardsItem = ({
   genre,
 }) => {
   const navigate = useNavigate();
-  const [isFavorited, setIsFavorited] = useState(false);
   const { addToFavorites } = useFavorites();
   const { token } = useContext(AuthContext);
 
@@ -33,11 +32,10 @@ const CardsItem = ({
       gameName,
       imageUrl,
     });
-    setIsFavorited(true);
     successToast("Juego añadido a lista de deseos")
   };
 
-  const HandleGameSelected = () => {
+  const handleGameSelected = () => {
     if (onGameSelected) onGameSelected(gameName);
     navigate(`/games/${id}`, {
       state: {
@@ -58,7 +56,7 @@ const CardsItem = ({
   return (
     <div className="card-container">
       <Card className="cards">
-        <div className="button-card" onClick={HandleGameSelected}>
+        <div className="button-card" onClick={handleGameSelected}>
           <Card.Img height={350} variant="top" src={imageUrl} />
           <Card.Body>
             <div className="stock">
@@ -74,16 +72,16 @@ const CardsItem = ({
             <div className="d-grid gap-2"></div>
           </Card.Body>
         </div>
-        <Button onClick={HandleGameSelected} className="me-3" size="sm">
+        <Button onClick={handleGameSelected} className="me-3" size="sm">
           Seleccionar juego
         </Button>
         <Button
           size="sm"
-          className={`favorite-button ${isFavorited ? "favorited" : ""}`}
+          className="ButtonFavorite"
           variant="secondary"
           onClick={handleAddToFavorites}
         >
-          <i className={`fa${isFavorited ? "s" : "r"} fa-heart`}></i>
+          Añadir a favoritos
         </Button>
       </Card>
     </div>

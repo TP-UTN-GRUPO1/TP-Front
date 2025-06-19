@@ -1,5 +1,53 @@
-.cart-header{
-    display: flex;
-    justify-content: space-between;
-    
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: Tahoma, Verdana, sans-serif;
+}
+
+.cards {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  text-align: center;
+  width: 300px;
+  margin: 40px auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: aliceblue;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  border-color: var(--verde-claro);
+}
+
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 0 4rem;
+  justify-items: center;
+}
+
+.cards button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+
+.favorite-button i {
+  color: gray;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.favorite-button.favorited i {
+  color: red;
+}
+
+.favorite-button:hover i {
+  transform: scale(1.2);
 }

@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from 'react'
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../auth/Auth.Context';
 import {errorToast, successToast}from "../../utils/notification"
+import "./Favorites.css"
+import { Button, Card } from 'react-bootstrap';
 
 const Favorites = () => {
 
@@ -60,26 +62,26 @@ const handleDeleteFavorite = async (favoriteId) => {
   console.log(favorites, "como lo trae")
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Tus Favoritos</h2>
+      <h2 className="text-white">Tus Favoritos</h2>
 
       {favorites.length === 0 ? (
-        <p>No tenés juegos en favoritos todavía.</p>
+        <p className='text-white'>No tenés juegos en favoritos todavía.</p>
       ) : (
         <div className="row">
           {favorites.map((fav) => (
             <div className="col-md-4 mb-4" key={fav.id}>
-              <div className="card h-100">
-                <img src={fav.imageUrl} className="card-img-top" alt={fav.nameGame} />
-                <div className="card-body">
+              <Card className="cards">
+                <Card.Img src={fav.imageUrl} height={350} variant='top' alt={fav.nameGame} />
+                <Card.Body className="card-body">
                   <h5 className="card-title">{fav.nameGame}</h5>
-                  <button
-                    className="btn btn-danger"
+                  <Button
+                    className="button"
                     onClick={() => handleDeleteFavorite(fav.id)}
                   >
                     Eliminar de favoritos
-                  </button>
-                </div>
-              </div>
+                  </Button>
+                </Card.Body>
+              </Card>
             </div>
           ))}
         </div>
