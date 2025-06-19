@@ -5,6 +5,7 @@ import { errorToast, successToast } from "../../../utils/notification.jsx";
 import { AuthContext } from "../../../auth/Auth.Context.jsx";
 import "./Login.css";
 import { loginUser } from "./Login.services.js";
+import { useTranslate } from "../../../hooks/useTranslate.jsx";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -17,7 +18,7 @@ const Login = () => {
   const passwordRef = useRef(null);
 
   const navigate = useNavigate();
-
+  const translate = useTranslate();
   const { handleUserLogin } = useContext(AuthContext);
 
   const handleChange = (e) => {
@@ -37,7 +38,7 @@ const Login = () => {
         ...prev,
         errors: { ...prev.errors, email: true },
       }));
-      errorToast("Email invalido");
+      errorToast(translate("Invalid_Email"));
       return;
     } else if (
       !form.password.length ||
@@ -47,7 +48,7 @@ const Login = () => {
         ...prev,
         errors: { ...prev.errors, password: true },
       }));
-      errorToast("Contraseña incorrecta!");
+      errorToast(translate("Incorrect_Password"));
       passwordRef.current.focus();
       return;
     }
@@ -60,7 +61,7 @@ const Login = () => {
         console.log("UserData:", userData);
         handleUserLogin(token, userData);
         navigate("/");
-        successToast("Sesión iniciada correctamente");
+        successToast(translate("Session_started"));
       },
       (err) => errorToast(err)
     );
@@ -68,14 +69,14 @@ const Login = () => {
 
   return (
     <section className="containerLogin">
-      <h1 className="h1Login">Iniciar sesión</h1>
+      <h1 className="h1Login">{translate("Login")} </h1>
       <form className="formLogin" onSubmit={handleSubmit}>
         <input
           type="text"
           required
           ref={emailRef}
           className="inputLogin"
-          placeholder="Ingresa email"
+          placeholder={translate("Enter_email")}
           value={form.email}
           name="email"
           onChange={handleChange}
@@ -85,7 +86,7 @@ const Login = () => {
           required
           ref={passwordRef}
           className="inputLogin"
-          placeholder="Contraseña"
+          placeholder={translate("Password")}
           value={form.password}
           name="password"
           onChange={(e) => {
@@ -93,22 +94,22 @@ const Login = () => {
           }}
         />
         <button className="buttonLogin" type="submit">
-          Iniciar sesion
+          {translate("Login")}
         </button>
         <>
-          <h3>¿No tienes cuenta?</h3>
+          <h3>{translate("Have_account?")} </h3>
           <Link to="/register" className="buttonLogin">
-            Registrarse
+            {translate("Register")}
           </Link>
         </>
         <>
           <Link to="/" className="linkLogin">
-            Volver
+            {translate("Return")}
           </Link>
         </>
         {form.errors.email && <p className="errorLogin">Email inválido</p>}
         {form.errors.password && (
-          <p className="errorLogin">Contraseña inválida</p>
+          <p className="errorLogin">{translate("Invalid_Password")}</p>
         )}
       </form>
     </section>

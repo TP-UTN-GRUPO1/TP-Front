@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "./Newproduct.css";
+import { useTranslate } from "../../../hooks/useTranslate";
 
 const Newproduct = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +15,7 @@ const Newproduct = () => {
     genres: [],
   });
   const [errors, setErrors] = useState({});
-
+  const translate= useTranslate();
   const availablePlatforms = [
     "PC",
     "PS4",
@@ -141,12 +142,12 @@ const Newproduct = () => {
   return (
     <div className="form-container">
       <div className="game-card">
-        <h3>Registrar Nuevo Juego</h3>
+        <h3>{translate("Register_product")}</h3>
 
         <input
           type="text"
           name="nameGame"
-          placeholder="Nombre del Juego"
+          placeholder={translate("Name_Game")}
           value={formData.nameGame}
           onChange={handleChange}
         />
@@ -155,7 +156,7 @@ const Newproduct = () => {
         <input
           type="text"
           name="developer"
-          placeholder="Desarrollador"
+          placeholder={translate("Developer")}
           value={formData.developer}
           onChange={handleChange}
         />
@@ -173,7 +174,7 @@ const Newproduct = () => {
         <input
           type="url"
           name="imageUrl"
-          placeholder="URL de la imagen"
+          placeholder={translate("Img_URL")}
           value={formData.imageUrl}
           onChange={handleChange}
         />
@@ -182,18 +183,18 @@ const Newproduct = () => {
         <input
           type="number"
           name="price"
-          placeholder="Precio"
+          placeholder={translate("Price")}
           value={formData.price}
           onChange={handleChange}
         />
         {errors.price && <p className="error">{errors.price}</p>}
 
-        <label>Plataforma:</label>
+        <label>{translate("Platform")}:</label>
         <select
           onChange={(e) => handleSelect(e, "platforms", Infinity)}
           value=""
         >
-          <option value="">Seleccione...</option>
+          <option value="">{translate("Select")}...</option>
           {availablePlatforms.map((p) => (
             <option key={p} value={p}>
               {p}
@@ -202,9 +203,9 @@ const Newproduct = () => {
         </select>
         {errors.platforms && <p className="error">{errors.platforms}</p>}
 
-        <label>Género:</label>
+        <label>{translate("Genre")}:</label>
         <select onChange={(e) => handleSelect(e, "genres", 3)} value="">
-          <option value="">Seleccione...</option>
+          <option value="">{translate("Select")}...</option>
           {availableGenres.map((g) => (
             <option key={g} value={g}>
               {g}
@@ -220,17 +221,17 @@ const Newproduct = () => {
             checked={formData.available}
             onChange={handleChange}
           />
-          Disponible
+          {translate("Available")}
         </label>
 
         <button type="button" onClick={handleSubmit}>
-          Guardar
+         {translate("Save")}
         </button>
         {errors.api && <p className="error">{errors.api}</p>}
       </div>
 
       <div className="summary-card">
-        <h4>Plataformas Seleccionadas</h4>
+        <h4>{translate("Platform_select")}</h4>
         <div className="chip-container">
           {formData.platforms.map((p) => (
             <span key={p} className="chip">
@@ -240,7 +241,7 @@ const Newproduct = () => {
           ))}
         </div>
 
-        <h4>Géneros Seleccionados</h4>
+        <h4>{translate("Genre_select")}</h4>
         <div className="chip-container">
           {formData.genres.map((g) => (
             <span key={g} className="chip">

@@ -2,37 +2,39 @@ import { Outlet, Link } from "react-router-dom";
 import styles from "./Dashboard.module.css";
 import { useContext } from "react";
 import { AuthContext } from "../../auth/Auth.Context";
+import { useTranslate } from "../../hooks/useTranslate";
 
 const Dashboard = () => {
   const {userRole}= useContext(AuthContext)
+  const translate = useTranslate();
   return (
     <div className={styles.dashboardContainer}>
-      <h1 className={styles.title}>Mi Cuenta</h1>
+      <h1 className={styles.title}>{translate("My_Account")}</h1>
       <div className={styles.buttonGroup}>
         <Link to="account" className={styles.navButton}>
-          Mis Datos
+          {translate("Data")}
         </Link>
         <Link to="purchasedHistory" className={styles.navButton}>
-          Historial de compras
+          {translate("Pucharse_history")}
         </Link>
         {userRole=== 1 && 
          ( <Link to="user" className={styles.navButton}>
-          Panel de usuarios
+          {translate("User_dashboard")}
         </Link>
       )}
 
        {( userRole===1 || userRole=== 3) && (
           <>
          <Link to="products" className={styles.navButton}>
-          Agregar producto
+        {translate("Add_product")}
         </Link>
         <Link to="modifyproducts" className={styles.navButton}>
-          Modificar producto
+          {translate("Modify_product")}
         </Link>
         </>
         )}
         <Link to="/" className={styles.backButton}>
-          Volver
+          {translate("Return")}
         </Link>
       </div>
       <Outlet />

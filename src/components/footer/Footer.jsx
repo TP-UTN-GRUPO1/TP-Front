@@ -1,15 +1,17 @@
+import { useTranslate } from "../../hooks/useTranslate";
 import styles from "./Footer.module.css";
 
 const Footer = () => {
+  const translate = useTranslate()
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
         <div className={styles.footerSection}>
-          <h4>Sobre Nosotros</h4>
+          <h4>{translate("About_us")}</h4>
           <p>
-            Estudiantes de la Tecnicatura de Programación en la UTN de Rosario.
+            {translate("About_body")}
           </p>
-          <span className={styles.spanFooter}>Integrantes:</span>
+          <span className={styles.spanFooter}>{translate("Members")}</span>
           <p>
             Saporiti Martin
             <br />
@@ -20,16 +22,16 @@ const Footer = () => {
         </div>
 
         <div className={styles.footerSection}>
-          <h4>Enlaces Rápidos</h4>
+          <h4>{translate("Quick_Links")}</h4>
           <ul>
             <li>
-              <a href="/contact">Contáctanos</a>
+              <a href="/contact">{translate("Contact_us")}</a>
             </li>
           </ul>
         </div>
 
         <div className={styles.footerSection}>
-          <h4>Seguinos en las redes</h4>
+          <h4>{translate("Follow_us")}</h4>
           <ul>
             <li>
               <a
@@ -64,8 +66,7 @@ const Footer = () => {
 
       <div className={styles.footerBottom}>
         <p>
-          &copy; {new Date().getFullYear()} TheFrog. Todos los derechos
-          reservados.
+          &copy; {new Date().getFullYear()} TheFrog. {translate("All_rights_reserved")}
         </p>
       </div>
     </footer>

@@ -2,10 +2,13 @@ import { NavDropdown } from "react-bootstrap";
 import { SORT_ORDERS } from "../home/Home.consts";
 import { ORDER_LABELS } from "./PlatformOrderLabel";
 import { useState } from "react";
+import { useTranslate } from "../../hooks/useTranslate";
 
 const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
-  const [orderLabel, setOrderLabel] = useState("Ordenar por");
-
+  const translate = useTranslate();
+  
+  const [orderLabel, setOrderLabel] = useState(translate("Order_By"));
+  
   const platforms = [
     "PS5",
     "PS4",
@@ -37,19 +40,19 @@ const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
           active={selectedOrder === SORT_ORDERS.LOW_TO_HIGH}
           onClick={() => {
             onselectedOrder(SORT_ORDERS.LOW_TO_HIGH);
-            setOrderLabel(ORDER_LABELS[SORT_ORDERS.LOW_TO_HIGH]);
+            setOrderLabel(translate("Lowest-Highest"));
           }}
         >
-          Menor-Mayor
+          {translate("Lowest-Highest")}
         </NavDropdown.Item>
         <NavDropdown.Item
           active={selectedOrder === SORT_ORDERS.HIGH_TO_LOW}
           onClick={() => {
             onselectedOrder(SORT_ORDERS.HIGH_TO_LOW);
-            setOrderLabel(ORDER_LABELS[SORT_ORDERS.HIGH_TO_LOW]);
+             setOrderLabel(translate("Highest-Lowest"));
           }}
         >
-          Mayor-Menor
+          {translate("Highest-Lowest")}
         </NavDropdown.Item>
         <NavDropdown.Item 
         active={selectedOrder === SORT_ORDERS.A_Z}
@@ -70,9 +73,9 @@ const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
         <NavDropdown.Divider />
         <NavDropdown.Item onClick={() =>{
           onselectedOrder(SORT_ORDERS.RESET);
-          setOrderLabel(ORDER_LABELS[SORT_ORDERS.RESET]);
+           setOrderLabel(translate("Order_By"));
           }}>
-          Reiniciar Filtros
+         {translate("Reset_Filters")}
         </NavDropdown.Item>
       </NavDropdown>
     </div>

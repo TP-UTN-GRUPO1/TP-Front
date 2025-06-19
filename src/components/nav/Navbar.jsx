@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/Auth.Context";
 import { useCart } from "../cartContext/CartContext";
 import { successToast } from "../../utils/notification";
+import ToggleLanguage from "../../ui/toggleLanguage/ToggleLanguage";
+import { useTranslate } from "../../hooks/useTranslate";
 
 const Navbar = ({
   selectedOrder,
@@ -22,7 +24,7 @@ const Navbar = ({
   const navigate = useNavigate();
 
   const { token, username, handleUserLogout } = useContext(AuthContext);
-
+ const translate = useTranslate();
   const { cart } = useCart();
 
   const totalProduct = cart.reduce((acc, product) => acc + product.amount, 0);
@@ -67,6 +69,9 @@ const Navbar = ({
           onQueryChange={setQuery}
           onSearch={handleSearch}
         />
+        <div className="language-select-wrapper">
+        <ToggleLanguage/>
+        </div>
         <div className="navbar-right">
           <Link to="/cart" className="icon-button">
             <span className="counter">{totalProduct} </span>
@@ -81,7 +86,7 @@ const Navbar = ({
             <>
               <Link to="/dashboard">
                 <button className="nav-button primary">
-                  Panel de {username}
+                  {translate("Dashboard_of")} {username}
                 </button>
               </Link>
               <button
@@ -89,15 +94,15 @@ const Navbar = ({
                 onClick={() => {
                   handleUserLogout();
                   navigate("/");
-                  successToast("Sesion cerrada! Hasta pronto!");
+                  successToast(translate("Session_closed"));
                 }}
               >
-                Cerrar sesión
+                {translate("Log_out")}
               </button>
             </>
           ) : (
             <Link to="/login">
-              <button className="nav-button primary">Iniciar Sesión</button>
+              <button className="nav-button primary">{translate("Login")}</button>
             </Link>
           )}
         </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./AdminPanel.css";
+import { useTranslate } from "../../../hooks/useTranslate";
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -11,6 +12,7 @@ const AdminPanel = () => {
   const [selectedUserOrders, setSelectedUserOrders] = useState([]);
   const [selectedUserEmail, setSelectedUserEmail] = useState("");
   const token = localStorage.getItem("token");
+  const translate = useTranslate()
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -147,23 +149,23 @@ const AdminPanel = () => {
 
   return (
     <div className="containerAdmin">
-      <h2>Panel de Administración</h2>
+      <h2>{translate("Admin_Dash")}</h2>
       <ToastContainer />
 
       <div className="filterSection">
         <input
           type="text"
-          placeholder="Buscar por email"
+          placeholder={translate("Search_email")}
           value={searchEmail}
           onChange={(e) => setSearchEmail(e.target.value)}
         />
-        <button onClick={handleSearch}>Buscar</button>
+        <button onClick={handleSearch}>{translate("Search")}</button>
         <select
           onChange={(e) => handleRoleFilter(e.target.value)}
           value={selectedRole}
         >
-          <option value="all">Todos</option>
-          <option value="user">Usuario</option>
+          <option value="all">{translate("All")}</option>
+          <option value="user">{translate("User")}</option>
           <option value="admin">Admin</option>
           <option value="sysadmin">Sysadmin</option>
         </select>
@@ -186,7 +188,7 @@ const AdminPanel = () => {
             </select>
             <button onClick={() => handleDelete(user.id)}>Eliminar</button>
             <button onClick={() => handleViewPurchases(user.id, user.email)}>
-              Ver compras
+              {translate("See_Pucharse")}
             </button>
           </li>
         ))}
@@ -198,7 +200,7 @@ const AdminPanel = () => {
           {selectedUserOrders.map((order) => (
             <div key={order.orderId}>
               <p>
-                <strong>Fecha:</strong>{" "}
+                <strong>{translate("Date")}:</strong>{" "}
                 {new Date(order.createdAt).toLocaleString()}
               </p>
               <p>
@@ -208,7 +210,7 @@ const AdminPanel = () => {
                 {order.orderItems.map((item) => (
                   <li key={item.order_item_id}>
                     <img src={item.game.imageUrl} alt={item.game.nameGame} />
-                    {item.game.nameGame} - Cant: {item.quantity}, Precio: $
+                    {item.game.nameGame} - Cant: {item.quantity}, {translate("Precio")}: $
                     {item.unitPrice.toFixed(2)}
                   </li>
                 ))}

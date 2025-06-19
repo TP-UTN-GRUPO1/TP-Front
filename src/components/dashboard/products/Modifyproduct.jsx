@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./ModifyProduct.css";
 import { AuthContext } from "../../../auth/Auth.Context";
+import { useTranslate } from "../../../hooks/useTranslate";
 
 const ModifyProduct = () => {
   const [games, setGames] = useState([]);
@@ -8,6 +9,7 @@ const ModifyProduct = () => {
   const [newPrice, setNewPrice] = useState("");
   const [newTitle, setNewTitle] = useState("")
   const { token } = useContext(AuthContext);
+  const translate=useTranslate();
   useEffect(() => {
     fetch("http://localhost:3000/games")
       .then((response) => response.json())
@@ -83,37 +85,37 @@ const ModifyProduct = () => {
       {games.map((game) => (
         <div className="game-card" key={game.id}>
           <h3>{game.nameGame}</h3>
-          <p>Precio: ${game.price}</p>
+          <p>{translate("Price")}: ${game.price}</p>
           <p
             className={`status ${game.available ? "available" : "unavailable"}`}
           >
-            {game.available ? "Disponible" : "Oculto"}
+            {game.available ? translate("Available") : translate("Hidden")}
           </p>
 
           {editingProduct === game.id ? (
             <div>
               <input type="text"
-                placeholder="Inserte nuevo titulo"
+                placeholder={translate("Insert_title")}
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
               />
               <input
-                placeholder="Inserte nuevo precio"
+                placeholder={translate("Insert_Price")}
                 type="number"
                 value={newPrice}
                 onChange={(e) => setNewPrice(e.target.value)}
               />
-              <button onClick={() => handleSavePrice(game.id)}>Guardar</button>
-              <button onClick={() => { seteditingProduct(null) }}>Cancelar</button>
+              <button onClick={() => handleSavePrice(game.id)}>{translate("Save")}</button>
+              <button onClick={() => { seteditingProduct(null) }}>{translate("Cancel")}</button>
             </div>
           ) : (
             <button onClick={() => handleEditPrice(game.id)}>
-              Editar Producto
+              {translate("Edit_Prod")}
             </button>
           )}
 
           <button onClick={() => handleToggleAvailability(game.id)}>
-            {game.available ? "Ocultar" : "Mostrar"}
+            {game.available ? translate("Hide") : translate("Show")}
           </button>
         </div>
       ))}

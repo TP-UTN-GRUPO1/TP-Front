@@ -5,13 +5,14 @@ import { AuthContext } from '../../auth/Auth.Context';
 import {errorToast, successToast}from "../../utils/notification"
 import "./Favorites.css"
 import { Button, Card } from 'react-bootstrap';
+import { useTranslate } from '../../hooks/useTranslate';
 
 const Favorites = () => {
 
   const { token } = useContext(AuthContext);
   const user = JSON.parse(localStorage.getItem("theFrog-user"));
   const userId = user?.id;
-
+  const translate = useTranslate();
 
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -62,10 +63,10 @@ const handleDeleteFavorite = async (favoriteId) => {
   console.log(favorites, "como lo trae")
   return (
     <div className="container mt-4">
-      <h2 className="text-white">Tus Favoritos</h2>
+      <h2>{translate("Your_Favorites")}</h2>
 
       {favorites.length === 0 ? (
-        <p className='text-white'>No tenés juegos en favoritos todavía.</p>
+        <p className='text-white'>{translate("No_games_favorites")}</p>
       ) : (
         <div className="row">
           {favorites.map((fav) => (
@@ -78,7 +79,7 @@ const handleDeleteFavorite = async (favoriteId) => {
                     className="button"
                     onClick={() => handleDeleteFavorite(fav.id)}
                   >
-                    Eliminar de favoritos
+                    {translate("Remove_from_favorites")}
                   </Button>
                 </Card.Body>
               </Card>

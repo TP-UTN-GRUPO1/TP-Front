@@ -226,3 +226,8 @@
   border-radius: 8px; 
   background: transparent;
 }
+
+.language-select-wrapper {
+  min-width: 150px;
+  margin-right: 1rem;
+}

@@ -4,10 +4,11 @@ import CartItem from "../cartItem/CartItem";
 import Button from "../button/Button";
 import "./Cart.css";
 import { errorToast, successToast } from "../../utils/notification";
+import { useTranslate } from "../../hooks/useTranslate";
 
 const Cart = () => {
   const { cart, updateAmount, deleteProduct, clearCart } = useCart();
-
+  const translate =useTranslate();
   const total = cart.reduce(
     (acc, product) => acc + product.price * product.amount,
     0
@@ -24,7 +25,7 @@ const Cart = () => {
   const handleCheckout = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user?.id) {
-      alert("Tenés que iniciar sesión para finalizar la compra.");
+      errorToast("Tenés que iniciar sesión para finalizar la compra.");
       return;
     }
 
@@ -44,30 +45,30 @@ const Cart = () => {
         orderData
       );
       if (response.status === 201) {
-        successToast("¡Compra realizada con éxito!");
+        successToast(translate("Purchase_successfully"));
         clearCart();
       } else alert("Ocurrió un error al procesar tu compra.");
     } catch (e) {
       console.error("Error al enviar la orden:", e);
-      errorToast("No se pudo completar la compra.");
+      errorToast(translate("Error_pucharse"));
     }
   };
 
   return (
     <div className="cart-container">
       <h2>
-        TU <span>CARRITO</span>
+        {translate("YOUR")} <span>{translate("CART")}</span>
       </h2>
       {cart.length === 0 ? (
-        <p>Tu carrito está vacío</p>
+        <p>{translate("empty_cart")}</p>
       ) : (
         <>
           <div className="cart-header">
-            <span>Producto</span>
-            <span>Precio</span>
-            <span>Cantidad</span>
+            <span>{translate("Product")}  </span>
+            <span>{translate("Price")}</span>
+            <span>{translate("Amount")}</span>
             <span>Total</span>
-            <span>Eliminar producto</span>
+            <span>{translate("Delete_Product")}</span>
           </div>
           <ul className="cart-items">
             {cart.map((product) => (
@@ -81,9 +82,9 @@ const Cart = () => {
             ))}
           </ul>
           <div className="cart-summary">
-            <p className="total">Total a pagar: ${total.toFixed(2)}</p>
+            <p className="total">{translate("Total_pay")}: ${total.toFixed(2)}</p>
             <Button
-              text="Pagar"
+              text={translate("Pay")}
               onClick={handleCheckout}
               className="checkout-btn"
             />

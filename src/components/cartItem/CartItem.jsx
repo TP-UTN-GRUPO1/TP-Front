@@ -1,9 +1,11 @@
 import QuantityControl from "../quantityControl/QuantityControl";
 import Button from "../button/Button";
 import "./CartItem.css";
+import { useTranslate } from "../../hooks/useTranslate";
 
 const CartItem = ({ product, onIncrease, onDecrease, onDelete }) => {
   const totalPrice = product.price * product.amount;
+  const translate = useTranslate()
 
   return (
     <li className="cart-item">
@@ -19,7 +21,7 @@ const CartItem = ({ product, onIncrease, onDecrease, onDelete }) => {
       />
       <span>${totalPrice.toFixed(2)}</span>
       <Button
-        text="Eliminar"
+        text={translate("Delete")}
         onClick={() => onDelete(product.id)}
         className="delete-btn"
       />

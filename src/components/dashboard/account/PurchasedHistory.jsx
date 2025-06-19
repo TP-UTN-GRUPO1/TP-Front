@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../auth/Auth.Context";
 import axios from "axios";
+import { useTranslate } from "../../../hooks/useTranslate";
 
 const PurchasedHistory = () => {
   const { token } = useContext(AuthContext);
   const user = JSON.parse(localStorage.getItem("theFrog-user"));
   const userId = user?.id;
+  const translate = useTranslate()
 
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,7 +39,7 @@ const PurchasedHistory = () => {
 
   return (
     <div>
-      <h2>Historial de Compras</h2>
+      <h2>{translate("Pucharse_history")}</h2>
       {orders.map((order) => (
         <div
           key={order.orderId}
@@ -48,12 +50,12 @@ const PurchasedHistory = () => {
           }}
         >
           <p>
-            <strong>Fecha:</strong> {new Date(order.createdAt).toLocaleString()}
+            <strong>{translate("Date")}:</strong> {new Date(order.createdAt).toLocaleString()}
           </p>
           <p>
             <strong>Total:</strong> ${order.totalAmount.toFixed(2)}
           </p>
-          <h4>Juegos:</h4>
+          <h4>{translate()}:</h4>
           <ul>
             {order.orderItems.map((item) => (
               <li
@@ -75,8 +77,7 @@ const PurchasedHistory = () => {
                     borderRadius: "8px",
                   }}
                 />
-                {item.game.nameGame} - Cantidad: {item.quantity}, Precio
-                Unitario: ${item.unitPrice.toFixed(2)}
+                {item.game.nameGame} - {translate("Amount")}: {item.quantity}, {translate("Price_unit")}: ${item.unitPrice.toFixed(2)}
               </li>
             ))}
           </ul>

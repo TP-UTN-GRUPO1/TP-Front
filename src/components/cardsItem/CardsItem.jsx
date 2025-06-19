@@ -5,6 +5,7 @@ import { useFavorites } from "../FavoritesContext/FavoritesContext";
 import { useContext } from "react";
 import { warningToast, successToast } from "/src/utils/notification";
 import { AuthContext } from "../../auth/Auth.Context";
+import { useTranslate } from "../../hooks/useTranslate";
 
 
 const CardsItem = ({
@@ -18,13 +19,14 @@ const CardsItem = ({
   onGameSelected,
   genre,
 }) => {
+  const translate=useTranslate()
   const navigate = useNavigate();
   const { addToFavorites } = useFavorites();
   const { token } = useContext(AuthContext);
 
   const handleAddToFavorites = () => {
     if (!token) {
-      warningToast("Debes iniciar sesión para añadir a favoritos.");
+      warningToast(translate("Login_fav"));
       return;
     }
     addToFavorites({
@@ -32,7 +34,7 @@ const CardsItem = ({
       gameName,
       imageUrl,
     });
-    successToast("Juego añadido a lista de deseos")
+    successToast(translate("Game_added_to_wishlist"))
   };
 
   const handleGameSelected = () => {
@@ -73,15 +75,15 @@ const CardsItem = ({
           </Card.Body>
         </div>
         <Button onClick={handleGameSelected} className="me-3" size="sm">
-          Seleccionar juego
+          {translate("Select_game")}
         </Button>
         <Button
+          className="me-3" 
           size="sm"
-          className="ButtonFavorite"
           variant="secondary"
           onClick={handleAddToFavorites}
         >
-          Añadir a favoritos
+          {translate("Add_favorites")}
         </Button>
       </Card>
     </div>

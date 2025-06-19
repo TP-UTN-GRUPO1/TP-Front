@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Account.css";
+import { useTranslate } from "../../../hooks/useTranslate";
 
 const Account = () => {
   const [address, setAddress] = useState("");
@@ -10,6 +11,7 @@ const Account = () => {
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("theFrog-user"));
   const userId = user?.id;
+  const translate = useTranslate()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,60 +44,60 @@ const Account = () => {
 
   return (
     <section className="containerAccount">
-      <h1>Mi Cuenta</h1>
+      <h1>{translate("My_Account")}</h1>
       <form className="formAccount" onSubmit={handleSubmit}>
         <label>
-          Dirección:
+          {translate("Address")}:
           <input
             type="text"
-            placeholder="Dirección"
+            placeholder={translate("Address")}
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
         </label>
 
         <label>
-          Ciudad:
+          {translate("City")}:
           <input
             type="text"
-            placeholder="Ciudad"
+            placeholder={translate("City")}
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
         </label>
 
         <label>
-          Provincia:
+          {translate("State")}:
           <input
             type="text"
-            placeholder="Provincia"
+            placeholder={translate("State")}
             value={province}
             onChange={(e) => setProvince(e.target.value)}
           />
         </label>
 
         <label>
-          País:
+          {translate("Country")}:
           <input
             type="text"
-            placeholder="País"
+            placeholder={translate("Country")}
             value={country}
             onChange={(e) => setCountry(e.target.value)}
           />
         </label>
 
         <label>
-          Apellido:
+          {translate("Last_name")}:
           <input
             type="text"
-            placeholder="Apellido"
+            placeholder={translate("Last_name")}
             value={lastName}
             onChange={(e) => setLastname(e.target.value)}
           />
         </label>
 
         <button type="submit" onClick={handleSubmit}>
-          Guardar Cambios
+          {translate("Save_Changes")}
         </button>
       </form>
     </section>

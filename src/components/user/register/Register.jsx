@@ -8,9 +8,11 @@ import {
 } from "./register.services.js";
 import "../login/Login.css";
 import axios from "axios";
+import { useTranslate } from "../../../hooks/useTranslate.jsx";
 
 function Register() {
   const navigate = useNavigate();
+  const translate =useTranslate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
@@ -23,7 +25,7 @@ function Register() {
 
     // Validaciones
     if (!validateString(name, 3, 30)) {
-      setError("Nombre debe tener entre 3 y 30 caracteres");
+      setError(translate("Error_name"));
       return;
     }
 
@@ -33,17 +35,17 @@ function Register() {
     }
 
     if (!date || !isOverMinimumAge(date, 13)) {
-      setError("Debes tener al menos 13 años");
+      setError(translate("Error_age"));
       return;
     }
 
     if (!validatePassword(password, 7, 50, true, true, true)) {
-      setError("Contraseña inválida: debe tener mayúscula, número y símbolo");
+      setError(translate("Error_password"));
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Las contraseñas no coinciden");
+      setError(translate("Error_confirm_pass"));
       return;
     }
 
@@ -70,7 +72,7 @@ function Register() {
         <input
           type="text"
           className="inputLogin"
-          placeholder="Usuario"
+          placeholder={translate("User")}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -91,28 +93,28 @@ function Register() {
         <input
           type="password"
           className="inputLogin"
-          placeholder="Contraseña"
+          placeholder={translate("Password")}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
           type="password"
           className="inputLogin"
-          placeholder="Confirmar contraseña"
+          placeholder={translate("Confirm_Password")}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <button className="buttonLogin" type="submit">
-          Registrarse
+          {translate("Register")}
         </button>
         <Link to="/" className="buttonLogin">
-          Volver
+          {translate("Return")}
         </Link>
         {error && <p className="errorLogin">{error}</p>}
       </form>
       <p className="loginRedirect">
         <Link to="/login" className="linkLogin">
-          ¿Ya tienes cuenta? ¡Inicia sesión!
+          {translate("Already_account?")}
         </Link>
       </p>
     </section>

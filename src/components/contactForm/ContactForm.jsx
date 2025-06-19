@@ -2,10 +2,11 @@ import { useRef } from "react";
 import emailjs from "emailjs-com";
 import "./ContactForm.css";
 import { Link } from "react-router";
+import { useTranslate } from "../../hooks/useTranslate";
 
 const ContactForm = () => {
   const form = useRef();
-
+  const translate = useTranslate();
   const sendEmail = (e) => {
     e.preventDefault();
 
@@ -30,10 +31,10 @@ const ContactForm = () => {
 
   return (
     <form ref={form} onSubmit={sendEmail} className="formContact">
-      <input name="name" placeholder="Nombre" className="formInput" required />
+      <input name="name" placeholder={translate("Name")} className="formInput" required />
       <input
         name="subject"
-        placeholder="Asunto"
+        placeholder={translate("subject")}
         className="formInput"
         required
       />
@@ -46,15 +47,15 @@ const ContactForm = () => {
       />
       <textarea
         name="message"
-        placeholder="Mensaje"
+        placeholder={translate("Message")}
         className="formInput"
         required
       />
       <button className="buttonContact" type="submit">
-        Enviar
+        {translate("Send")}
       </button>
       <Link to="/" className="buttonContact">
-        Volver
+        {translate("Return")}
       </Link>
     </form>
   );

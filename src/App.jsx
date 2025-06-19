@@ -23,9 +23,11 @@ import { FavoritesProvider } from "./components/FavoritesContext/FavoritesContex
 import AdminPanel from "./components/dashboard/admin/AdminPanel.jsx";
 import ProtectedRoute from "./components/routes/protected/ProtectedRoute.jsx";
 import Unauthorized from "./components/err/Unauthorized.jsx";
+import TranslateContextProvider from "./translateContext/TranslateContextProvider.jsx";
 
 function App() {
   return (
+    <TranslateContextProvider>
     <AuthContextProvider>
       <CartProvider>
         <FavoritesProvider>
@@ -55,6 +57,8 @@ function App() {
         </FavoritesProvider>
       </CartProvider>
     </AuthContextProvider>
+    </TranslateContextProvider>
+   
   );
 }
 

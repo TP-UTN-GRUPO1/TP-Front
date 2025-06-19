@@ -6,12 +6,14 @@ import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import { useCart } from "../cartContext/CartContext.jsx";
 import { AuthContext } from "../../auth/Auth.Context.jsx";
 import { warningToast } from "../../utils/notification.jsx";
+import { useTranslate } from "../../hooks/useTranslate.jsx";
 
 const CardPage = () => {
   const [gameDetail, setGameDetail] = useState(null);
   const { id } = useParams();
   const { addToCart } = useCart();
-  const {token} = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
+  const translate = useTranslate()
 
   useEffect(() => {
     const getDetailGame = async () => {
@@ -27,7 +29,7 @@ const CardPage = () => {
 
   const handleAddToCart = () => {
     if (!token) {
-      warningToast("Debes iniciar sesión para añadir al carrito.");
+      warningToast(translate("Login_cart"));
       return;
     }
     if (gameDetail) {
