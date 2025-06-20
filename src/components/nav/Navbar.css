@@ -230,4 +230,14 @@
 .language-select-wrapper {
   min-width: 150px;
   margin-right: 1rem;
+  
+}
+.buttonTranslate{
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.optionLanguage{
+  color: black;
 }

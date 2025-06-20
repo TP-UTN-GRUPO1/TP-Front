@@ -6,7 +6,7 @@ const SearchBar = ({ query, onQueryChange, onSearch }) => {
       onSearch();
     }
   };
-  const translate = useTranslate
+  const translate = useTranslate();
   return (
     <div className="search-container">
       <input

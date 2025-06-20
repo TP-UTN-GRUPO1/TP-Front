@@ -8,7 +8,7 @@ import { useTranslate } from "../../hooks/useTranslate";
 
 const Cart = () => {
   const { cart, updateAmount, deleteProduct, clearCart } = useCart();
-  const translate =useTranslate();
+  const translate = useTranslate();
   const total = cart.reduce(
     (acc, product) => acc + product.price * product.amount,
     0
@@ -57,14 +57,14 @@ const Cart = () => {
   return (
     <div className="cart-container">
       <h2>
-        {translate("YOUR")} <span>{translate("CART")}</span>
+        {translate("YOUR")} {translate("CART")}
       </h2>
       {cart.length === 0 ? (
         <p>{translate("empty_cart")}</p>
       ) : (
         <>
           <div className="cart-header">
-            <span>{translate("Product")}  </span>
+            <span>{translate("Product")} </span>
             <span>{translate("Price")}</span>
             <span>{translate("Amount")}</span>
             <span>Total</span>
@@ -82,7 +82,9 @@ const Cart = () => {
             ))}
           </ul>
           <div className="cart-summary">
-            <p className="total">{translate("Total_pay")}: ${total.toFixed(2)}</p>
+            <p className="total">
+              {translate("Total_pay")}: ${total.toFixed(2)}
+            </p>
             <Button
               text={translate("Pay")}
               onClick={handleCheckout}
