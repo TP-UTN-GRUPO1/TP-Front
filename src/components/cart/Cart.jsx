@@ -5,6 +5,7 @@ import Button from "../button/Button";
 import "./Cart.css";
 import { errorToast, successToast } from "../../utils/notification";
 import { useTranslate } from "../../hooks/useTranslate";
+import { confirmDialog, okAlert, errorAlert } from "../../utils/SweetAlert";
 
 const Cart = () => {
   const { cart, updateAmount, deleteProduct, clearCart } = useCart();
@@ -24,11 +25,18 @@ const Cart = () => {
 
   const handleCheckout = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
+
     if (!user?.id) {
       errorToast("Tenés que iniciar sesión para finalizar la compra.");
       return;
     }
-
+    const confirmed = await confirmDialog({
+      title: translate("ConfirmPurchase"),
+      text: `${translate("Total_pay")}: $${total.toFixed(2)}`,
+      confirmButtonText: translate("Yes_Pay"),
+      cancelButtonText: translate("Cancel"),
+    });
+    if (!confirmed) return;
     const orderData = {
       userId: user.id,
       items: cart.map((p) => ({
@@ -47,10 +55,17 @@ const Cart = () => {
       if (response.status === 201) {
         successToast(translate("Purchase_successfully"));
         clearCart();
+        okAlert({
+          title: translate("Purchase_success"),
+          text: translate("Thank_you"),
+        });
       } else alert("Ocurrió un error al procesar tu compra.");
     } catch (e) {
       console.error("Error al enviar la orden:", e);
-      errorToast(translate("Error_pucharse"));
+      errorAlert({
+        title: translate("Error"),
+        text: translate("Purchase_failed"),
+      });
     }
   };
 

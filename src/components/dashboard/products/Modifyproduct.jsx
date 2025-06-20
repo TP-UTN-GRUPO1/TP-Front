@@ -2,14 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import "./ModifyProduct.css";
 import { AuthContext } from "../../../auth/Auth.Context";
 import { useTranslate } from "../../../hooks/useTranslate";
+import { confirmDialog, okAlert, errorAlert } from "../../../utils/SweetAlert";
 
 const ModifyProduct = () => {
   const [games, setGames] = useState([]);
   const [editingProduct, seteditingProduct] = useState(null);
   const [newPrice, setNewPrice] = useState("");
-  const [newTitle, setNewTitle] = useState("")
+  const [newTitle, setNewTitle] = useState("");
   const { token } = useContext(AuthContext);
-  const translate=useTranslate();
+  const translate = useTranslate();
   useEffect(() => {
     fetch("http://localhost:3000/games")
       .then((response) => response.json())
@@ -80,12 +81,38 @@ const ModifyProduct = () => {
     setNewTitle("");
   };
 
+  const handleDeleteGame = async (id) => {
+    const confirmed = await confirmDialog({
+      title: translate("Confirm_Delete"),
+      text: translate("Are_you_sure"),
+      confirmButtonText: translate("Yes_Delete"),
+      cancelButtonText: translate("Cancel"),
+    });
+    if (!confirmed) return;
+    fetch(`http://localhost:3000/games/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Error: " + res.status);
+        setGames((prev) => prev.filter((g) => g.id !== id));
+        okAlert({
+          title: translate("Deleted"),
+          text: translate("Game_deleted"),
+        });
+      })
+      .catch((err) => console.error("Error:", err));
+    errorAlert({ title: translate("Error"), text: translate("Delete failed") });
+  };
+
   return (
     <div className="modify-container">
       {games.map((game) => (
         <div className="game-card" key={game.id}>
           <h3>{game.nameGame}</h3>
-          <p>{translate("Price")}: ${game.price}</p>
+          <p>
+            {translate("Price")}: ${game.price}
+          </p>
           <p
             className={`status ${game.available ? "available" : "unavailable"}`}
           >
@@ -94,7 +121,8 @@ const ModifyProduct = () => {
 
           {editingProduct === game.id ? (
             <div>
-              <input type="text"
+              <input
+                type="text"
                 placeholder={translate("Insert_title")}
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
@@ -105,8 +133,16 @@ const ModifyProduct = () => {
                 value={newPrice}
                 onChange={(e) => setNewPrice(e.target.value)}
               />
-              <button onClick={() => handleSavePrice(game.id)}>{translate("Save")}</button>
-              <button onClick={() => { seteditingProduct(null) }}>{translate("Cancel")}</button>
+              <button onClick={() => handleSavePrice(game.id)}>
+                {translate("Save")}
+              </button>
+              <button
+                onClick={() => {
+                  seteditingProduct(null);
+                }}
+              >
+                {translate("Cancel")}
+              </button>
             </div>
           ) : (
             <button onClick={() => handleEditPrice(game.id)}>
@@ -116,6 +152,9 @@ const ModifyProduct = () => {
 
           <button onClick={() => handleToggleAvailability(game.id)}>
             {game.available ? translate("Hide") : translate("Show")}
+          </button>
+          <button onClick={() => handleDeleteGame(game.id)}>
+            {translate("Delete")}
           </button>
         </div>
       ))}
