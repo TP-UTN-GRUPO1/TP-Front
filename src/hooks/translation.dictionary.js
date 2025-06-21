@@ -133,7 +133,9 @@ export const translation_dictionary = {
     { key: "Changes_confirmed", value: "Cambios confirmados" },
     { key: "Delete_failed", value: "Error al borrar" },
     { key: "Changes_failed", value: "Error al guardar los cambios" },
-
+    { key: "Added_to_cart_success", value: "Añadido exitosamente al carrito" },
+    { key: "Error_adding_to_cart", value: "Error al añadir al carrito" },
+    { key: "Purchase_failed", value: "Eror al realizar la compra" },
 
   ],
   en: [
@@ -259,6 +261,9 @@ export const translation_dictionary = {
     { key: "Confirmed", value: "Confirmed" },
     { key: "Changes_confirmed", value: "Changes confirmed" },
     { key: "Delete_failed", value: "Delete failed" },
-    { key: "Changes_failed", value: "Error saving changes" }
+    { key: "Changes_failed", value: "Error saving changes" },
+    { key: "Added_to_cart_success", value: "Successfully added to cart" },
+    { key: "Error_adding_to_cart", value: "Error adding to cart" },
+    { key: "Purchase_failed", value: "Error when making the purchase" },
   ],
 };

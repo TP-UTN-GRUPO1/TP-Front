@@ -2,10 +2,11 @@ import axios from 'axios';
 import { useContext, useEffect, useState } from 'react'
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../auth/Auth.Context';
-import {errorToast, successToast}from "../../utils/notification"
+import { errorToast, successToast } from "../../utils/notification"
 import "./Favorites.css"
 import { Button, Card } from 'react-bootstrap';
 import { useTranslate } from '../../hooks/useTranslate';
+import { useCart } from '../cartContext/CartContext';
 
 const Favorites = () => {
 
@@ -13,50 +14,59 @@ const Favorites = () => {
   const user = JSON.parse(localStorage.getItem("theFrog-user"));
   const userId = user?.id;
   const translate = useTranslate();
-
+  const { addToCart } = useCart();
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  const getFavoritesById = async () => {
+    const getFavoritesById = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3000/favorites/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(res.data)
+        setFavorites(res.data.games || []);
+      } catch (err) {
+        console.error("Error fetching favorites", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (userId) getFavoritesById();
+  }, [userId, token]);
+
+  const handleDeleteFavorite = async (favoriteId) => {
     try {
-      const res = await axios.get(`http://localhost:3000/favorites/${userId}`, {
+      await axios.delete("http://localhost:3000/favorites", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        data: {
+          gameId: favoriteId,
+          idUser: userId,
+        },
       });
-      console.log(res.data)
-      setFavorites(res.data.games || []);
+      successToast("Juego eliminado de favoritos con exito")
+
+      setFavorites(prev => prev.filter(fav => fav.id !== favoriteId));
     } catch (err) {
-      console.error("Error fetching favorites", err);
-    } finally {
-      setLoading(false);
+      console.error("Error deleting favorite", err.response?.data || err.message);
+      errorToast("Ups error no se pudo quitar el juego de favo =(")
     }
   };
 
-  if (userId) getFavoritesById();
-}, [userId, token]);
-
-const handleDeleteFavorite = async (favoriteId) => {
+    const handleAddToCart = (product) => {
   try {
-    await axios.delete("http://localhost:3000/favorites", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      data: {
-        gameId: favoriteId,
-        idUser: userId,
-      },
-    });
-    successToast("Juego eliminado de favoritos con exito")
-
-    setFavorites(prev => prev.filter(fav => fav.id !== favoriteId));
-  } catch (err) {
-    console.error("Error deleting favorite", err.response?.data || err.message);
-    errorToast("Ups error no se pudo quitar el juego de favo =(")
+    addToCart(product);
+    successToast(translate("Added_to_cart_success"));
+  } catch (error) {
+    console.error("Error adding to cart", error);
+    errorToast(translate("Error_adding_to_cart"));
   }
 };
-
 
 
   if (loading) return <LoadingSpinner />;
@@ -80,6 +90,12 @@ const handleDeleteFavorite = async (favoriteId) => {
                     onClick={() => handleDeleteFavorite(fav.id)}
                   >
                     {translate("Remove_from_favorites")}
+                  </Button>
+                  <Button
+                    className="button"
+                    onClick={() => handleAddToCart(fav)}
+                  >
+                    {translate("Add_cart")}
                   </Button>
                 </Card.Body>
               </Card>

@@ -5,7 +5,7 @@ import ProductCard from "../productCard/ProductCard";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import { useCart } from "../cartContext/CartContext.jsx";
 import { AuthContext } from "../../auth/Auth.Context.jsx";
-import { warningToast } from "../../utils/notification.jsx";
+import { errorToast, successToast, warningToast } from "../../utils/notification.jsx";
 import { useTranslate } from "../../hooks/useTranslate.jsx";
 
 const CardPage = () => {
@@ -32,6 +32,7 @@ const CardPage = () => {
       warningToast(translate("Login_cart"));
       return;
     }
+  try {
     if (gameDetail) {
       addToCart({
         id: gameDetail.id,
@@ -39,8 +40,15 @@ const CardPage = () => {
         img: gameDetail.imageUrl,
         price: gameDetail.price,
       });
+      successToast(translate("Added_to_cart_success"));
+    } else {
+      errorToast(translate("Error_adding_to_cart"));
     }
-  };
+  } catch (error) {
+    console.error("Error al añadir al carrito", error);
+    errorToast(translate("Error_adding_to_cart"));
+  }
+};
 
   if (!gameDetail) {
     return <LoadingSpinner />;
