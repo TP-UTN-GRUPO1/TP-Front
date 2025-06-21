@@ -1,5 +1,3 @@
-import { Key } from "react-bootstrap-icons";
-
 export const translation_dictionary = {
   es: [
     { key: "Search_Games", value: "Buscar juegos..." },
@@ -123,6 +121,20 @@ export const translation_dictionary = {
     { key: "Yes_Pay", value: "Si, pagar" },
     { key: "Purchase_success", value: "Compra realizada" },
     { key: "Thank_you", value: "Gracias" },
+    { key: "No_pucharse", value: "No has realizado compras aún." },
+    { key: "Loading_pucharse", value: "Cargando historial de compras..." },
+    { key: "Err_404", value: "Ops...error 404 Sitio no encontrado " },
+    { key: "Err_401", value: "Error 401 usuario no autorizado" },
+    { key: "Confirm_Changes", value: "¿Querés guardar los cambios en tu cuenta?" },
+    { key: "Yes_Confirm", value: "Si, confirmar" },
+    { key: "Game_deleted", value: "Juego eliminado" },
+    { key: "Deleted", value: "Borrado" },
+    { key: "Confirmed", value: "Confirmado" },
+    { key: "Changes_confirmed", value: "Cambios confirmados" },
+    { key: "Delete_failed", value: "Error al borrar" },
+    { key: "Changes_failed", value: "Error al guardar los cambios" },
+
+
   ],
   en: [
     { key: "Search_Games", value: "Search games..." },
@@ -236,5 +248,17 @@ export const translation_dictionary = {
     { key: "Yes_Pay", value: "Yes, pay" },
     { key: "Purchase_success", value: "Purchase success" },
     { key: "Thank_you", value: "Thank you" },
+    { key: "No_pucharse", value: "You have not made any purchases yet." },
+    { key: "Loading_pucharse", value: "Loading purchase history..." },
+    { key: "Err_404", value: "Oops...error 404 Site not found " },
+    { key: "Err_401", value: "Error 401 unauthorized user" },
+    { key: "Confirm_Changes", value: "Do you want to save the changes to your account?" },
+    { key: "Yes_Confirm", value: "Yes, confirm" },
+    { key: "Game_deleted", value: "Game Deleted" },
+    { key: "Deleted", value: "Deleted" },
+    { key: "Confirmed", value: "Confirmed" },
+    { key: "Changes_confirmed", value: "Changes confirmed" },
+    { key: "Delete_failed", value: "Delete failed" },
+    { key: "Changes_failed", value: "Error saving changes" }
   ],
 };

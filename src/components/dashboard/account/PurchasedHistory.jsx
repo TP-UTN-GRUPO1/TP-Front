@@ -34,8 +34,8 @@ const PurchasedHistory = () => {
     if (userId) fetchOrders();
   }, [userId, token]);
 
-  if (loading) return <p>Cargando historial de compras...</p>;
-  if (orders.length === 0) return <p>No has realizado compras aún.</p>;
+  if (loading) return <p>{translate("Loading_pucharse")}</p>;
+  if (orders.length === 0) return <p>{translate("No_pucharse")}</p>;
 
   return (
     <div>
@@ -55,7 +55,7 @@ const PurchasedHistory = () => {
           <p>
             <strong>Total:</strong> ${order.totalAmount.toFixed(2)}
           </p>
-          <h4>{translate()}:</h4>
+          <h4>{translate("Game")}:</h4>
           <ul>
             {order.orderItems.map((item) => (
               <li

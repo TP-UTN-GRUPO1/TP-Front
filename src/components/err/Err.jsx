@@ -7,7 +7,7 @@ const Err = () => {
   return (
     <div>
         <>
-        <h1 className="error-heading">Ops...error 404 Sitio no encontrado </h1>
+        <h1 className="error-heading">{translate("Err_404")} </h1>
         </>
     <div className="d-flex gap-2 mb-2">
         <Link to="/">

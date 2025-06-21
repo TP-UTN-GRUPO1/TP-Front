@@ -102,7 +102,7 @@ const ModifyProduct = () => {
         });
       })
       .catch((err) => console.error("Error:", err));
-    errorAlert({ title: translate("Error"), text: translate("Delete failed") });
+    errorAlert({ title: translate("Error"), text: translate("Delete_failed") });
   };
 
   return (
