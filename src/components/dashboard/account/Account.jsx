@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Account.css";
 import { useTranslate } from "../../../hooks/useTranslate";
+import { confirmDialog, errorAlert, okAlert } from "../../../utils/SweetAlert";
 
 const Account = () => {
   const [address, setAddress] = useState("");
@@ -16,8 +17,13 @@ const Account = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const confirm = window.confirm("¿Querés guardar los cambios en tu cuenta?");
-    if (!confirm) return;
+    const confirmed = await confirmDialog({
+          title: translate("Confirm_Changes"),
+          text: translate("Are_you_sure"),
+          confirmButtonText: translate("Yes_Confirm"),
+          cancelButtonText: translate("Cancel"),
+        });
+    if (!confirmed) return;
 
     const body = { id: userId, address, lastName, city, province, country };
 
@@ -37,8 +43,13 @@ const Account = () => {
 
       const data = await response.json();
       console.log("Respuesta del servidor:", data);
+       okAlert({
+      title: translate("Confirmed"),
+      text: translate("Changes_confirmed"),
+    })
     } catch (err) {
       console.error("Error:", err);
+       errorAlert({ title: "Error", text: translate("Changes_failed") });
     }
   };
 
