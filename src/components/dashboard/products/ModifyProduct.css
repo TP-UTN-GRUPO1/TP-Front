@@ -12,11 +12,14 @@
   border: 2px solid gold;
   border-radius: 12px;
   padding: 1.5rem;
-  width: 250px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
   color: #f5f5f5;
   box-sizing: border-box;
   transition: transform 0.2s ease;
+}
+.buttonModify{
+      background-color: rgb(186, 173, 173);
+    color: #fff;
 }
 
 .game-card:hover {
@@ -55,7 +58,6 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  background-color: gold;
   color: #121212;
   font-size: 0.9rem;
   font-weight: bold;

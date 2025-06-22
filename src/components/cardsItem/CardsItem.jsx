@@ -7,7 +7,6 @@ import { warningToast, successToast } from "/src/utils/notification";
 import { AuthContext } from "../../auth/Auth.Context";
 import { useTranslate } from "../../hooks/useTranslate";
 
-
 const CardsItem = ({
   id,
   gameName,
@@ -19,7 +18,7 @@ const CardsItem = ({
   onGameSelected,
   genre,
 }) => {
-  const translate=useTranslate()
+  const translate = useTranslate();
   const navigate = useNavigate();
   const { addToFavorites } = useFavorites();
   const { token } = useContext(AuthContext);
@@ -34,7 +33,7 @@ const CardsItem = ({
       gameName,
       imageUrl,
     });
-    successToast(translate("Game_added_to_wishlist"))
+    successToast(translate("Game_added_to_wishlist"));
   };
 
   const handleGameSelected = () => {
@@ -69,22 +68,26 @@ const CardsItem = ({
               )}
             </div>
             <Card.Title>{gameName}</Card.Title>
-            <div>{Array.isArray(platform) ? platform.join(", ") : platform}</div>
+            <div>
+              {Array.isArray(platform) ? platform.join(", ") : platform}
+            </div>
             <p>$ {price}</p>
             <div className="d-grid gap-2"></div>
           </Card.Body>
         </div>
-        <Button onClick={handleGameSelected} className="me-3" size="sm">
-          {translate("Select_game")}
-        </Button>
-        <Button
-          className="me-3" 
-          size="sm"
-          variant="secondary"
-          onClick={handleAddToFavorites}
-        >
-          {translate("Add_favorites")}
-        </Button>
+        <div className="card-buttons">
+          <Button onClick={handleGameSelected} className="me-3" size="sm">
+            {translate("Select_game")}
+          </Button>
+          <Button
+            className="me-3"
+            size="sm"
+            variant="secondary"
+            onClick={handleAddToFavorites}
+          >
+            {translate("Add_favorites")}
+          </Button>
+        </div>
       </Card>
     </div>
   );

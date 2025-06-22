@@ -125,7 +125,10 @@ export const translation_dictionary = {
     { key: "Loading_pucharse", value: "Cargando historial de compras..." },
     { key: "Err_404", value: "Ops...error 404 Sitio no encontrado " },
     { key: "Err_401", value: "Error 401 usuario no autorizado" },
-    { key: "Confirm_Changes", value: "¿Querés guardar los cambios en tu cuenta?" },
+    {
+      key: "Confirm_Changes",
+      value: "¿Querés guardar los cambios en tu cuenta?",
+    },
     { key: "Yes_Confirm", value: "Si, confirmar" },
     { key: "Game_deleted", value: "Juego eliminado" },
     { key: "Deleted", value: "Borrado" },
@@ -136,7 +139,7 @@ export const translation_dictionary = {
     { key: "Added_to_cart_success", value: "Añadido exitosamente al carrito" },
     { key: "Error_adding_to_cart", value: "Error al añadir al carrito" },
     { key: "Purchase_failed", value: "Eror al realizar la compra" },
-
+    { key: "No_Purchase", value: "No hay compras realizadas por el usuario" },
   ],
   en: [
     { key: "Search_Games", value: "Search games..." },
@@ -254,7 +257,10 @@ export const translation_dictionary = {
     { key: "Loading_pucharse", value: "Loading purchase history..." },
     { key: "Err_404", value: "Oops...error 404 Site not found " },
     { key: "Err_401", value: "Error 401 unauthorized user" },
-    { key: "Confirm_Changes", value: "Do you want to save the changes to your account?" },
+    {
+      key: "Confirm_Changes",
+      value: "Do you want to save the changes to your account?",
+    },
     { key: "Yes_Confirm", value: "Yes, confirm" },
     { key: "Game_deleted", value: "Game Deleted" },
     { key: "Deleted", value: "Deleted" },
@@ -265,5 +271,6 @@ export const translation_dictionary = {
     { key: "Added_to_cart_success", value: "Successfully added to cart" },
     { key: "Error_adding_to_cart", value: "Error adding to cart" },
     { key: "Purchase_failed", value: "Error when making the purchase" },
+    { key: "No_Purchase", value: "There are no purchases made by the user" },
   ],
 };

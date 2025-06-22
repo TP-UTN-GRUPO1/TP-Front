@@ -137,6 +137,7 @@ const ModifyProduct = () => {
                 {translate("Save")}
               </button>
               <button
+                className="buttonModify"
                 onClick={() => {
                   seteditingProduct(null);
                 }}
@@ -145,15 +146,24 @@ const ModifyProduct = () => {
               </button>
             </div>
           ) : (
-            <button onClick={() => handleEditPrice(game.id)}>
+            <button
+              className="buttonModify"
+              onClick={() => handleEditPrice(game.id)}
+            >
               {translate("Edit_Prod")}
             </button>
           )}
 
-          <button onClick={() => handleToggleAvailability(game.id)}>
+          <button
+            className="buttonModify"
+            onClick={() => handleToggleAvailability(game.id)}
+          >
             {game.available ? translate("Hide") : translate("Show")}
           </button>
-          <button onClick={() => handleDeleteGame(game.id)}>
+          <button
+            className="buttonModify"
+            onClick={() => handleDeleteGame(game.id)}
+          >
             {translate("Delete")}
           </button>
         </div>

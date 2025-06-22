@@ -71,9 +71,17 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
-      <h2>
-        {translate("YOUR")} {translate("CART")}
-      </h2>
+      <div className="tittleButton">
+        <h2 className="h2Cart">
+          {translate("YOUR")} {translate("CART")}
+        </h2>
+
+        <Button
+          text={translate("Return")}
+          onClick={() => window.history.back()}
+          className="back-button"
+        />
+      </div>
       {cart.length === 0 ? (
         <p>{translate("empty_cart")}</p>
       ) : (

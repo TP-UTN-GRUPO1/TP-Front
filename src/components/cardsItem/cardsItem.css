@@ -16,6 +16,13 @@
   margin: 40px auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  height: 90%;
+}
+.card-body {
+  flex-grow: 1;
 }
 
 .card:hover {
@@ -50,4 +57,8 @@
 
 .favorite-button:hover i {
   transform: scale(1.2);
+}
+
+.stock{
+  margin-bottom: 0.5rem;
 }

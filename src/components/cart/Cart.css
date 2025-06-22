@@ -41,6 +41,18 @@
     gap: 10px;
 }
 
+.tittleButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.h2Cart {
+  flex: 1;
+  text-align: center;
+}
+
 
 .quantity-controls{
     display: flex;
@@ -66,18 +78,6 @@
     text-align: left;
 }
 
-.cart-summary h2{
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
-}
-
-.cart-summary h2 span {
-    color: #9893fb;
-}
 
 .cart-summary p {
     display: flex;

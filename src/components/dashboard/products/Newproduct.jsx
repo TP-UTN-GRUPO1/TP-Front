@@ -15,7 +15,7 @@ const Newproduct = () => {
     genres: [],
   });
   const [errors, setErrors] = useState({});
-  const translate= useTranslate();
+  const translate = useTranslate();
   const availablePlatforms = [
     "PC",
     "PS4",
@@ -108,12 +108,13 @@ const Newproduct = () => {
     }
     setErrors({});
     try {
-      const token = localStorage.getItem("theFrog-token")
+      const token = localStorage.getItem("theFrog-token");
       const resp = await fetch("http://localhost:3000/games", {
         method: "POST",
-        headers: { "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-         },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(formData),
       });
       const result = await resp.json();
@@ -145,6 +146,7 @@ const Newproduct = () => {
         <h3>{translate("Register_product")}</h3>
 
         <input
+          className="newInput"
           type="text"
           name="nameGame"
           placeholder={translate("Name_Game")}
@@ -154,6 +156,7 @@ const Newproduct = () => {
         {errors.nameGame && <p className="error">{errors.nameGame}</p>}
 
         <input
+          className="newInput"
           type="text"
           name="developer"
           placeholder={translate("Developer")}
@@ -163,6 +166,7 @@ const Newproduct = () => {
         {errors.developer && <p className="error">{errors.developer}</p>}
 
         <input
+          className="newInput"
           type="number"
           name="rating"
           placeholder="Rating (0-10)"
@@ -172,6 +176,7 @@ const Newproduct = () => {
         {errors.rating && <p className="error">{errors.rating}</p>}
 
         <input
+          className="newInput"
           type="url"
           name="imageUrl"
           placeholder={translate("Img_URL")}
@@ -181,6 +186,7 @@ const Newproduct = () => {
         {errors.imageUrl && <p className="error">{errors.imageUrl}</p>}
 
         <input
+          className="newInput"
           type="number"
           name="price"
           placeholder={translate("Price")}
@@ -213,19 +219,18 @@ const Newproduct = () => {
           ))}
         </select>
         {errors.genres && <p className="error">{errors.genres}</p>}
-
-        <label>
+        <label className="availableCheckbox">
+          <span>{translate("Available")}</span>
           <input
             type="checkbox"
             name="available"
             checked={formData.available}
             onChange={handleChange}
           />
-          {translate("Available")}
         </label>
 
         <button type="button" onClick={handleSubmit}>
-         {translate("Save")}
+          {translate("Save")}
         </button>
         {errors.api && <p className="error">{errors.api}</p>}
       </div>

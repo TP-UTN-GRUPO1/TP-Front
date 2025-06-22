@@ -12,7 +12,7 @@ const AdminPanel = () => {
   const [selectedUserOrders, setSelectedUserOrders] = useState([]);
   const [selectedUserEmail, setSelectedUserEmail] = useState("");
   const token = localStorage.getItem("token");
-  const translate = useTranslate()
+  const translate = useTranslate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -137,6 +137,11 @@ const AdminPanel = () => {
       if (!response.ok)
         throw new Error("No se pudo obtener el historial de compras");
       const data = await response.json();
+      if (selectedUserEmail === email) {
+        setSelectedUserOrders([]);
+        setSelectedUserEmail("");
+        return;
+      }
       setSelectedUserOrders(data);
       setSelectedUserEmail(email);
     } catch (err) {
@@ -151,7 +156,6 @@ const AdminPanel = () => {
     <div className="containerAdmin">
       <h2>{translate("Admin_Dash")}</h2>
       <ToastContainer />
-
       <div className="filterSection">
         <input
           type="text"
@@ -170,7 +174,6 @@ const AdminPanel = () => {
           <option value="sysadmin">Sysadmin</option>
         </select>
       </div>
-
       <ul className="userList">
         {filteredUsers.map((user) => (
           <li key={user.id}>
@@ -193,30 +196,33 @@ const AdminPanel = () => {
           </li>
         ))}
       </ul>
-
-      {selectedUserOrders.length > 0 && (
+      {selectedUserEmail && (
         <div className="sectionOrders">
           <h3>Compras de: {selectedUserEmail}</h3>
-          {selectedUserOrders.map((order) => (
-            <div key={order.orderId}>
-              <p>
-                <strong>{translate("Date")}:</strong>{" "}
-                {new Date(order.createdAt).toLocaleString()}
-              </p>
-              <p>
-                <strong>Total:</strong> ${order.totalAmount.toFixed(2)}
-              </p>
-              <ul>
-                {order.orderItems.map((item) => (
-                  <li key={item.order_item_id}>
-                    <img src={item.game.imageUrl} alt={item.game.nameGame} />
-                    {item.game.nameGame} - Cant: {item.quantity}, {translate("Precio")}: $
-                    {item.unitPrice.toFixed(2)}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {selectedUserOrders.length === 0 ? (
+            <p>{translate("No_Purchase")}</p>
+          ) : (
+            selectedUserOrders.map((order) => (
+              <div key={order.orderId}>
+                <p>
+                  <strong>{translate("Date")}:</strong>{" "}
+                  {new Date(order.createdAt).toLocaleString()}
+                </p>
+                <p>
+                  <strong>Total:</strong> ${order.totalAmount.toFixed(2)}
+                </p>
+                <ul>
+                  {order.orderItems.map((item) => (
+                    <li key={item.order_item_id}>
+                      <img src={item.game.imageUrl} alt={item.game.nameGame} />
+                      {item.game.nameGame} - Cant: {item.quantity},{" "}
+                      {translate("Precio")}: ${item.unitPrice.toFixed(2)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          )}
         </div>
       )}
     </div>

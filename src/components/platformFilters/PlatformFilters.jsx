@@ -6,9 +6,9 @@ import { useTranslate } from "../../hooks/useTranslate";
 
 const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
   const translate = useTranslate();
-  
-  const [orderLabel, setOrderLabel] = useState(translate("Order_By"));
-  
+
+  const [orderLabel, setOrderLabel] = useState("");
+
   const platforms = [
     "PS5",
     "PS4",
@@ -30,12 +30,15 @@ const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
           {platform === "Xbox Series"
             ? "XBOX Series S|X"
             : platform === "Xbox One"
-              ? "XBOX ONE"
-              : platform}
+            ? "XBOX ONE"
+            : platform}
         </button>
       ))}
-      {/* cambiar title por una funcion */}
-      <NavDropdown className="button-console" menuVariant="dark" title={orderLabel}>
+      <NavDropdown
+        className="button-console"
+        menuVariant="dark"
+        title={orderLabel.length === 0 ? translate("Order_By") : orderLabel}
+      >
         <NavDropdown.Item
           active={selectedOrder === SORT_ORDERS.LOW_TO_HIGH}
           onClick={() => {
@@ -49,33 +52,37 @@ const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
           active={selectedOrder === SORT_ORDERS.HIGH_TO_LOW}
           onClick={() => {
             onselectedOrder(SORT_ORDERS.HIGH_TO_LOW);
-             setOrderLabel(translate("Highest-Lowest"));
+            setOrderLabel(translate("Highest-Lowest"));
           }}
         >
           {translate("Highest-Lowest")}
         </NavDropdown.Item>
-        <NavDropdown.Item 
-        active={selectedOrder === SORT_ORDERS.A_Z}
-        onClick={() => {
-          onselectedOrder(SORT_ORDERS.A_Z);
-          setOrderLabel(ORDER_LABELS[SORT_ORDERS.A_Z])
-          }}>
+        <NavDropdown.Item
+          active={selectedOrder === SORT_ORDERS.A_Z}
+          onClick={() => {
+            onselectedOrder(SORT_ORDERS.A_Z);
+            setOrderLabel(ORDER_LABELS[SORT_ORDERS.A_Z]);
+          }}
+        >
           A-Z
         </NavDropdown.Item>
-        <NavDropdown.Item 
-        active={selectedOrder === SORT_ORDERS.Z_A}
-        onClick={() => {
-          onselectedOrder(SORT_ORDERS.Z_A);
-          setOrderLabel(ORDER_LABELS[SORT_ORDERS.Z_A])
-          }}>
+        <NavDropdown.Item
+          active={selectedOrder === SORT_ORDERS.Z_A}
+          onClick={() => {
+            onselectedOrder(SORT_ORDERS.Z_A);
+            setOrderLabel(ORDER_LABELS[SORT_ORDERS.Z_A]);
+          }}
+        >
           Z-A
         </NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item onClick={() =>{
-          onselectedOrder(SORT_ORDERS.RESET);
-           setOrderLabel(translate("Order_By"));
-          }}>
-         {translate("Reset_Filters")}
+        <NavDropdown.Item
+          onClick={() => {
+            onselectedOrder(SORT_ORDERS.RESET);
+            setOrderLabel(translate("Order_By"));
+          }}
+        >
+          {translate("Reset_Filters")}
         </NavDropdown.Item>
       </NavDropdown>
     </div>
