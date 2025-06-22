@@ -4,7 +4,7 @@ import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import { AuthContext } from "../../auth/Auth.Context";
 import { errorToast, successToast } from "../../utils/notification";
 import "./Favorites.css";
-import { Button, Card } from "react-bootstrap";
+import { Badge, Button, Card } from "react-bootstrap";
 import { useTranslate } from "../../hooks/useTranslate";
 import { useCart } from "../cartContext/CartContext";
 
@@ -64,6 +64,11 @@ const Favorites = () => {
   };
 
   const handleAddToCart = (product) => {
+    if (!product.available) {
+      errorToast(translate("Out_of_stock_error"));
+      return;
+    }
+
     try {
       addToCart(product);
       successToast(translate("Added_to_cart_success"));
@@ -92,6 +97,13 @@ const Favorites = () => {
                   variant="top"
                   alt={fav.nameGame}
                 />
+                <div className="stock">
+                  {fav.available ? (
+                    <Badge bg="success">{translate("Out_of_stock_badge")}</Badge>
+                  ) : (
+                    <Badge bg="danger">{translate("Available_stock")}</Badge>
+                  )}
+                </div>
                 <Card.Body className="card-body">
                   <h5 className="card-title">{fav.nameGame}</h5>
                   <div className="favoritesButton">

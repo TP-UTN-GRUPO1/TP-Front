@@ -33,7 +33,12 @@ const CardPage = () => {
       return;
     }
   try {
+    
     if (gameDetail) {
+      if (!gameDetail.available) {
+        errorToast(translate("Out_of_stock_error"));
+        return;
+      }
       addToCart({
         id: gameDetail.id,
         name: gameDetail.nameGame,

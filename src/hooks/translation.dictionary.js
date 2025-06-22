@@ -140,6 +140,10 @@ export const translation_dictionary = {
     { key: "Error_adding_to_cart", value: "Error al añadir al carrito" },
     { key: "Purchase_failed", value: "Eror al realizar la compra" },
     { key: "No_Purchase", value: "No hay compras realizadas por el usuario" },
+    { key: "Out_of_stock_error", value: "Error al añadir al carrito: No hay stock" },
+    { key: "Out_of_stock_badge", value: "Sin Stock" },
+    { key: "Available_stock", value: "En Stock" }
+
   ],
   en: [
     { key: "Search_Games", value: "Search games..." },
@@ -272,5 +276,8 @@ export const translation_dictionary = {
     { key: "Error_adding_to_cart", value: "Error adding to cart" },
     { key: "Purchase_failed", value: "Error when making the purchase" },
     { key: "No_Purchase", value: "There are no purchases made by the user" },
+    { key: "Out_of_stock_error", value: "Error adding to cart: Out of stock" },
+    { key: "Out_of_stock_badge", value: "Out of stock" },
+    { key: "Available_stock", value: "Available" }
   ],
 };
