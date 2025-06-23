@@ -1,22 +1,32 @@
 import { NavDropdown } from "react-bootstrap";
 import { SORT_ORDERS } from "../home/Home.consts";
 import { ORDER_LABELS } from "./PlatformOrderLabel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { useTranslate } from "../../hooks/useTranslate";
 
 const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
   const translate = useTranslate();
 
   const [orderLabel, setOrderLabel] = useState("");
+  const [platforms, setPlatforms] = useState([]);
 
-  const platforms = [
-    "PS5",
-    "PS4",
-    "Nintendo Switch",
-    "Xbox Series",
-    "Xbox One",
-    "PC",
-  ];
+  useEffect(() => {
+    const fetchPlatforms = async () => {
+      try {
+        const { data } = await axios.get(
+          "http://localhost:3000/platformAndGenres"
+        );
+        if (data.success) {
+          setPlatforms(data.platforms.map((p) => p.platformName));
+        }
+      } catch (error) {
+        console.error("Error al cargar plataformas", error);
+      }
+    };
+
+    fetchPlatforms();
+  }, []);
 
   return (
     <div className="navbar-bot">
@@ -34,6 +44,7 @@ const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
             : platform}
         </button>
       ))}
+
       <NavDropdown
         className="button-console"
         menuVariant="dark"

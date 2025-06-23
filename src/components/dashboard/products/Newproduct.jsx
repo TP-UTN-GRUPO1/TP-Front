@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "./Newproduct.css";
+import { useEffect } from "react";
+import axios from "axios";
 import { useTranslate } from "../../../hooks/useTranslate";
 
 const Newproduct = () => {
+  const [availablePlatforms, setAvailablePlatforms] = useState([]);
+  const [availableGenres, setAvailableGenres] = useState([]);
   const [formData, setFormData] = useState({
     nameGame: "",
     developer: "",
@@ -14,35 +18,26 @@ const Newproduct = () => {
     platforms: [],
     genres: [],
   });
+
   const [errors, setErrors] = useState({});
   const translate = useTranslate();
-  const availablePlatforms = [
-    "PC",
-    "PS4",
-    "PS5",
-    "Xbox One",
-    "Xbox Series",
-    "Nintendo Switch",
-  ];
-  const availableGenres = [
-    "Action",
-    "Adventure",
-    "RPG",
-    "Shooter",
-    "Sports",
-    "Fighting",
-    "Racing",
-    "Strategy",
-    "Puzzle",
-    "Platformer",
-    "Simulation",
-    "Horror",
-    "Stealth",
-    "Music",
-    "Party",
-    "Sandbox",
-    "Survival",
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(
+          "http://localhost:3000/platformAndGenres"
+        );
+        if (data.success) {
+          setAvailablePlatforms(data.platforms.map((p) => p.platformName));
+          setAvailableGenres(data.genres.map((g) => g.genreName));
+        }
+      } catch (error) {
+        console.error("Error al cargar plataformas y géneros", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const validateForm = () => {
     const errs = {};

@@ -1,0 +1,27 @@
+.platform-manager {
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.create-section input {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.platform-list {
+  list-style: none;
+  padding: 0;
+}
+
+.platform-list li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.msg {
+  margin-top: 1rem;
+  color: green;
+}
