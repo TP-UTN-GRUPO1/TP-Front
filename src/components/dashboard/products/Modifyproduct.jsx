@@ -47,8 +47,8 @@ const ModifyProduct = () => {
   const handleEditPrice = (id) => {
     const game = games.find((g) => g.id === id);
     seteditingProduct(id);
-    // setEditingTitle(id);
     setNewPrice(game.price);
+    setNewTitle(game.nameGame);
   };
 
   const handleSavePrice = (id) => {
