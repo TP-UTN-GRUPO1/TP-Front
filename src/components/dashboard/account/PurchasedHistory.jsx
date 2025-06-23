@@ -55,7 +55,7 @@ const PurchasedHistory = () => {
           <p>
             <strong>Total:</strong> ${order.totalAmount.toFixed(2)}
           </p>
-          <h4>{translate("Game")}:</h4>
+          <h4>{translate("Games")}:</h4>
           <ul>
             {order.orderItems.map((item) => (
               <li
