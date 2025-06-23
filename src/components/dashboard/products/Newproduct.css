@@ -104,19 +104,19 @@
 }
 
 .itemX {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   background-color: #2d2d2d;
   color: gold;
-  padding: 0.4rem 0.75rem;
+  padding: 1rem 0.75rem;
   border-radius: 10px;
   border: 1px solid gold;
   font-size: 0.95rem;
-  justify-content: space-between;
   gap: 0.5rem;
+  flex-direction: column;
 }
 
-.butonX {
+.buttonCancel {
   background-color: transparent;
   border: none;
   color: #ff4d4d;
@@ -128,7 +128,7 @@
   transition: color 0.2s ease;
 }
 
-.butonX:hover {
+.buttonCancel:hover {
   color: #ff7777;
 }
 

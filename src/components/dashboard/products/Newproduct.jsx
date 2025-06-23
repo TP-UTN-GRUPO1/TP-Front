@@ -79,12 +79,11 @@ const Newproduct = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    if (type === "checkbox" && name === "available") {
-      setFormData({ ...formData, available: checked });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    const { name, type, checked, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
   };
 
   const handleDelete = (group, value) => {
@@ -214,15 +213,6 @@ const Newproduct = () => {
           ))}
         </select>
         {errors.genres && <p className="error">{errors.genres}</p>}
-        <label className="availableCheckbox">
-          <span>{translate("Available")}</span>
-          <input
-            type="checkbox"
-            name="available"
-            checked={formData.available}
-            onChange={handleChange}
-          />
-        </label>
 
         <button type="button" onClick={handleSubmit}>
           {translate("Save")}
@@ -232,20 +222,31 @@ const Newproduct = () => {
 
       <div className="summary-card">
         <h4>{translate("Platform_select")}</h4>
-        <div className="chip-container">
+        <div className="itemX">
           {formData.platforms.map((p) => (
             <span key={p} className="chip">
               {p}{" "}
-              <button onClick={() => handleDelete("platforms", p)}>×</button>
+              <button
+                className="buttonCancel"
+                onClick={() => handleDelete("platforms", p)}
+              >
+                ×
+              </button>
             </span>
           ))}
         </div>
 
         <h4>{translate("Genre_select")}</h4>
-        <div className="chip-container">
+        <div className="itemX">
           {formData.genres.map((g) => (
             <span key={g} className="chip">
-              {g} <button onClick={() => handleDelete("genres", g)}>×</button>
+              {g}{" "}
+              <button
+                className="buttonCancel"
+                onClick={() => handleDelete("genres", g)}
+              >
+                ×
+              </button>
             </span>
           ))}
         </div>
