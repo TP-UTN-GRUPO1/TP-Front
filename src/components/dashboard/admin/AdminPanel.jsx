@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./AdminPanel.css";
 import { useTranslate } from "../../../hooks/useTranslate";
+import { confirmDialog, okAlert } from "../../../utils/SweetAlert";
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -62,10 +63,13 @@ const AdminPanel = () => {
   };
 
   const handleChangeRole = async (userId, newRole) => {
-    const confirm = window.confirm(
-      `¿Estás seguro que querés cambiar el rol a "${newRole}"?`
-    );
-    if (!confirm) return;
+    const confirmed = await confirmDialog({
+          title: `${translate("Confirm_change_role")} ${newRole === "user" ? "usuario" : newRole}?`,
+          text: translate("Are_you_sure"),
+          confirmButtonText: translate("Yes_Confirm"),
+          cancelButtonText: translate("Cancel"),
+        });
+    if (!confirmed) return;
     try {
       let response = await fetch(`http://localhost:3000/users/${userId}/role`, {
         method: "PUT",
@@ -87,10 +91,14 @@ const AdminPanel = () => {
           ? data
           : data.filter((u) => u.role?.roleName === selectedRole)
       );
-      toast.success("Rol actualizado correctamente", {
+      toast.success(translate("Updated_role_confirmed"), {
         position: "top-right",
         autoClose: 3000,
       });
+       okAlert({
+                title: translate("Updated"),
+                text: translate("Updated_role"),
+              });
     } catch (err) {
       toast.error(`Error al cambiar el rol: ${err.message}`, {
         position: "top-right",
@@ -100,10 +108,14 @@ const AdminPanel = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirm = window.confirm(
-      "¿Estás seguro que querés eliminar este usuario?"
-    );
-    if (!confirm) return;
+     
+    const confirmed = await confirmDialog({
+          title: translate("Confirm_delete_user"),
+          text: translate("Are_you_sure"),
+          confirmButtonText: translate("Yes_Confirm"),
+          cancelButtonText: translate("Cancel"),
+        });
+    if (!confirmed) return;
     try {
       const response = await fetch(`http://localhost:3000/user/${id}`, {
         method: "DELETE",
@@ -117,12 +129,16 @@ const AdminPanel = () => {
           (u) => selectedRole === "all" || u.Role?.roleName === selectedRole
         )
       );
-      toast.success("Usuario eliminado correctamente", {
+      toast.success(translate("Delete_user"), {
         position: "top-right",
         autoClose: 3000,
       });
+       okAlert({
+                title: translate("Deleted"),
+                text: translate("Delete_user"),
+              });
     } catch (err) {
-      toast.error(`Error al eliminar usuario: ${err.message}`, {
+      toast.error(`${translate("Err_delete_user")} ${err.message}`, {
         position: "top-right",
         autoClose: 3000,
       });
@@ -178,18 +194,18 @@ const AdminPanel = () => {
         {filteredUsers.map((user) => (
           <li key={user.id}>
             <span>
-              {user.name} | {user.email} | Rol:{" "}
-              {user.role?.roleName || "Sin rol"}
+              {user.name} | {user.email} | {translate("Role")}:{" "}
+              {user.role?.roleName || translate("No_role")}
             </span>
             <select
               onChange={(e) => handleChangeRole(user.id, e.target.value)}
               value={user.role?.roleName || "user"}
             >
-              <option value="user">Usuario</option>
+              <option value="user">{translate("User")}</option>
               <option value="admin">Admin</option>
               <option value="sysadmin">Sysadmin</option>
             </select>
-            <button onClick={() => handleDelete(user.id)}>Eliminar</button>
+            <button onClick={() => handleDelete(user.id)}>{translate("Delete")}</button>
             <button onClick={() => handleViewPurchases(user.id, user.email)}>
               {translate("See_Pucharse")}
             </button>
@@ -198,7 +214,7 @@ const AdminPanel = () => {
       </ul>
       {selectedUserEmail && (
         <div className="sectionOrders">
-          <h3>Compras de: {selectedUserEmail}</h3>
+          <h3>{translate("Pucharses_of")}: {selectedUserEmail}</h3>
           {selectedUserOrders.length === 0 ? (
             <p>{translate("No_Purchase")}</p>
           ) : (
@@ -215,8 +231,8 @@ const AdminPanel = () => {
                   {order.orderItems.map((item) => (
                     <li key={item.order_item_id}>
                       <img src={item.game.imageUrl} alt={item.game.nameGame} />
-                      {item.game.nameGame} - Cant: {item.quantity},{" "}
-                      {translate("Precio")}: ${item.unitPrice.toFixed(2)}
+                      {item.game.nameGame} - {translate("Amount")}: {item.quantity},{" "}
+                      {translate("Price")}: ${item.unitPrice.toFixed(2)}
                     </li>
                   ))}
                 </ul>
