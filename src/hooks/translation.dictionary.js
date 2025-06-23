@@ -7,7 +7,7 @@ export const translation_dictionary = {
     { key: "Have_account?", value: "¿No tienes cuenta?" },
     { key: "Register", value: "Registrarse" },
     { key: "Return", value: "Volver" },
-    { key: "User", value: "Usuario" },
+    { key: "User", value: "usuario" },
     { key: "Confirm_Password", value: "Confirmar contraseña" },
     { key: "Already_account?", value: "¿Ya tienes cuenta? ¡Inicia sesión!" },
     { key: "Order_By", value: "Ordenar por" },
@@ -68,7 +68,7 @@ export const translation_dictionary = {
     { key: "Quick_Links", value: "Enlaces Rápidos" },
     { key: "Contact_us", value: "Contáctanos" },
     { key: "Follow_us", value: "Seguinos en las redes" },
-    { key: "All_rights_reserved.", value: "Todos los derechos reservados." },
+    { key: "All_rights_reserved", value: "Todos los derechos reservados." },
     { key: "Invalid_Email", value: "Email invalido" },
     { key: "Incorrect_Password", value: "Contraseña incorrecta!" },
     { key: "Invalid_Password", value: "Contraseña inválida" },
@@ -151,7 +151,7 @@ export const translation_dictionary = {
     { key: "Updated_role", value: "Rol actualizado" },
     { key: "Updated_role_confirmed", value: "Rol actualizado correctamente" },
     { key: "Delete_user", value: "¿Estás seguro que querés eliminar este usuario?" },
-    { key: "Delete_user", value: "Usuario eliminado correctamente" },
+    { key: "Delete_user_confirmed", value: "Usuario eliminado correctamente" },
     { key: "Err_delete_user", value: "Error al eliminar usuario:" },
     { key: "Add_platform", value: "Agregar Plataforma" },
     { key: "Platform_Management", value: "Gestión de Plataformas" },
@@ -163,7 +163,9 @@ export const translation_dictionary = {
     { key: "Error_update_platform", value: "Error al actualizar la plataforma" },
     { key: "Confirm_delete_platform", value: "¿Estás seguro de que querés eliminar esta plataforma?" },
     { key: "Delete_platform", value: "Plataforma Eliminada" },
-    { key: "Err_delete_platform", value: "Error al eliminar la plataforma" }
+    { key: "Err_delete_platform", value: "Error al eliminar la plataforma" },
+    { key: "Confirm_delete_user", value: "¿Estas seguro que quieres eliminar el usuario?" },
+
 
 
 
@@ -228,7 +230,7 @@ export const translation_dictionary = {
     { key: "Quick_Links", value: "Quick links" },
     { key: "Contact_us", value: "Contact us" },
     { key: "Follow_us", value: "Follow us on social media" },
-    { key: "All_rights_reserved.", value: "All rights reserved." },
+    { key: "All_rights_reserved", value: "All rights reserved." },
     { key: "Invalid_Email", value: "Invalid email" },
     { key: "Incorrect_Password", value: "Incorrect password!" },
     { key: "Invalid_Password", value: "Invalid password" },

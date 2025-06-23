@@ -4,7 +4,7 @@ import {
   validateString,
   validateEmail,
   validatePassword,
-  isOverMinimumAge,
+  isBetweenValidAges,
 } from "./register.services.js";
 import "../login/Login.css";
 import axios from "axios";
@@ -35,7 +35,7 @@ function Register() {
       return;
     }
 
-    if (!date || !isOverMinimumAge(date, 13)) {
+    if (!date || !isBetweenValidAges(date, 13)) {
       setError(translate("Error_age"));
       return;
     }

@@ -28,13 +28,16 @@ export const validatePassword = (
   return true;
 };
 
-export const isOverMinimumAge = (birthDate, minAge) => {
+export const isBetweenValidAges = (birthDate, minAge = 13, maxAge = 100) => {
   const birth = new Date(birthDate);
   const today = new Date();
-  const age = today.getFullYear() - birth.getFullYear();
+
+  let age = today.getFullYear() - birth.getFullYear();
   const m = today.getMonth() - birth.getMonth();
-  return (
-    age > minAge ||
-    (age === minAge && m >= 0 && today.getDate() >= birth.getDate())
-  );
+
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+
+  return age >= minAge && age <= maxAge;
 };

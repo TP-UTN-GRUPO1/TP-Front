@@ -130,13 +130,13 @@ const AdminPanel = () => {
           (u) => selectedRole === "all" || u.Role?.roleName === selectedRole
         )
       );
-      toast.success(translate("Delete_user"), {
+      toast.success(translate("Delete_user_confirmed"), {
         position: "top-right",
         autoClose: 3000,
       });
       okAlert({
         title: translate("Deleted"),
-        text: translate("Delete_user"),
+        text: translate("Delete_user_confirmed"),
       });
     } catch (err) {
       toast.error(`${translate("Err_delete_user")} ${err.message}`, {
