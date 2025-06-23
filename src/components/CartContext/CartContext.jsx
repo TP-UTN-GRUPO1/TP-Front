@@ -1,4 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import { confirmDialog } from "../../utils/SweetAlert";
+import { useTranslate } from "../../hooks/useTranslate";
 
 const CartContext = createContext();
 
@@ -7,6 +9,7 @@ export const CartProvider = ({ children }) => {
     const stored = localStorage.getItem("cart");
     return stored ? JSON.parse(stored) : [];
   });
+  const translate = useTranslate();
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -42,10 +45,26 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const deleteProduct = (productId) => {
-    setCart((prevCart) =>
-      prevCart.filter((product) => product.id !== productId)
-    );
+  const deleteProduct = async (productId) => {
+    const confirmed = await confirmDialog({
+      title: translate("Confirm_Delete"),
+      text: translate("Are_you_sure"),
+      confirmButtonText: translate("Yes_Delete"),
+      cancelButtonText: translate("Cancel"),
+    });
+
+    if (!confirmed) return;
+    try {
+      setCart((prevCart) =>
+        prevCart.filter((product) => product.id !== productId)
+      );
+    } catch (err) {
+      console.error("Error:", err);
+      errorAlert({
+        title: translate("Error"),
+        text: translate("Delete_failed"),
+      });
+    }
   };
   const clearCart = () => {
     setCart([]);

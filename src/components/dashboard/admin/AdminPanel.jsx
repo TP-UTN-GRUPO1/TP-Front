@@ -51,24 +51,26 @@ const AdminPanel = () => {
     setFilteredUsers(
       selectedRole === "all"
         ? result
-        : result.filter((u) => u.Role?.roleName === selectedRole)
+        : result.filter((u) => u.role?.roleName === selectedRole)
     );
   };
 
   const handleRoleFilter = (role) => {
     setSelectedRole(role);
     setFilteredUsers(
-      role === "all" ? users : users.filter((u) => u.Role?.roleName === role)
+      role === "all" ? users : users.filter((u) => u.role?.roleName === role)
     );
   };
 
   const handleChangeRole = async (userId, newRole) => {
     const confirmed = await confirmDialog({
-          title: `${translate("Confirm_change_role")} ${newRole === "user" ? "usuario" : newRole}?`,
-          text: translate("Are_you_sure"),
-          confirmButtonText: translate("Yes_Confirm"),
-          cancelButtonText: translate("Cancel"),
-        });
+      title: `${translate("Confirm_change_role")} ${
+        newRole === "user" ? "usuario" : newRole
+      }?`,
+      text: translate("Are_you_sure"),
+      confirmButtonText: translate("Yes_Confirm"),
+      cancelButtonText: translate("Cancel"),
+    });
     if (!confirmed) return;
     try {
       let response = await fetch(`http://localhost:3000/users/${userId}/role`, {
@@ -95,10 +97,10 @@ const AdminPanel = () => {
         position: "top-right",
         autoClose: 3000,
       });
-       okAlert({
-                title: translate("Updated"),
-                text: translate("Updated_role"),
-              });
+      okAlert({
+        title: translate("Updated"),
+        text: translate("Updated_role"),
+      });
     } catch (err) {
       toast.error(`Error al cambiar el rol: ${err.message}`, {
         position: "top-right",
@@ -108,13 +110,12 @@ const AdminPanel = () => {
   };
 
   const handleDelete = async (id) => {
-     
     const confirmed = await confirmDialog({
-          title: translate("Confirm_delete_user"),
-          text: translate("Are_you_sure"),
-          confirmButtonText: translate("Yes_Confirm"),
-          cancelButtonText: translate("Cancel"),
-        });
+      title: translate("Confirm_delete_user"),
+      text: translate("Are_you_sure"),
+      confirmButtonText: translate("Yes_Confirm"),
+      cancelButtonText: translate("Cancel"),
+    });
     if (!confirmed) return;
     try {
       const response = await fetch(`http://localhost:3000/user/${id}`, {
@@ -133,10 +134,10 @@ const AdminPanel = () => {
         position: "top-right",
         autoClose: 3000,
       });
-       okAlert({
-                title: translate("Deleted"),
-                text: translate("Delete_user"),
-              });
+      okAlert({
+        title: translate("Deleted"),
+        text: translate("Delete_user"),
+      });
     } catch (err) {
       toast.error(`${translate("Err_delete_user")} ${err.message}`, {
         position: "top-right",
@@ -205,7 +206,9 @@ const AdminPanel = () => {
               <option value="admin">Admin</option>
               <option value="sysadmin">Sysadmin</option>
             </select>
-            <button onClick={() => handleDelete(user.id)}>{translate("Delete")}</button>
+            <button onClick={() => handleDelete(user.id)}>
+              {translate("Delete")}
+            </button>
             <button onClick={() => handleViewPurchases(user.id, user.email)}>
               {translate("See_Pucharse")}
             </button>
@@ -214,7 +217,9 @@ const AdminPanel = () => {
       </ul>
       {selectedUserEmail && (
         <div className="sectionOrders">
-          <h3>{translate("Pucharses_of")}: {selectedUserEmail}</h3>
+          <h3>
+            {translate("Pucharses_of")}: {selectedUserEmail}
+          </h3>
           {selectedUserOrders.length === 0 ? (
             <p>{translate("No_Purchase")}</p>
           ) : (
@@ -231,8 +236,9 @@ const AdminPanel = () => {
                   {order.orderItems.map((item) => (
                     <li key={item.order_item_id}>
                       <img src={item.game.imageUrl} alt={item.game.nameGame} />
-                      {item.game.nameGame} - {translate("Amount")}: {item.quantity},{" "}
-                      {translate("Price")}: ${item.unitPrice.toFixed(2)}
+                      {item.game.nameGame} - {translate("Amount")}:{" "}
+                      {item.quantity}, {translate("Price")}: $
+                      {item.unitPrice.toFixed(2)}
                     </li>
                   ))}
                 </ul>
