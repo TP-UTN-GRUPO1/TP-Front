@@ -28,7 +28,6 @@ const Favorites = () => {
             },
           }
         );
-        console.log(res.data);
         setFavorites(res.data.games || []);
       } catch (err) {
         console.error("Error fetching favorites", err);
@@ -51,26 +50,29 @@ const Favorites = () => {
           idUser: userId,
         },
       });
-      successToast("Juego eliminado de favoritos con exito");
-
+      successToast("Juego eliminado de favoritos con éxito");
       setFavorites((prev) => prev.filter((fav) => fav.id !== favoriteId));
     } catch (err) {
-      console.error(
-        "Error deleting favorite",
-        err.response?.data || err.message
-      );
-      errorToast("Ups error no se pudo quitar el juego de favo =(");
+      console.error("Error deleting favorite", err.response?.data || err.message);
+      errorToast("Ups, error: no se pudo quitar el juego de favoritos.");
     }
   };
 
-  const handleAddToCart = (product) => {
-    if (!product.available) {
+  const handleAddToCart = (fav) => {
+    if (!fav.available) {
       errorToast(translate("Out_of_stock_error"));
       return;
     }
 
     try {
-      addToCart(product);
+      const formattedProduct = {
+        id: fav.id,
+        name: fav.nameGame,  
+        img: fav.imageUrl,   
+        price: fav.price,
+      };
+
+      addToCart(formattedProduct);
       successToast(translate("Added_to_cart_success"));
     } catch (error) {
       console.error("Error adding to cart", error);
@@ -79,7 +81,7 @@ const Favorites = () => {
   };
 
   if (loading) return <LoadingSpinner />;
-  console.log(favorites, "como lo trae");
+
   return (
     <div className="container mt-4">
       <h2>{translate("Your_Favorites")}</h2>
@@ -106,6 +108,7 @@ const Favorites = () => {
                 </div>
                 <Card.Body className="card-body">
                   <h5 className="card-title">{fav.nameGame}</h5>
+                  <h5 className="card-title">${fav.price}</h5>
                   <div className="favoritesButton">
                     <Button
                       className="button"

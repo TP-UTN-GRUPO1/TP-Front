@@ -9,6 +9,7 @@ import {
 import "../login/Login.css";
 import axios from "axios";
 import { useTranslate } from "../../../hooks/useTranslate.jsx";
+import {successToast,errorToast} from "../../../utils/notification.jsx"
 
 function Register() {
   const navigate = useNavigate();
@@ -58,10 +59,13 @@ function Register() {
       });
 
       console.log("Registro exitoso:", response.data);
+      successToast("Registro exitoso")
       navigate("/login");
+      
     } catch (error) {
       console.error("Error en el registro:", error);
       setError(error.response?.data?.message || "Error en el servidor");
+      errorToast("ocurrio un error!")
     }
   };
 
