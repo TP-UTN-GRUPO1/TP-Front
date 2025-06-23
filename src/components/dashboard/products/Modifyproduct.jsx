@@ -88,23 +88,32 @@ const ModifyProduct = () => {
       confirmButtonText: translate("Yes_Delete"),
       cancelButtonText: translate("Cancel"),
     });
-    if (!confirmed) return;
-    fetch(`http://localhost:3000/games/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Error: " + res.status);
-        setGames((prev) => prev.filter((g) => g.id !== id));
-        okAlert({
-          title: translate("Deleted"),
-          text: translate("Game_deleted"),
-        });
-      })
-      .catch((err) => console.error("Error:", err));
-    errorAlert({ title: translate("Error"), text: translate("Delete_failed") });
-  };
 
+    if (!confirmed) return;
+
+    try {
+      const res = await fetch(`http://localhost:3000/games/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!res.ok) {
+        throw new Error(`Error: ${res.status} - ${res.statusText}`);
+      }
+
+      setGames((prev) => prev.filter((g) => g.id !== id));
+      okAlert({
+        title: translate("Deleted"),
+        text: translate("Game_deleted"),
+      });
+    } catch (err) {
+      console.error("Error:", err);
+      errorAlert({
+        title: translate("Error"),
+        text: translate("Delete_failed"),
+      });
+    }
+  };
   return (
     <div className="modify-container">
       {games.map((game) => (

@@ -57,8 +57,6 @@ const Login = () => {
       form.email,
       form.password,
       (token, userData) => {
-        console.log("Token:", token);
-        console.log("UserData:", userData);
         handleUserLogin(token, userData);
         navigate("/");
         successToast(translate("Session_started"));

@@ -9,11 +9,11 @@ import {
 import "../login/Login.css";
 import axios from "axios";
 import { useTranslate } from "../../../hooks/useTranslate.jsx";
-import {successToast,errorToast} from "../../../utils/notification.jsx"
+import { successToast, errorToast } from "../../../utils/notification.jsx";
 
 function Register() {
   const navigate = useNavigate();
-  const translate =useTranslate();
+  const translate = useTranslate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
@@ -58,14 +58,12 @@ function Register() {
         password,
       });
 
-      console.log("Registro exitoso:", response.data);
-      successToast("Registro exitoso")
+      successToast("Registro exitoso");
       navigate("/login");
-      
     } catch (error) {
       console.error("Error en el registro:", error);
       setError(error.response?.data?.message || "Error en el servidor");
-      errorToast("ocurrio un error!")
+      errorToast("ocurrio un error!");
     }
   };
 
