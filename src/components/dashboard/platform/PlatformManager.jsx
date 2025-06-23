@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./PlatformManager.css";
+import { useTranslate } from "../../../hooks/useTranslate";
+import { errorToast, successToast } from "../../../utils/notification";
+import { confirmDialog, errorAlert, okAlert } from "../../../utils/SweetAlert";
+import { toast } from "react-toastify";
 
 const PlatformManager = () => {
   const [platforms, setPlatforms] = useState([]);
@@ -8,6 +12,7 @@ const PlatformManager = () => {
   const [editId, setEditId] = useState(null);
   const [editName, setEditName] = useState("");
   const [message, setMessage] = useState("");
+  const translate = useTranslate();
 
   const fetchPlatforms = async () => {
     try {
@@ -31,14 +36,20 @@ const PlatformManager = () => {
         platformName: newPlatform,
       });
       if (data.success) {
-        setMessage("Plataforma creada");
+        toast.success(translate("Platform_created"), {
+        position: "top-right",
+        autoClose: 3000,
+      });
         setNewPlatform("");
         fetchPlatforms();
       } else {
         setMessage(data.message);
       }
     } catch {
-      setMessage("Error al crear plataforma");
+       toast.error(translate("Err_delete_user"), {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -47,33 +58,46 @@ const PlatformManager = () => {
       await axios.put(`http://localhost:3000/platforms/${id}`, {
         platformName: editName,
       });
-      setMessage("Plataforma actualizada");
+      successToast(translate("Platform_updated"));
       setEditId(null);
       setEditName("");
       fetchPlatforms();
     } catch {
-      setMessage("Error al actualizar plataforma");
+      toast.success(translate("Error_update_platform"), {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
   const deletePlatform = async (id) => {
-    if (
-      !window.confirm("¿Estás seguro de que querés eliminar esta plataforma?")
-    )
-      return;
+    const confirmed = await confirmDialog({
+      title: translate("Confirm_delete_platform"),
+      text: translate("Are_you_sure"),
+      confirmButtonText: translate("Yes_Confirm"),
+      cancelButtonText: translate("Cancel"),
+    });
+    if (!confirmed) return;
 
     try {
       await axios.delete(`http://localhost:3000/platforms/${id}`);
-      setMessage("Plataforma eliminada");
+       okAlert({
+                      title: translate("Deleted"),
+                      text: translate("Delete_platform"),
+                    });
       fetchPlatforms();
     } catch {
+       toast.error(translate("Err_delete_platform"), {
+              position: "top-right",
+              autoClose: 3000,
+            });
       setMessage("Error al eliminar plataforma");
     }
   };
 
   return (
     <div className="platform-manager">
-      <h2>Gestión de Plataformas</h2>
+      <h2>{translate("Platform_Management")}</h2>
 
       <div className="create-section">
         <input
@@ -82,7 +106,7 @@ const PlatformManager = () => {
           onChange={(e) => setNewPlatform(e.target.value)}
           placeholder="Nueva plataforma"
         />
-        <button onClick={createPlatform}>Crear</button>
+        <button onClick={createPlatform}>{translate("Create")}</button>
       </div>
 
       <ul className="platform-list">
@@ -94,8 +118,8 @@ const PlatformManager = () => {
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
                 />
-                <button onClick={() => updatePlatform(p.id)}>Guardar</button>
-                <button onClick={() => setEditId(null)}>Cancelar</button>
+                <button onClick={() => updatePlatform(p.id)}>{translate("Save")}</button>
+                <button onClick={() => setEditId(null)}>{translate("Cancel")}</button>
               </>
             ) : (
               <>
@@ -108,7 +132,7 @@ const PlatformManager = () => {
                 >
                   Editar
                 </button>
-                <button onClick={() => deletePlatform(p.id)}>Eliminar</button>
+                <button onClick={() => deletePlatform(p.id)}>{translate("Delete")}</button>
               </>
             )}
           </li>

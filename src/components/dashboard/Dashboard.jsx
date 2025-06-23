@@ -36,7 +36,7 @@ const Dashboard = () => {
         {(userRole === 1 || userRole === 3) && (
           <>
             <Link to="platforms" className={styles.navButton}>
-              Plataformas
+              {translate("Add_platform")}
             </Link>
           </>
         )}

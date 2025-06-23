@@ -153,6 +153,21 @@ export const translation_dictionary = {
     { key: "Delete_user", value: "¿Estás seguro que querés eliminar este usuario?" },
     { key: "Delete_user", value: "Usuario eliminado correctamente" },
     { key: "Err_delete_user", value: "Error al eliminar usuario:" },
+    { key: "Add_platform", value: "Agregar Plataforma" },
+    { key: "Platform_Management", value: "Gestión de Plataformas" },
+    { key: "Create", value: "Crear" },
+    { key: "Edit", value: "Editar" },
+    { key: "Platform_created", value: "Plataforma creada" },
+    { key: "Error_create_platfrom", value: "Error al crear la plataforma" },
+    { key: "Platform_updated", value: "Plataforma actualizada" },
+    { key: "Error_update_platform", value: "Error al actualizar la plataforma" },
+    { key: "Confirm_delete_platform", value: "¿Estás seguro de que querés eliminar esta plataforma?" },
+    { key: "Delete_platform", value: "Plataforma Eliminada" },
+    { key: "Err_delete_platform", value: "Error al eliminar la plataforma" }
+
+
+
+
   ],
   en: [
     { key: "Search_Games", value: "Search games..." },
@@ -298,8 +313,16 @@ export const translation_dictionary = {
     { key: "Confirm_delete_user", value: "Are you sure you want to delete this user?" },
     { key: "Delete_user", value: "User deleted successfully" },
     { key: "Err_delete_user", value: "Error deleting user:" },
-
-
-
+    { key: "Add_platform", value: "Add platform" },
+    { key: "Platform_Management", value: "Platform Management" },
+    { key: "Create", value: "Create" },
+    { key: "Edit", value: "Edit" },
+    { key: "Platform_created", value: "Platform Created" },
+    { key: "Error_create_platfrom", value: "Error creating platform" },
+    { key: "Platform_updated", value: "Platform updated" },
+    { key: "Error_update_platform", value: "Error updating the platform" },
+    { key: "Confirm_delete_platform", value: "Are you sure you want to delete this platform?" },
+    { key: "Delete_platform", value: "Platform deleted" },
+    { key: "Err_delete_platform", value: "Error deleting platform" }
   ],
 };
