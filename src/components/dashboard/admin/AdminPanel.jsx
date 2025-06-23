@@ -36,6 +36,13 @@ const AdminPanel = () => {
     fetchUsers();
   }, [token]);
 
+  useEffect(() => {
+    if (searchEmail.trim() !== "") {
+      setSelectedUserOrders([]);
+      setSelectedUserEmail("");
+    }
+  }, [searchEmail]);
+
   const handleSearch = () => {
     const result = users.filter((u) =>
       u.email.toLowerCase().includes(searchEmail.toLowerCase())

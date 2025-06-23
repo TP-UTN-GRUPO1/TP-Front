@@ -7,7 +7,7 @@ export const translation_dictionary = {
     { key: "Have_account?", value: "¿No tienes cuenta?" },
     { key: "Register", value: "Registrarse" },
     { key: "Return", value: "Volver" },
-    { key: "User", value: "usuario" },
+    { key: "User", value: "Usuario" },
     { key: "Confirm_Password", value: "Confirmar contraseña" },
     { key: "Already_account?", value: "¿Ya tienes cuenta? ¡Inicia sesión!" },
     { key: "Order_By", value: "Ordenar por" },
@@ -73,7 +73,7 @@ export const translation_dictionary = {
     { key: "Incorrect_Password", value: "Contraseña incorrecta!" },
     { key: "Invalid_Password", value: "Contraseña inválida" },
     { key: "Error_name", value: "Nombre debe tener entre 3 y 30 caracteres" },
-    { key: "Error_age", value: "Debes tener al menos 13 años" },
+    { key: "Error_age", value: "Debes tener entre 13 y 100 años" },
     {
       key: "Error_password",
       value: "Contraseña inválida: debe tener mayúscula, número y símbolo",
@@ -140,17 +140,26 @@ export const translation_dictionary = {
     { key: "Error_adding_to_cart", value: "Error al añadir al carrito" },
     { key: "Purchase_failed", value: "Eror al realizar la compra" },
     { key: "No_Purchase", value: "No hay compras realizadas por el usuario" },
-    { key: "Out_of_stock_error", value: "Error al añadir al carrito: No hay stock" },
+    {
+      key: "Out_of_stock_error",
+      value: "Error al añadir al carrito: No hay stock",
+    },
     { key: "Out_of_stock_badge", value: "Sin Stock" },
     { key: "Available_stock", value: "En Stock" },
     { key: "No_role", value: "Sin rol" },
     { key: "Role", value: "Rol" },
     { key: "Pucharses_of", value: "Compras de" },
-    { key: "Confirm_change_role", value: " ¿Estás seguro que querés cambiar el rol a " },
+    {
+      key: "Confirm_change_role",
+      value: " ¿Estás seguro que querés cambiar el rol a ",
+    },
     { key: "Updated", value: "Actualizado" },
     { key: "Updated_role", value: "Rol actualizado" },
     { key: "Updated_role_confirmed", value: "Rol actualizado correctamente" },
-    { key: "Delete_user", value: "¿Estás seguro que querés eliminar este usuario?" },
+    {
+      key: "Delete_user",
+      value: "¿Estás seguro que querés eliminar este usuario?",
+    },
     { key: "Delete_user_confirmed", value: "Usuario eliminado correctamente" },
     { key: "Err_delete_user", value: "Error al eliminar usuario:" },
     { key: "Add_platform", value: "Agregar Plataforma" },
@@ -160,16 +169,23 @@ export const translation_dictionary = {
     { key: "Platform_created", value: "Plataforma creada" },
     { key: "Error_create_platfrom", value: "Error al crear la plataforma" },
     { key: "Platform_updated", value: "Plataforma actualizada" },
-    { key: "Error_update_platform", value: "Error al actualizar la plataforma" },
-    { key: "Confirm_delete_platform", value: "¿Estás seguro de que querés eliminar esta plataforma?" },
+    {
+      key: "Error_update_platform",
+      value: "Error al actualizar la plataforma",
+    },
+    {
+      key: "Confirm_delete_platform",
+      value: "¿Estás seguro de que querés eliminar esta plataforma?",
+    },
     { key: "Delete_platform", value: "Plataforma Eliminada" },
     { key: "Err_delete_platform", value: "Error al eliminar la plataforma" },
-    { key: "Confirm_delete_user", value: "¿Estas seguro que quieres eliminar el usuario?" },
-
-
-
-
-
+    {
+      key: "Confirm_delete_user",
+      value: "¿Estas seguro que quieres eliminar el usuario?",
+    },
+    { key: "return", value: "Volver" },
+    { key: "Unauthorized_access_message", value: "Sin permisos" },
+    { key: "Page_not_found_message", value: "Pagina no encontrada" },
   ],
   en: [
     { key: "Search_Games", value: "Search games..." },
@@ -235,7 +251,7 @@ export const translation_dictionary = {
     { key: "Incorrect_Password", value: "Incorrect password!" },
     { key: "Invalid_Password", value: "Invalid password" },
     { key: "Error_name", value: "Name must be between 3 and 30 characters" },
-    { key: "Error_age", value: "You must be at least 13 years old" },
+    { key: "Error_age", value: "You must be between 13 and 100 years old" },
     {
       key: "Error_password",
       value: "Invalid password: must contain uppercase, number, and symbol",
@@ -287,6 +303,7 @@ export const translation_dictionary = {
     { key: "Loading_pucharse", value: "Loading purchase history..." },
     { key: "Err_404", value: "Oops...error 404 Site not found " },
     { key: "Err_401", value: "Error 401 unauthorized user" },
+    { key: "return", value: "Return" },
     {
       key: "Confirm_Changes",
       value: "Do you want to save the changes to your account?",
@@ -308,11 +325,17 @@ export const translation_dictionary = {
     { key: "No_role", value: "No role" },
     { key: "Role", value: "Role" },
     { key: "Pucharses_of", value: "Pucharses of" },
-    { key: "Confirm_change_role", value: "Are you sure you want to change the role to " },
+    {
+      key: "Confirm_change_role",
+      value: "Are you sure you want to change the role to ",
+    },
     { key: "Updated", value: "Updated" },
     { key: "Updated_role", value: "Updated role" },
     { key: "Updated_role_confirmed", value: "Role updated successfully" },
-    { key: "Confirm_delete_user", value: "Are you sure you want to delete this user?" },
+    {
+      key: "Confirm_delete_user",
+      value: "Are you sure you want to delete this user?",
+    },
     { key: "Delete_user", value: "User deleted successfully" },
     { key: "Err_delete_user", value: "Error deleting user:" },
     { key: "Add_platform", value: "Add platform" },
@@ -323,8 +346,13 @@ export const translation_dictionary = {
     { key: "Error_create_platfrom", value: "Error creating platform" },
     { key: "Platform_updated", value: "Platform updated" },
     { key: "Error_update_platform", value: "Error updating the platform" },
-    { key: "Confirm_delete_platform", value: "Are you sure you want to delete this platform?" },
+    {
+      key: "Confirm_delete_platform",
+      value: "Are you sure you want to delete this platform?",
+    },
     { key: "Delete_platform", value: "Platform deleted" },
-    { key: "Err_delete_platform", value: "Error deleting platform" }
+    { key: "Err_delete_platform", value: "Error deleting platform" },
+    { key: "Unauthorized_access_message", value: "Without permission" },
+    { key: "Page_not_found_message", value: "Page not found" },
   ],
 };

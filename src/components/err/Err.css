@@ -1,8 +1,64 @@
+.unauthorized-container, .error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  background: linear-gradient(135deg, #212121, #2c3e50);
+  padding: 20px;
+}
+
+.error-card {
+  background: #ffffff10;
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.8s ease-in-out;
+  max-width: 400px;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.error-icon {
+  font-size: 4rem;
+  color: #f1c40f;
+  margin-bottom: 15px;
+  animation: iconPulse 1.5s infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
 .error-heading {
-    color: gold; /* Color rojo para indicar error */
-    font-size: 2.5rem; /* Tamaño de fuente */
-    font-weight: bold; /* Negrita */
-    margin-bottom: 20px; /* Margen inferior */
-    text-align: center; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
-  }
+  color: #f1c40f;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.error-subtext {
+  color: #eeeeee;
+  margin: 15px 0;
+  font-size: 1rem;
+}
+
+.return-button {
+  margin-top: 15px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.return-button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}

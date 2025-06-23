@@ -46,12 +46,15 @@ function App() {
                   />
                   <Route path="/games/:id" element={<CardPage />} />
                   <Route path="/contact" element={<Contact />} />
-                  <Route path="/favorites" element={
-                    <ProtectedRoute>
-                      {" "}
-                      <Favorites />{" "}
-                    </ProtectedRoute>
-                  } />
+                  <Route
+                    path="/favorites"
+                    element={
+                      <ProtectedRoute>
+                        {" "}
+                        <Favorites />{" "}
+                      </ProtectedRoute>
+                    }
+                  />
                 </Route>
                 <Route path="/" element={<Home />} />
                 <Route path="/unauthorized" element={<Unauthorized />} />
