@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { confirmDialog } from "../../utils/SweetAlert";
+import { confirmDialog, errorAlert } from "../../utils/SweetAlert";
 import { useTranslate } from "../../hooks/useTranslate";
 
 const CartContext = createContext();

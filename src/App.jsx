@@ -9,22 +9,22 @@ import Cart from "./components/cart/Cart";
 import PurchasedHistory from "./components/dashboard/account/PurchasedHistory";
 import Contact from "./components/contactForm/ContactForm";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AuthContextProvider } from "./auth/AuthContextProvider";
+import { AuthContextProvider } from "./contexts/auth/AuthContextProvider.jsx";
 
 import LayoutNavbar from "./components/nav/LayoutNavbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { CartProvider } from "./components/cartContext/CartContext.jsx";
+import { CartProvider } from "./contexts/CartContext/CartContext.jsx";
 import Favorites from "./components/favorites/favorites";
 import Account from "./components/dashboard/account/Account.jsx";
 import Newproduct from "./components/dashboard/products/Newproduct.jsx";
 import ModifyProduct from "./components/dashboard/products/Modifyproduct.jsx";
 import PlatformManager from "./components/dashboard/platform/PlatformManager.jsx";
-import { FavoritesProvider } from "./components/FavoritesContext/FavoritesContext.jsx";
+import { FavoritesProvider } from "./contexts/FavoritesContext/FavoritesContext.jsx";
 import AdminPanel from "./components/dashboard/admin/AdminPanel.jsx";
 import ProtectedRoute from "./components/routes/protected/ProtectedRoute.jsx";
 import Unauthorized from "./components/err/Unauthorized.jsx";
-import TranslateContextProvider from "./translateContext/TranslateContextProvider.jsx";
+import TranslateContextProvider from "./contexts/translateContext/TranslateContextProvider.jsx";
 
 function App() {
   return (

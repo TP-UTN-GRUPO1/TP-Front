@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "../productCard/ProductCard";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
-import { useCart } from "../cartContext/CartContext.jsx";
-import { AuthContext } from "../../auth/Auth.Context.jsx";
+import { useCart } from "../../contexts/CartContext/CartContext.jsx";
+import { AuthContext } from "../../contexts/auth/Auth.Context.jsx";
 import { errorToast, successToast, warningToast } from "../../utils/notification.jsx";
 import { useTranslate } from "../../hooks/useTranslate.jsx";
 

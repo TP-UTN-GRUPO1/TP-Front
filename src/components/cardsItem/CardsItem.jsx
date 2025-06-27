@@ -1,10 +1,10 @@
 import { Card, Button, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./CardsItem.css";
-import { useFavorites } from "../FavoritesContext/FavoritesContext";
+import { useFavorites } from "../../contexts/FavoritesContext/FavoritesContext";
 import { useContext } from "react";
 import { warningToast, successToast } from "/src/utils/notification";
-import { AuthContext } from "../../auth/Auth.Context";
+import { AuthContext } from "../../contexts/auth/Auth.Context";
 import { useTranslate } from "../../hooks/useTranslate";
 
 const CardsItem = ({

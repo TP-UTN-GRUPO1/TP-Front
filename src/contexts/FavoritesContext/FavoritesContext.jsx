@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from "react";
 import axios from "axios";
-import { AuthContext } from "../../auth/Auth.Context";
+import { AuthContext } from "../auth/Auth.Context";
 
 const FavoritesContext = createContext();
 

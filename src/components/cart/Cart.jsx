@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useCart } from "../cartContext/CartContext";
+import { useCart } from "../../contexts/CartContext/CartContext";
 import CartItem from "../cartItem/CartItem";
 import Button from "../button/Button";
 import "./Cart.css";

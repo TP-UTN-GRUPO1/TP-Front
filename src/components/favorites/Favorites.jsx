@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
-import { AuthContext } from "../../auth/Auth.Context";
+import { AuthContext } from "../../contexts/auth/Auth.Context";
 import { errorToast, successToast } from "../../utils/notification";
 import "./Favorites.css";
 import { Badge, Button, Card } from "react-bootstrap";
 import { useTranslate } from "../../hooks/useTranslate";
-import { useCart } from "../cartContext/CartContext";
+import { useCart } from "../../contexts/CartContext/CartContext";
 
 const Favorites = () => {
   const { token } = useContext(AuthContext);

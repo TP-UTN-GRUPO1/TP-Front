@@ -1,7 +1,7 @@
 import { Outlet, Link } from "react-router-dom";
 import styles from "./Dashboard.module.css";
 import { useContext } from "react";
-import { AuthContext } from "../../auth/Auth.Context";
+import { AuthContext } from "../../contexts/auth/Auth.Context";
 import { useTranslate } from "../../hooks/useTranslate";
 
 const Dashboard = () => {
