@@ -1,7 +1,7 @@
 import GameFilters from "../gameFilters/GameFilters";
 import GameList from "../gameList/GameList";
 import useGames from "./useGames";
-import GigantCarrousel from "../gigantCarrousel/GigantCarrousel";
+import GigantCarrousel from "../GigantCarrousel/GigantCarrousel";
 import Footer from "../footer/Footer";
 import "./Home.css";
 
