@@ -1,6 +1,6 @@
 import { Card, Button, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./Cardsitem.css";
+import "./Item.css";
 import { useFavorites } from "../../contexts/FavoritesContext/FavoritesContext";
 import { useContext } from "react";
 import { warningToast, successToast } from "/src/utils/notification";
