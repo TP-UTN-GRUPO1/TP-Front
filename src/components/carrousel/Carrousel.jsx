@@ -1,9 +1,9 @@
-import "./gigantCarrousel.css";
+import "./GigantCarrousel.css";
 import data from "./imgs.js";
 import { useRef, useState, useEffect } from "react";
 import imgLogo from "../../assets/img/theFrogGames2.png";
 
-const GigantCarrousel = () => {
+const Carrousel = () => {
   const listRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
 
