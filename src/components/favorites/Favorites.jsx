@@ -21,7 +21,7 @@ const Favorites = () => {
     const getFavoritesById = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/favorites/${userId}`,
+          `https://thefrog-server.onrender.com/favorites/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ const Favorites = () => {
 
   const handleDeleteFavorite = async (favoriteId) => {
     try {
-      await axios.delete("http://localhost:3000/favorites", {
+      await axios.delete("https://thefrog-server.onrender.com/favorites", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -53,7 +53,10 @@ const Favorites = () => {
       successToast("Juego eliminado de favoritos con éxito");
       setFavorites((prev) => prev.filter((fav) => fav.id !== favoriteId));
     } catch (err) {
-      console.error("Error deleting favorite", err.response?.data || err.message);
+      console.error(
+        "Error deleting favorite",
+        err.response?.data || err.message
+      );
       errorToast("Ups, error: no se pudo quitar el juego de favoritos.");
     }
   };
@@ -67,8 +70,8 @@ const Favorites = () => {
     try {
       const formattedProduct = {
         id: fav.id,
-        name: fav.nameGame,  
-        img: fav.imageUrl,   
+        name: fav.nameGame,
+        img: fav.imageUrl,
         price: fav.price,
       };
 
@@ -101,7 +104,9 @@ const Favorites = () => {
                 />
                 <div className="stock">
                   {fav.available ? (
-                    <Badge bg="success">{translate("Out_of_stock_badge")}</Badge>
+                    <Badge bg="success">
+                      {translate("Out_of_stock_badge")}
+                    </Badge>
                   ) : (
                     <Badge bg="danger">{translate("Available_stock")}</Badge>
                   )}

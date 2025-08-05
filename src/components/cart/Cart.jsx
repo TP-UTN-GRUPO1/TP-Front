@@ -49,7 +49,7 @@ const Cart = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/orders",
+        "https://thefrog-server.onrender.com/orders",
         orderData
       );
       if (response.status === 201) {

@@ -7,7 +7,7 @@ const PurchasedHistory = () => {
   const { token } = useContext(AuthContext);
   const user = JSON.parse(localStorage.getItem("theFrog-user"));
   const userId = user?.id;
-  const translate = useTranslate()
+  const translate = useTranslate();
 
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,7 @@ const PurchasedHistory = () => {
     const fetchOrders = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/orders/user/${userId}`,
+          `https://thefrog-server.onrender.com/orders/user/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -50,7 +50,8 @@ const PurchasedHistory = () => {
           }}
         >
           <p>
-            <strong>{translate("Date")}:</strong> {new Date(order.createdAt).toLocaleString()}
+            <strong>{translate("Date")}:</strong>{" "}
+            {new Date(order.createdAt).toLocaleString()}
           </p>
           <p>
             <strong>Total:</strong> ${order.totalAmount.toFixed(2)}
@@ -77,7 +78,8 @@ const PurchasedHistory = () => {
                     borderRadius: "8px",
                   }}
                 />
-                {item.game.nameGame} - {translate("Amount")}: {item.quantity}, {translate("Price_unit")}: ${item.unitPrice.toFixed(2)}
+                {item.game.nameGame} - {translate("Amount")}: {item.quantity},{" "}
+                {translate("Price_unit")}: ${item.unitPrice.toFixed(2)}
               </li>
             ))}
           </ul>

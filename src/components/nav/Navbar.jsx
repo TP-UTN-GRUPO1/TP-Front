@@ -24,7 +24,7 @@ const Navbar = ({
   const navigate = useNavigate();
 
   const { token, username, handleUserLogout } = useContext(AuthContext);
- const translate = useTranslate();
+  const translate = useTranslate();
   const { cart } = useCart();
 
   const totalProduct = cart.reduce((acc, product) => acc + product.amount, 0);
@@ -43,7 +43,9 @@ const Navbar = ({
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/game?name=${encodeURIComponent(query)}`
+        `https://thefrog-server.onrender.com/game?name=${encodeURIComponent(
+          query
+        )}`
       );
       onSearch?.(query, response.data);
     } catch (error) {
@@ -70,7 +72,7 @@ const Navbar = ({
           onSearch={handleSearch}
         />
         <div className="language-select-wrapper">
-        <ToggleLanguage/>
+          <ToggleLanguage />
         </div>
         <div className="navbar-right">
           <Link to="/cart" className="icon-button">
@@ -102,7 +104,9 @@ const Navbar = ({
             </>
           ) : (
             <Link to="/login">
-              <button className="nav-button primary">{translate("Login")}</button>
+              <button className="nav-button primary">
+                {translate("Login")}
+              </button>
             </Link>
           )}
         </div>

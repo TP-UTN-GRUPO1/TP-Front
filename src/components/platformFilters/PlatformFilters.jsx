@@ -15,7 +15,7 @@ const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
     const fetchPlatforms = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:3000/platformAndGenres"
+          "https://thefrog-server.onrender.com/platformAndGenres"
         );
         if (data.success) {
           setPlatforms(data.platforms.map((p) => p.platformName));

@@ -18,9 +18,12 @@ const AdminPanel = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3000/users", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await fetch(
+          "https://thefrog-server.onrender.com/users",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         if (!response.ok)
           throw new Error("No autorizado o error en la solicitud");
         const data = await response.json();
@@ -80,16 +83,19 @@ const AdminPanel = () => {
     });
     if (!confirmed) return;
     try {
-      let response = await fetch(`http://localhost:3000/users/${userId}/role`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ roleName: newRole }),
-      });
+      let response = await fetch(
+        `https://thefrog-server.onrender.com/users/${userId}/role`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ roleName: newRole }),
+        }
+      );
       if (!response.ok) throw new Error("Error al cambiar el rol");
-      response = await fetch("http://localhost:3000/users", {
+      response = await fetch("https://thefrog-server.onrender.com/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) throw new Error("Error al recargar usuarios");
@@ -125,10 +131,13 @@ const AdminPanel = () => {
     });
     if (!confirmed) return;
     try {
-      const response = await fetch(`http://localhost:3000/user/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `https://thefrog-server.onrender.com/user/${id}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if (!response.ok) throw new Error("Error al eliminar usuario");
       const updatedUsers = users.filter((u) => u.id !== id);
       setUsers(updatedUsers);
@@ -155,9 +164,12 @@ const AdminPanel = () => {
 
   const handleViewPurchases = async (id, email) => {
     try {
-      const response = await fetch(`http://localhost:3000/orders/user/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `https://thefrog-server.onrender.com/orders/user/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if (!response.ok)
         throw new Error("No se pudo obtener el historial de compras");
       const data = await response.json();

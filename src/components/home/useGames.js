@@ -52,14 +52,15 @@ const useGames = () => {
     setShowCarrousel(false);
   };
 
-  const filteredGames = (selectedPlatform
-    ? games.filter((game) =>
-      game.platforms.some(
-        (platform) => platform.platformName === selectedPlatform
-      )
-    )
-    : games
-  ).filter((game) => game.available)
+  const filteredGames = (
+    selectedPlatform
+      ? games.filter((game) =>
+          game.platforms.some(
+            (platform) => platform.platformName === selectedPlatform
+          )
+        )
+      : games
+  ).filter((game) => game.available);
 
   const indexOfLastGame = currentPage * gamesPerPage;
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
@@ -67,7 +68,7 @@ const useGames = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/games")
+      .get("https://thefrog-server.onrender.com/games")
       .then((response) => {
         setOriginalGames(response.data);
         setGames(response.data);

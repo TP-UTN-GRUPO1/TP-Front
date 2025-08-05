@@ -12,7 +12,7 @@ export const FavoritesProvider = ({ children }) => {
   const addToFavorites = async (game) => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/favorites",
+        "https://thefrog-server.onrender.com/favorites",
         {
           idUser: userId,
           gameId: game.id,

@@ -12,14 +12,14 @@ const ModifyProduct = () => {
   const { token } = useContext(AuthContext);
   const translate = useTranslate();
   useEffect(() => {
-    fetch("http://localhost:3000/games")
+    fetch("https://thefrog-server.onrender.com/games")
       .then((response) => response.json())
       .then((data) => setGames(data));
   }, []);
 
   const handleToggleAvailability = (id) => {
     const game = games.find((g) => g.id === id);
-    fetch(`http://localhost:3000/updateGame/${id}`, {
+    fetch(`https://thefrog-server.onrender.com/updateGame/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const ModifyProduct = () => {
     })
       .then((response) => {
         if (!response.ok) throw new Error("Error: " + response.status);
-        return fetch("http://localhost:3000/games");
+        return fetch("https://thefrog-server.onrender.com/games");
       })
       .then((response) => response.json())
       .then((data) => setGames(data))
@@ -53,7 +53,7 @@ const ModifyProduct = () => {
 
   const handleSavePrice = (id) => {
     const game = games.find((g) => g.id === id);
-    fetch(`http://localhost:3000/updateGame/${id}`, {
+    fetch(`https://thefrog-server.onrender.com/updateGame/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const ModifyProduct = () => {
     })
       .then((response) => {
         if (!response.ok) throw new Error("Error: " + response.status);
-        return fetch("http://localhost:3000/games");
+        return fetch("https://thefrog-server.onrender.com/games");
       })
       .then((response) => response.json())
       .then((data) => setGames(data))
@@ -92,10 +92,13 @@ const ModifyProduct = () => {
     if (!confirmed) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/games/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        `https://thefrog-server.onrender.com/games/${id}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       if (!res.ok) {
         throw new Error(`Error: ${res.status} - ${res.statusText}`);

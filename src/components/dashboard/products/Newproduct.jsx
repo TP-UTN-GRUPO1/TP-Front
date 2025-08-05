@@ -25,7 +25,7 @@ const Newproduct = () => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:3000/platformAndGenres"
+          "https://thefrog-server.onrender.com/platformAndGenres"
         );
         if (data.success) {
           setAvailablePlatforms(data.platforms.map((p) => p.platformName));
@@ -103,7 +103,7 @@ const Newproduct = () => {
     setErrors({});
     try {
       const token = localStorage.getItem("theFrog-token");
-      const resp = await fetch("http://localhost:3000/games", {
+      const resp = await fetch("https://thefrog-server.onrender.com/games", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

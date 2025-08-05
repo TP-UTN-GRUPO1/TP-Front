@@ -17,9 +17,12 @@ const Account = () => {
   useEffect(() => {
     const loadAccount = async () => {
       try {
-        const resp = await fetch(`http://localhost:3000/account/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const resp = await fetch(
+          `https://thefrog-server.onrender.com/account/${userId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         if (!resp.ok) throw new Error("Error al cargar datos");
         const data = await resp.json();
         setAddress(data.address);
@@ -48,14 +51,17 @@ const Account = () => {
     const body = { id: userId, address, lastName, city, province, country };
 
     try {
-      const response = await fetch("http://localhost:3000/account", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "https://thefrog-server.onrender.com/account",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error al guardar los cambios");

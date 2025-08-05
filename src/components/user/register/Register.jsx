@@ -51,12 +51,15 @@ function Register() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/register", {
-        name,
-        email,
-        date,
-        password,
-      });
+      const response = await axios.post(
+        "https://thefrog-server.onrender.com/register",
+        {
+          name,
+          email,
+          date,
+          password,
+        }
+      );
 
       successToast("Registro exitoso");
       navigate("/login");

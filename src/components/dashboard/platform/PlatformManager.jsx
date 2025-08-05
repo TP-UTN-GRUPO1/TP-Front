@@ -16,7 +16,9 @@ const PlatformManager = () => {
 
   const fetchPlatforms = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:3000/platforms`);
+      const { data } = await axios.get(
+        `https://thefrog-server.onrender.com/platforms`
+      );
       setPlatforms(data.platforms);
       console.log(platforms);
     } catch (error) {
@@ -32,21 +34,24 @@ const PlatformManager = () => {
     if (!newPlatform.trim()) return;
 
     try {
-      const { data } = await axios.post("http://localhost:3000/platforms", {
-        platformName: newPlatform,
-      });
+      const { data } = await axios.post(
+        "https://thefrog-server.onrender.com/platforms",
+        {
+          platformName: newPlatform,
+        }
+      );
       if (data.success) {
         toast.success(translate("Platform_created"), {
-        position: "top-right",
-        autoClose: 3000,
-      });
+          position: "top-right",
+          autoClose: 3000,
+        });
         setNewPlatform("");
         fetchPlatforms();
       } else {
         setMessage(data.message);
       }
     } catch {
-       toast.error(translate("Err_delete_user"), {
+      toast.error(translate("Err_delete_user"), {
         position: "top-right",
         autoClose: 3000,
       });
@@ -55,7 +60,7 @@ const PlatformManager = () => {
 
   const updatePlatform = async (id) => {
     try {
-      await axios.put(`http://localhost:3000/platforms/${id}`, {
+      await axios.put(`https://thefrog-server.onrender.com/platforms/${id}`, {
         platformName: editName,
       });
       successToast(translate("Platform_updated"));
@@ -80,17 +85,17 @@ const PlatformManager = () => {
     if (!confirmed) return;
 
     try {
-      await axios.delete(`http://localhost:3000/platforms/${id}`);
-       okAlert({
-                      title: translate("Deleted"),
-                      text: translate("Delete_platform"),
-                    });
+      await axios.delete(`https://thefrog-server.onrender.com/platforms/${id}`);
+      okAlert({
+        title: translate("Deleted"),
+        text: translate("Delete_platform"),
+      });
       fetchPlatforms();
     } catch {
-       toast.error(translate("Err_delete_platform"), {
-              position: "top-right",
-              autoClose: 3000,
-            });
+      toast.error(translate("Err_delete_platform"), {
+        position: "top-right",
+        autoClose: 3000,
+      });
       setMessage("Error al eliminar plataforma");
     }
   };
@@ -118,8 +123,12 @@ const PlatformManager = () => {
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
                 />
-                <button onClick={() => updatePlatform(p.id)}>{translate("Save")}</button>
-                <button onClick={() => setEditId(null)}>{translate("Cancel")}</button>
+                <button onClick={() => updatePlatform(p.id)}>
+                  {translate("Save")}
+                </button>
+                <button onClick={() => setEditId(null)}>
+                  {translate("Cancel")}
+                </button>
               </>
             ) : (
               <>
@@ -132,7 +141,9 @@ const PlatformManager = () => {
                 >
                   Editar
                 </button>
-                <button onClick={() => deletePlatform(p.id)}>{translate("Delete")}</button>
+                <button onClick={() => deletePlatform(p.id)}>
+                  {translate("Delete")}
+                </button>
               </>
             )}
           </li>

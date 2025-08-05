@@ -5,7 +5,11 @@ import ProductCard from "../productCard/ProductCard";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import { useCart } from "../../contexts/CartContext/CartContext.jsx";
 import { AuthContext } from "../../contexts/auth/Auth.Context.jsx";
-import { errorToast, successToast, warningToast } from "../../utils/notification.jsx";
+import {
+  errorToast,
+  successToast,
+  warningToast,
+} from "../../utils/notification.jsx";
 import { useTranslate } from "../../hooks/useTranslate.jsx";
 
 const CardPage = () => {
@@ -13,12 +17,14 @@ const CardPage = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
   const { token } = useContext(AuthContext);
-  const translate = useTranslate()
+  const translate = useTranslate();
 
   useEffect(() => {
     const getDetailGame = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/games/${id}`);
+        const response = await axios.get(
+          `https://thefrog-server.onrender.com/games/${id}`
+        );
         setGameDetail(response.data);
       } catch (error) {
         console.error("Error fetching game details", error);
@@ -32,28 +38,27 @@ const CardPage = () => {
       warningToast(translate("Login_cart"));
       return;
     }
-  try {
-    
-    if (gameDetail) {
-      if (!gameDetail.available) {
-        errorToast(translate("Out_of_stock_error"));
-        return;
+    try {
+      if (gameDetail) {
+        if (!gameDetail.available) {
+          errorToast(translate("Out_of_stock_error"));
+          return;
+        }
+        addToCart({
+          id: gameDetail.id,
+          name: gameDetail.nameGame,
+          img: gameDetail.imageUrl,
+          price: gameDetail.price,
+        });
+        successToast(translate("Added_to_cart_success"));
+      } else {
+        errorToast(translate("Error_adding_to_cart"));
       }
-      addToCart({
-        id: gameDetail.id,
-        name: gameDetail.nameGame,
-        img: gameDetail.imageUrl,
-        price: gameDetail.price,
-      });
-      successToast(translate("Added_to_cart_success"));
-    } else {
+    } catch (error) {
+      console.error("Error al añadir al carrito", error);
       errorToast(translate("Error_adding_to_cart"));
     }
-  } catch (error) {
-    console.error("Error al añadir al carrito", error);
-    errorToast(translate("Error_adding_to_cart"));
-  }
-};
+  };
 
   if (!gameDetail) {
     return <LoadingSpinner />;
