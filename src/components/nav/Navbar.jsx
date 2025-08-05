@@ -7,7 +7,7 @@ import axios from "axios";
 import PlatformFilters from "../platformFilters/PlatformFilters";
 import SearchBar from "../searchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/auth/Auth.Context";
+import { AuthContext } from "../../contexts/auth/AuthContext";
 import { useCart } from "../../contexts/CartContext/CartContext";
 import { successToast } from "../../utils/notification";
 import ToggleLanguage from "../../ui/toggleLanguage/ToggleLanguage";

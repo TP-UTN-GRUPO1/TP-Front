@@ -4,7 +4,7 @@ import axios from "axios";
 import ProductCard from "../productCard/ProductCard";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import { useCart } from "../../contexts/CartContext/CartContext.jsx";
-import { AuthContext } from "../../contexts/auth/Auth.Context.jsx";
+import { AuthContext } from "../../contexts/auth/AuthContext.jsx";
 import {
   errorToast,
   successToast,

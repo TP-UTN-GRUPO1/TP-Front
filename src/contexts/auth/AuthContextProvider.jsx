@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AuthContext } from "./Auth.Context";
+import { AuthContext } from "./AuthContext";
 
 function getLocalJSON(key, defaultValue) {
   const raw = localStorage.getItem(key);
@@ -29,7 +29,7 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.setItem("theFrog-user", JSON.stringify(userData));
     setToken(newToken);
     setUsername(userData.name);
-    setUserRole(userData.roleId); 
+    setUserRole(userData.roleId);
   };
 
   const handleUserLogout = () => {

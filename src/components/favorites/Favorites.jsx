@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
-import { AuthContext } from "../../contexts/auth/Auth.Context";
+import { AuthContext } from "../../contexts/auth/AuthContext";
 import { errorToast, successToast } from "../../utils/notification";
 import "./Favorites.css";
 import { Badge, Button, Card } from "react-bootstrap";

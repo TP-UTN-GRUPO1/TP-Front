@@ -4,7 +4,7 @@ import "./CardsItem.css";
 import { useFavorites } from "../../contexts/FavoritesContext/FavoritesContext";
 import { useContext } from "react";
 import { warningToast, successToast } from "/src/utils/notification";
-import { AuthContext } from "../../contexts/auth/Auth.Context";
+import { AuthContext } from "../../contexts/auth/AuthContext";
 import { useTranslate } from "../../hooks/useTranslate";
 
 const CardsItem = ({

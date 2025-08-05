@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./ModifyProduct.css";
-import { AuthContext } from "../../../contexts/auth/Auth.Context";
+import { AuthContext } from "../../../contexts/auth/AuthContext";
 import { useTranslate } from "../../../hooks/useTranslate";
 import { confirmDialog, okAlert, errorAlert } from "../../../utils/SweetAlert";
 

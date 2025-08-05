@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../contexts/auth/Auth.Context";
+import { AuthContext } from "../../../contexts/auth/AuthContext";
 import axios from "axios";
 import { useTranslate } from "../../../hooks/useTranslate";
 
