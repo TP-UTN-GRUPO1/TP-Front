@@ -1,4 +1,4 @@
-import "./GigantCarrousel.css";
+import "./Carrousel.css";
 import data from "./imgs.js";
 import { useRef, useState, useEffect } from "react";
 import imgLogo from "../../assets/img/theFrogGames2.png";
