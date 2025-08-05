@@ -1,10 +1,6 @@
 import { useState, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  validateEmail,
-  validatePassword,
-  loginUser,
-} from "./Login.services.js";
+import { validateEmail, validatePassword, loginUser } from "./LoginServices.js";
 import { errorToast, successToast } from "../../../utils/notification.jsx";
 import { AuthContext } from "../../../contexts/auth/AuthContext.jsx";
 import "./Login.css";
