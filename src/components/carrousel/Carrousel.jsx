@@ -85,4 +85,4 @@ const GigantCarrousel = () => {
   );
 };
 
-export default GigantCarrousel;
+export default Carrousel;

@@ -1,7 +1,7 @@
 import GameFilters from "../gameFilters/GameFilters";
 import GameList from "../gameList/GameList";
 import useGames from "./useGames";
-import GigantCarrousel from "../GigantCarrousel/GigantCarrousel";
+import Carrousel from "../carrousel/Carrousel";
 import Footer from "../footer/Footer";
 import "./Home.css";
 
@@ -29,7 +29,7 @@ const Home = () => {
       />
 
       <div className="main-content">
-        {showCarrousel && <GigantCarrousel />}
+        {showCarrousel && <Carrousel />}
 
         {currentGames.length === 0 ? (
           <p className="d-flex justify-content-center flex-wrap">
