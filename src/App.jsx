@@ -15,7 +15,7 @@ import LayoutNavbar from "./components/nav/LayoutNavbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CartProvider } from "./contexts/CartContext/CartContext.jsx";
-import Favorites from "./components/favorites/favorites";
+import Favorites from "./components/favorites/Favorites";
 import Account from "./components/dashboard/account/Account.jsx";
 import Newproduct from "./components/dashboard/products/Newproduct.jsx";
 import ModifyProduct from "./components/dashboard/products/Modifyproduct.jsx";
