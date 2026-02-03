@@ -1,3 +1,4 @@
+import { useTranslate } from "../../hooks/useTranslate";
 import GameFilters from "../gameFilters/GameFilters";
 import GameList from "../gameList/GameList";
 import useGames from "./useGames";
@@ -6,6 +7,7 @@ import Footer from "../footer/Footer";
 import "./Home.css";
 
 const Home = () => {
+  const translate = useTranslate();
   const {
     filteredGames,
     currentGames,
@@ -33,7 +35,7 @@ const Home = () => {
 
         {currentGames.length === 0 ? (
           <p className="d-flex justify-content-center flex-wrap">
-            No se encontraron juegos.
+            {translate("No_games_found")}
           </p>
         ) : (
           <GameList

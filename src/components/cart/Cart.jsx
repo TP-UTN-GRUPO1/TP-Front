@@ -27,7 +27,7 @@ const Cart = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (!user?.id) {
-      errorToast("Tenés que iniciar sesión para finalizar la compra.");
+      errorToast(translate("Log_in_to_continue"));
       return;
     }
     const confirmed = await confirmDialog({

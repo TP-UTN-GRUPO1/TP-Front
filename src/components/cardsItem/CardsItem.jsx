@@ -62,9 +62,9 @@ const CardsItem = ({
           <Card.Body>
             <div className="stock">
               {available ? (
-                <Badge bg="success">En Stock</Badge>
+                <Badge bg="success">{translate("Available_stock")}</Badge>
               ) : (
-                <Badge bg="danger">Sin Stock</Badge>
+                <Badge bg="danger">{translate("Out_of_stock_badge")}</Badge>
               )}
             </div>
             <Card.Title>{gameName}</Card.Title>

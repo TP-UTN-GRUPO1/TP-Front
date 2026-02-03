@@ -70,7 +70,7 @@ const Newproduct = () => {
     const list = formData[group];
     if (list.includes(value)) return;
     if (list.length >= limit) {
-      toast.warn(`Solo puedes seleccionar hasta ${limit} ${group}`, {
+      toast.warn(`${translate("Warn_select")} ${limit} ${group}`, {
         autoClose: 2000,
       });
       return;
@@ -113,7 +113,7 @@ const Newproduct = () => {
       });
       const result = await resp.json();
       if (resp.ok) {
-        toast.success("Juego creado exitosamente");
+        toast.success(translate("Game_Created"));
         setFormData({
           nameGame: "",
           developer: "",
@@ -126,11 +126,11 @@ const Newproduct = () => {
         });
       } else {
         setErrors({ api: result.message });
-        toast.error(result.message || "Error al crear el juego");
+        toast.error(result.message || (translate("Error_creating_game")));
       }
     } catch {
       setErrors({ api: "Error al conectar con el servidor" });
-      toast.error("Error al conectar con el servidor");
+      toast.error((translate("Error_server")));
     }
   };
 

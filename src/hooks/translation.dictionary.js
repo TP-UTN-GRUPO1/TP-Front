@@ -1,3 +1,4 @@
+
 export const translation_dictionary = {
   es: [
     { key: "Search_Games", value: "Buscar juegos..." },
@@ -186,6 +187,19 @@ export const translation_dictionary = {
     { key: "return", value: "Volver" },
     { key: "Unauthorized_access_message", value: "Sin permisos" },
     { key: "Page_not_found_message", value: "Pagina no encontrada" },
+    { key: "loading", value: "Cargando..." },
+    { key: "No_games_found", value: "No se encontraron juegos." },
+    { key: "Log_in_to_continue", value: "Tenés que iniciar sesión para finalizar la compra." },
+    { key: "Unauthorized_access_error", value: "No autorizado o error en la solicitud." },
+    { key: "Load_error", value: "Error al cargar usuarios:" },
+    { key: "No_found_email", value: "No se encontró ningún email coincidente" },
+    { key: "No_found_pucharse", value: "No se pudo obtener el historial de compras." },
+    { key: "Pucharse_error", value: "Error al obtener compras: " },
+    { key: "Warn_select", value: "Solo puedes seleccionar hasta" },
+    { key: "Game_Created", value: "Juego creado exitosamente" },
+    { key: "Error_creating_game", value: "Error al crear el juego" },
+    { key: "Error_server", value: "Error al conectar con el servidor" },
+
   ],
   en: [
     { key: "Search_Games", value: "Search games..." },
@@ -354,5 +368,20 @@ export const translation_dictionary = {
     { key: "Err_delete_platform", value: "Error deleting platform" },
     { key: "Unauthorized_access_message", value: "Without permission" },
     { key: "Page_not_found_message", value: "Page not found" },
+    { key: "loading", value: "Loading..." },
+    { key: "No_games_found", value: "No games found." },
+    { key: "Log_in_to_continue", value: "You need to log in to complete the purchase." },
+    { key: "Unauthorized_access_error", value: "Unauthorized access or error in the request." },
+    { key: "Load_error", value: "Error loading users:" },
+    { key: "No_found_email", value: "No matching email found" },
+    { key: "No_found_pucharse", value: "Could not retrieve purchase history." },
+    { key: "Pucharse_error", value: "Error retrieving purchases: " },
+    { key: "Warn_select", value: "You can only select up to" },
+    { key: "Game_Created", value: "Game created successfully" },
+    { key: "Error_creating_game", value: "Error creating game" },
+    { key: "Error_server", value: "Error connecting to the server" },
+    { key: "", value: "" },
+
+
   ],
 };

@@ -72,7 +72,7 @@ function Register() {
 
   return (
     <section className="containerLogin">
-      <h1 className="h1Login">Registrarse</h1>
+      <h1 className="h1Login">{translate("Register")}</h1>
       <form className="formLogin" onSubmit={handleSubmit}>
         <input
           type="text"

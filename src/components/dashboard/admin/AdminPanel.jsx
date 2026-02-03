@@ -25,19 +25,19 @@ const AdminPanel = () => {
           }
         );
         if (!response.ok)
-          throw new Error("No autorizado o error en la solicitud");
+          throw new Error((translate("Unauthorized_access_error")));
         const data = await response.json();
         setUsers(data);
         setFilteredUsers(data);
       } catch (error) {
-        toast.error(`Error al cargar usuarios: ${error.message}`, {
+        toast.error(`${translate("Load_error")} ${error.message}`, {
           position: "top-right",
           autoClose: 3000,
         });
       }
     };
     fetchUsers();
-  }, [token]);
+  }, [token, translate]);
 
   useEffect(() => {
     if (searchEmail.trim() !== "") {
@@ -51,7 +51,7 @@ const AdminPanel = () => {
       u.email.toLowerCase().includes(searchEmail.toLowerCase())
     );
     if (result.length === 0) {
-      toast.error("No se encontró ningún email coincidente", {
+      toast.error(translate("No_found_email"), {
         position: "top-right",
         autoClose: 3000,
       });
@@ -171,7 +171,7 @@ const AdminPanel = () => {
         }
       );
       if (!response.ok)
-        throw new Error("No se pudo obtener el historial de compras");
+        throw new Error((translate("No_found_pucharse")));
       const data = await response.json();
       if (selectedUserEmail === email) {
         setSelectedUserOrders([]);
@@ -181,7 +181,7 @@ const AdminPanel = () => {
       setSelectedUserOrders(data);
       setSelectedUserEmail(email);
     } catch (err) {
-      toast.error(`Error al obtener compras: ${err.message}`, {
+      toast.error(`${translate("No_found_pucharse")} ${err.message}`, {
         position: "top-right",
         autoClose: 3000,
       });
