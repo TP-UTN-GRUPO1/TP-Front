@@ -6,15 +6,19 @@ import "./Cart.css";
 import { errorToast, successToast } from "../../utils/notification";
 import { useTranslate } from "../../hooks/useTranslate";
 import { confirmDialog, okAlert, errorAlert } from "../../utils/SweetAlert";
+import { useState } from "react";
 
 const Cart = () => {
   const { cart, updateAmount, deleteProduct, clearCart } = useCart();
+  const [checked, setChecked] = useState(false);
   const translate = useTranslate();
   const total = cart.reduce(
     (acc, product) => acc + product.price * product.amount,
     0
   );
-
+  const handleCheckboxChange = (e) => {
+    setChecked(e.target.checked);
+  }
   const handleIncreaseAmount = (productId) => {
     updateAmount(productId, 1);
   };
@@ -46,10 +50,10 @@ const Cart = () => {
       })),
       totalAmount: total,
     };
-
+    //https://thefrog-server.onrender.com/orders
     try {
       const response = await axios.post(
-        "https://thefrog-server.onrender.com/orders",
+        "http://localhost:3000/orders",
         orderData
       );
       if (response.status === 201) {
@@ -112,7 +116,17 @@ const Cart = () => {
               text={translate("Pay")}
               onClick={handleCheckout}
               className="checkout-btn"
+              disabled={!checked}
             />
+            <label className="terms-label">
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={handleCheckboxChange}
+                className="terms-checkbox"
+              />
+              {translate("Accept_terms")} <a href="Terminos y condiciones.pdf" target="_blank" rel="noopener noreferrer">{translate("Terms_and_Conditions")}</a>
+            </label>
           </div>
         </>
       )}

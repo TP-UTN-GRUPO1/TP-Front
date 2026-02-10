@@ -49,10 +49,10 @@ function Register() {
       setError(translate("Error_confirm_pass"));
       return;
     }
-
+      // http://localhost:3000/register, https://thefrog-server.onrender.com/register
     try {
       const response = await axios.post(
-        "https://thefrog-server.onrender.com/register",
+        "http://localhost:3000/register",
         {
           name,
           email,

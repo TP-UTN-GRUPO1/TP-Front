@@ -114,6 +114,24 @@
 .checkout-btn:hover{
     background-color: #333;
 }
+.terms-checkbox {
+    margin-right: 10px;
+    
+}
+.terms-label a {
+  color: #4da3ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.terms-label a:hover {
+  color: #82c0ff;
+}
+.terms-label {
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
  
 @media (max-width: 700px) {
     .cart-header,

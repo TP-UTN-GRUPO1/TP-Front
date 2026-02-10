@@ -33,7 +33,7 @@ export const validatePassword = (
 export const loginUser = async (email, password, onSuccess, onError) => {
   try {
     const response = await axios.post(
-      "https://thefrog-server.onrender.com/login",
+      "http://localhost:3000/login",
       {
         email,
         password,

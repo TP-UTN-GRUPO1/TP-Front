@@ -199,6 +199,8 @@ export const translation_dictionary = {
     { key: "Game_Created", value: "Juego creado exitosamente" },
     { key: "Error_creating_game", value: "Error al crear el juego" },
     { key: "Error_server", value: "Error al conectar con el servidor" },
+    { key: "Terms_and_Conditions", value: "Términos y condiciones" },
+    { key: "Accept_terms", value: "Acepto los" },
 
   ],
   en: [
@@ -380,7 +382,9 @@ export const translation_dictionary = {
     { key: "Game_Created", value: "Game created successfully" },
     { key: "Error_creating_game", value: "Error creating game" },
     { key: "Error_server", value: "Error connecting to the server" },
-    { key: "", value: "" },
+    { key: "Terms_and_Conditions", value: " Terms and Conditions" },
+    { key: "Accept_terms", value: "I accept the " },
+
 
 
   ],
