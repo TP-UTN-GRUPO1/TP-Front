@@ -24,6 +24,10 @@ export const API_ENDPOINTS = {
   // Géneros
   GENRES: "/api/Genre",
   GENRE_BY_ID: (id) => `/api/Genre/${id}`,
+
+  // Órdenes
+  ORDERS: "/api/Orders",
+  ORDERS_BY_USER: (userId) => `/api/Orders/user/${userId}`,
 };
 
 export default API_BASE_URL;

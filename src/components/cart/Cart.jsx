@@ -1,4 +1,5 @@
-import axios from "axios";
+import axiosInstance from "../../config/axiosInstance";
+import { API_ENDPOINTS } from "../../config/api.config";
 import { useCart } from "../../contexts/CartContext/CartContext";
 import CartItem from "../cartItem/CartItem";
 import Button from "../button/Button";
@@ -14,11 +15,11 @@ const Cart = () => {
   const translate = useTranslate();
   const total = cart.reduce(
     (acc, product) => acc + product.price * product.amount,
-    0
+    0,
   );
   const handleCheckboxChange = (e) => {
     setChecked(e.target.checked);
-  }
+  };
   const handleIncreaseAmount = (productId) => {
     updateAmount(productId, 1);
   };
@@ -28,7 +29,8 @@ const Cart = () => {
   };
 
   const handleCheckout = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const stored = localStorage.getItem("theFrog-user");
+    const user = stored ? JSON.parse(stored) : null;
 
     if (!user?.id) {
       errorToast(translate("Log_in_to_continue"));
@@ -50,11 +52,12 @@ const Cart = () => {
       })),
       totalAmount: total,
     };
-    //https://thefrog-server.onrender.com/orders
     try {
-      const response = await axios.post(
-        "http://localhost:3000/orders",
-        orderData
+      const token = localStorage.getItem("theFrog-token");
+      const response = await axiosInstance.post(
+        API_ENDPOINTS.ORDERS,
+        orderData,
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       if (response.status === 201) {
         successToast(translate("Purchase_successfully"));
@@ -125,7 +128,14 @@ const Cart = () => {
                 onChange={handleCheckboxChange}
                 className="terms-checkbox"
               />
-              {translate("Accept_terms")} <a href="Terminos y condiciones.pdf" target="_blank" rel="noopener noreferrer">{translate("Terms_and_Conditions")}</a>
+              {translate("Accept_terms")}{" "}
+              <a
+                href="Terminos y condiciones.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {translate("Terms_and_Conditions")}
+              </a>
             </label>
           </div>
         </>
