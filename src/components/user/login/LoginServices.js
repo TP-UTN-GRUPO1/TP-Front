@@ -1,4 +1,5 @@
-import axios from "axios";
+import axiosInstance from "../../../config/axiosInstance.js";
+import { API_ENDPOINTS } from "../../../config/api.config.js";
 
 export const validateString = (str, minLength, maxLength) => {
   if (minLength && str.length < minLength) return false;
@@ -18,7 +19,7 @@ export const validatePassword = (
   maxLength,
   needsUpperCase,
   needsNumber,
-  needsSpecialChar
+  needsSpecialChar,
 ) => {
   if (minLength && password.length < minLength) return false;
   else if (maxLength && password.length > maxLength) return false;
@@ -30,25 +31,53 @@ export const validatePassword = (
   return true;
 };
 
+function decodeJWT(token) {
+  try {
+    const payload = token.split(".")[1];
+    const decoded = JSON.parse(atob(payload));
+    return {
+      id: decoded.idUser,
+      email:
+        decoded[
+          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+        ],
+      roleId: parseInt(
+        decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
+      ),
+    };
+  } catch (e) {
+    console.error("Error al decodificar JWT:", e);
+    return null;
+  }
+}
+
 export const loginUser = async (email, password, onSuccess, onError) => {
   try {
-    const response = await axios.post(
-      "http://localhost:3000/login",
-      {
-        email,
-        password,
-      }
-    );
+    const response = await axiosInstance.post(API_ENDPOINTS.LOGIN, {
+      email,
+      password,
+    });
 
-    const { token, user } = response.data;
+    const token = response.data;
+    const userData = decodeJWT(token);
+
+    if (!userData) {
+      onError("Error al procesar los datos del usuario");
+      return;
+    }
+
     localStorage.setItem("theFrog-token", token);
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("theFrog-user", JSON.stringify(userData));
 
-    onSuccess(token, user);
+    onSuccess(token, userData);
   } catch (err) {
     console.error("Error al iniciar sesión:", err);
-    if (err.response && err.response.data.message) {
-      onError(err.response.data.message);
+    if (err.response && err.response.data) {
+      onError(
+        typeof err.response.data === "string"
+          ? err.response.data
+          : err.response.data.message || "Credenciales inválidas",
+      );
     } else {
       onError("Error de conexión con el servidor");
     }

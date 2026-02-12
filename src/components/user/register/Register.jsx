@@ -7,16 +7,18 @@ import {
   isBetweenValidAges,
 } from "./register.services.js";
 import "../login/Login.css";
-import axios from "axios";
+import axiosInstance from "../../../config/axiosInstance.js";
 import { useTranslate } from "../../../hooks/useTranslate.jsx";
 import { successToast, errorToast } from "../../../utils/notification.jsx";
+import { API_ENDPOINTS } from "../../../config/api.config.js";
 
 function Register() {
   const navigate = useNavigate();
   const translate = useTranslate();
   const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
+  const [birthDate, setBirthDate] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -35,7 +37,7 @@ function Register() {
       return;
     }
 
-    if (!date || !isBetweenValidAges(date, 13)) {
+    if (!birthDate || !isBetweenValidAges(birthDate, 13)) {
       setError(translate("Error_age"));
       return;
     }
@@ -49,24 +51,44 @@ function Register() {
       setError(translate("Error_confirm_pass"));
       return;
     }
-      // http://localhost:3000/register, https://thefrog-server.onrender.com/register
+
     try {
-      const response = await axios.post(
-        "http://localhost:3000/register",
-        {
-          name,
-          email,
-          date,
-          password,
-        }
-      );
+      const response = await axiosInstance.post(API_ENDPOINTS.REGISTER, {
+        name,
+        lastName,
+        email,
+        birthDate,
+        password,
+      });
 
       successToast("Registro exitoso");
       navigate("/login");
     } catch (error) {
-      console.error("Error en el registro:", error);
-      setError(error.response?.data?.message || "Error en el servidor");
-      errorToast("ocurrio un error!");
+      console.error("❌ Error completo:", error);
+      console.table({
+        Código: error.code,
+        Mensaje: error.message,
+        URL: error.config?.url,
+        Método: error.config?.method?.toUpperCase(),
+        Status: error.response?.status,
+        Respuesta: error.response?.data,
+      });
+
+      if (error.code === "ERR_NETWORK") {
+        setError(
+          "No se puede conectar con el servidor. Verifica que el backend está corriendo.",
+        );
+      } else if (error.code === "ECONNABORTED") {
+        setError("La solicitud tardó demasiado. Intenta de nuevo.");
+      } else if (error.response) {
+        setError(error.response?.data?.message || "Error en el servidor");
+      } else if (error.request) {
+        setError("Error de conexión. Respuesta vacía del servidor.");
+      } else {
+        setError(error.message);
+      }
+
+      errorToast("Ocurrió un error!");
     }
   };
 
@@ -84,6 +106,13 @@ function Register() {
         <input
           type="text"
           className="inputLogin"
+          placeholder={translate("Last_Name")}
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <input
+          type="text"
+          className="inputLogin"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value.toLowerCase())}
@@ -92,8 +121,8 @@ function Register() {
           type="date"
           className="inputLogin"
           placeholder="Fecha de nacimiento"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
+          value={birthDate}
+          onChange={(e) => setBirthDate(e.target.value)}
         />
         <input
           type="password"
