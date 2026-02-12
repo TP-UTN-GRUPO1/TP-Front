@@ -3,7 +3,7 @@ import { Cart, Heart } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import imgLogo from "../../assets/img/theFrogGames1.png";
-import axios from "axios";
+import { searchGames } from "../../services/gameService.js";
 import PlatformFilters from "../platformFilters/PlatformFilters";
 import SearchBar from "../searchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
@@ -42,12 +42,8 @@ const Navbar = ({
     }
 
     try {
-      const response = await axios.get(
-        `https://thefrog-server.onrender.com/game?name=${encodeURIComponent(
-          query
-        )}`
-      );
-      onSearch?.(query, response.data);
+      const results = await searchGames(query);
+      onSearch?.(query, results);
     } catch (error) {
       console.error("Error al traer los datos:", error);
       onSearch?.(query, []);

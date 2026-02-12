@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "./Newproduct.css";
-import { useEffect } from "react";
-import axios from "axios";
+import { createGame } from "../../../services/gameService.js";
+import { getAllPlatforms } from "../../../services/platformService.js";
+import { getAllGenres } from "../../../services/genreService.js";
 import { useTranslate } from "../../../hooks/useTranslate";
 
 const Newproduct = () => {
@@ -24,13 +25,18 @@ const Newproduct = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(
-          "https://thefrog-server.onrender.com/platformAndGenres"
-        );
-        if (data.success) {
-          setAvailablePlatforms(data.platforms.map((p) => p.platformName));
-          setAvailableGenres(data.genres.map((g) => g.genreName));
-        }
+        const [platformsData, genresData] = await Promise.all([
+          getAllPlatforms(),
+          getAllGenres(),
+        ]);
+        const platformsList = Array.isArray(platformsData)
+          ? platformsData.map((p) => (typeof p === "string" ? p : p.name))
+          : [];
+        const genresList = Array.isArray(genresData)
+          ? genresData.map((g) => (typeof g === "string" ? g : g.name))
+          : [];
+        setAvailablePlatforms(platformsList);
+        setAvailableGenres(genresList);
       } catch (error) {
         console.error("Error al cargar plataformas y géneros", error);
       }
@@ -103,34 +109,27 @@ const Newproduct = () => {
     setErrors({});
     try {
       const token = localStorage.getItem("theFrog-token");
-      const resp = await fetch("https://thefrog-server.onrender.com/games", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
+      await createGame(formData, token);
+      toast.success(translate("Game_Created"));
+      setFormData({
+        nameGame: "",
+        developer: "",
+        rating: "",
+        imageUrl: "",
+        available: true,
+        price: "",
+        platforms: [],
+        genres: [],
       });
-      const result = await resp.json();
-      if (resp.ok) {
-        toast.success(translate("Game_Created"));
-        setFormData({
-          nameGame: "",
-          developer: "",
-          rating: "",
-          imageUrl: "",
-          available: true,
-          price: "",
-          platforms: [],
-          genres: [],
-        });
-      } else {
-        setErrors({ api: result.message });
-        toast.error(result.message || (translate("Error_creating_game")));
-      }
-    } catch {
-      setErrors({ api: "Error al conectar con el servidor" });
-      toast.error((translate("Error_server")));
+    } catch (error) {
+      const msg =
+        error.response?.data?.message ||
+        error.response?.data ||
+        "Error al conectar con el servidor";
+      setErrors({
+        api: typeof msg === "string" ? msg : "Error al crear el juego",
+      });
+      toast.error(translate("Error_server"));
     }
   };
 

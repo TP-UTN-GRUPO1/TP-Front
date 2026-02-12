@@ -2,7 +2,7 @@ import { NavDropdown } from "react-bootstrap";
 import { SORT_ORDERS } from "../home/Home.consts";
 import { ORDER_LABELS } from "./PlatformOrderLabel";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { getAllPlatforms } from "../../services/platformService.js";
 import { useTranslate } from "../../hooks/useTranslate";
 
 const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
@@ -14,12 +14,11 @@ const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
   useEffect(() => {
     const fetchPlatforms = async () => {
       try {
-        const { data } = await axios.get(
-          "https://thefrog-server.onrender.com/platformAndGenres"
-        );
-        if (data.success) {
-          setPlatforms(data.platforms.map((p) => p.platformName));
-        }
+        const data = await getAllPlatforms();
+        const list = Array.isArray(data)
+          ? data.map((p) => (typeof p === "string" ? p : p.name))
+          : [];
+        setPlatforms(list);
       } catch (error) {
         console.error("Error al cargar plataformas", error);
       }
@@ -40,8 +39,8 @@ const PlatformFilters = ({ onFilter, selectedOrder, onselectedOrder }) => {
           {platform === "Xbox Series"
             ? "XBOX Series S|X"
             : platform === "Xbox One"
-            ? "XBOX ONE"
-            : platform}
+              ? "XBOX ONE"
+              : platform}
         </button>
       ))}
 

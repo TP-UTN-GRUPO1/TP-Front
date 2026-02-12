@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getAllGames, searchGames } from "../../services/gameService.js";
 import { SORT_ORDERS } from "./Home.consts.js";
 
 const useGames = () => {
@@ -22,9 +22,13 @@ const useGames = () => {
     } else if (newOrderBy === SORT_ORDERS.HIGH_TO_LOW) {
       sortedGames.sort((a, b) => b.price - a.price);
     } else if (newOrderBy === SORT_ORDERS.A_Z) {
-      sortedGames.sort((a, b) => a.nameGame.localeCompare(b.nameGame));
+      sortedGames.sort((a, b) =>
+        (a.nameGame || "").localeCompare(b.nameGame || ""),
+      );
     } else if (newOrderBy === SORT_ORDERS.Z_A) {
-      sortedGames.sort((a, b) => b.nameGame.localeCompare(a.nameGame));
+      sortedGames.sort((a, b) =>
+        (b.nameGame || "").localeCompare(a.nameGame || ""),
+      );
     } else if (newOrderBy === SORT_ORDERS.RESET) {
       sortedGames = searchQuery ? games : [...originalGames];
       setSelectedPlatform("");
@@ -56,8 +60,8 @@ const useGames = () => {
     selectedPlatform
       ? games.filter((game) =>
           game.platforms.some(
-            (platform) => platform.platformName === selectedPlatform
-          )
+            (platform) => platform.platformName === selectedPlatform,
+          ),
         )
       : games
   ).filter((game) => game.available);
@@ -67,14 +71,13 @@ const useGames = () => {
   const currentGames = filteredGames.slice(indexOfFirstGame, indexOfLastGame);
 
   useEffect(() => {
-    axios
-      .get("https://thefrog-server.onrender.com/games")
-      .then((response) => {
-        setOriginalGames(response.data);
-        setGames(response.data);
+    getAllGames()
+      .then((data) => {
+        setOriginalGames(data);
+        setGames(data);
       })
       .catch((error) => {
-        console.error("Error al cargar juegos originales:", error);
+        console.error("Error al cargar juegos:", error);
       });
   }, []);
 

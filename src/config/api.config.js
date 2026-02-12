@@ -10,10 +10,20 @@ export const API_ENDPOINTS = {
   // Usuarios
   USER_PROFILE: "/api/user/profile",
 
-  // Productos
-  PRODUCTS: "/api/products",
+  // Juegos
+  GAMES: "/api/Game",
+  GAME_BY_ID: (id) => `/api/Game/${id}`,
+  GAME_SEARCH: (query) => `/api/Game/search?name=${encodeURIComponent(query)}`,
+  GAME_AVAILABLE: (id) => `/api/Game/${id}/available`,
+  GAME_NOT_AVAILABLE: (id) => `/api/Game/${id}/notavailable`,
 
-  // Más endpoints según necesites
+  // Plataformas
+  PLATFORMS: "/api/Platform",
+  PLATFORM_BY_ID: (id) => `/api/Platform/${id}`,
+
+  // Géneros
+  GENRES: "/api/Genre",
+  GENRE_BY_ID: (id) => `/api/Genre/${id}`,
 };
 
 export default API_BASE_URL;

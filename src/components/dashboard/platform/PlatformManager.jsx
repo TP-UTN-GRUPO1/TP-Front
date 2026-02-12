@@ -1,10 +1,16 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect, useContext } from "react";
 import "./PlatformManager.css";
 import { useTranslate } from "../../../hooks/useTranslate";
-import { errorToast, successToast } from "../../../utils/notification";
-import { confirmDialog, errorAlert, okAlert } from "../../../utils/SweetAlert";
+import { confirmDialog, okAlert } from "../../../utils/SweetAlert";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../contexts/auth/AuthContext";
+import {
+  getAllPlatforms,
+  createPlatform as createPlatformAPI,
+  updatePlatform as updatePlatformAPI,
+  deletePlatform as deletePlatformAPI,
+  getErrorMessage,
+} from "../../../services/platformService.js";
 
 const PlatformManager = () => {
   const [platforms, setPlatforms] = useState([]);
@@ -13,16 +19,14 @@ const PlatformManager = () => {
   const [editName, setEditName] = useState("");
   const [message, setMessage] = useState("");
   const translate = useTranslate();
+  const { token } = useContext(AuthContext);
 
   const fetchPlatforms = async () => {
     try {
-      const { data } = await axios.get(
-        `https://thefrog-server.onrender.com/platforms`
-      );
-      setPlatforms(data.platforms);
-      console.log(platforms);
+      const data = await getAllPlatforms();
+      setPlatforms(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error("Error al cargar plataformas");
+      console.error("Error al cargar plataformas", error);
     }
   };
 
@@ -32,46 +36,37 @@ const PlatformManager = () => {
 
   const createPlatform = async () => {
     if (!newPlatform.trim()) return;
-
     try {
-      const { data } = await axios.post(
-        "https://thefrog-server.onrender.com/platforms",
-        {
-          platformName: newPlatform,
-        }
-      );
-      if (data.success) {
-        toast.success(translate("Platform_created"), {
-          position: "top-right",
-          autoClose: 3000,
-        });
-        setNewPlatform("");
-        fetchPlatforms();
-      } else {
-        setMessage(data.message);
-      }
-    } catch {
-      toast.error(translate("Err_delete_user"), {
+      await createPlatformAPI(newPlatform, token);
+      toast.success(translate("Platform_created"), {
         position: "top-right",
         autoClose: 3000,
       });
+      setNewPlatform("");
+      setMessage("");
+      fetchPlatforms();
+    } catch (error) {
+      const msg = getErrorMessage(error);
+      setMessage(msg);
+      toast.error(msg, { position: "top-right", autoClose: 3000 });
     }
   };
 
   const updatePlatform = async (id) => {
     try {
-      await axios.put(`https://thefrog-server.onrender.com/platforms/${id}`, {
-        platformName: editName,
-      });
-      successToast(translate("Platform_updated"));
-      setEditId(null);
-      setEditName("");
-      fetchPlatforms();
-    } catch {
-      toast.success(translate("Error_update_platform"), {
+      await updatePlatformAPI(id, editName, token);
+      toast.success(translate("Platform_updated"), {
         position: "top-right",
         autoClose: 3000,
       });
+      setEditId(null);
+      setEditName("");
+      setMessage("");
+      fetchPlatforms();
+    } catch (error) {
+      const msg = getErrorMessage(error);
+      setMessage(msg);
+      toast.error(msg, { position: "top-right", autoClose: 3000 });
     }
   };
 
@@ -83,20 +78,17 @@ const PlatformManager = () => {
       cancelButtonText: translate("Cancel"),
     });
     if (!confirmed) return;
-
     try {
-      await axios.delete(`https://thefrog-server.onrender.com/platforms/${id}`);
+      await deletePlatformAPI(id, token);
       okAlert({
         title: translate("Deleted"),
         text: translate("Delete_platform"),
       });
       fetchPlatforms();
-    } catch {
-      toast.error(translate("Err_delete_platform"), {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      setMessage("Error al eliminar plataforma");
+    } catch (error) {
+      const msg = getErrorMessage(error);
+      setMessage(msg);
+      toast.error(msg, { position: "top-right", autoClose: 3000 });
     }
   };
 
@@ -132,11 +124,11 @@ const PlatformManager = () => {
               </>
             ) : (
               <>
-                <span>{p.platformName}</span>
+                <span>{p.name}</span>
                 <button
                   onClick={() => {
                     setEditId(p.id);
-                    setEditName(p.platformName);
+                    setEditName(p.name);
                   }}
                 >
                   Editar

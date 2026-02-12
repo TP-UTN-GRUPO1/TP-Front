@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { getGameById } from "../../services/gameService.js";
 import ProductCard from "../productCard/ProductCard";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import { useCart } from "../../contexts/CartContext/CartContext.jsx";
@@ -22,10 +22,8 @@ const CardPage = () => {
   useEffect(() => {
     const getDetailGame = async () => {
       try {
-        const response = await axios.get(
-          `https://thefrog-server.onrender.com/games/${id}`
-        );
-        setGameDetail(response.data);
+        const data = await getGameById(id);
+        setGameDetail(data);
       } catch (error) {
         console.error("Error fetching game details", error);
       }
@@ -47,7 +45,7 @@ const CardPage = () => {
         addToCart({
           id: gameDetail.id,
           name: gameDetail.nameGame,
-          img: gameDetail.imageUrl,
+          img: gameDetail.imageURL,
           price: gameDetail.price,
         });
         successToast(translate("Added_to_cart_success"));

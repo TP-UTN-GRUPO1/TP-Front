@@ -2,7 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import "./ModifyProduct.css";
 import { AuthContext } from "../../../contexts/auth/AuthContext";
 import { useTranslate } from "../../../hooks/useTranslate";
-import { confirmDialog, okAlert, errorAlert } from "../../../utils/SweetAlert";
+// import { confirmDialog, okAlert, errorAlert } from "../../../utils/SweetAlert";
+import {
+  getAllGames,
+  updateGame,
+  setGameAvailable,
+  setGameNotAvailable,
+} from "../../../services/gameService.js";
 
 const ModifyProduct = () => {
   const [games, setGames] = useState([]);
@@ -12,36 +18,24 @@ const ModifyProduct = () => {
   const { token } = useContext(AuthContext);
   const translate = useTranslate();
   useEffect(() => {
-    fetch("https://thefrog-server.onrender.com/games")
-      .then((response) => response.json())
-      .then((data) => setGames(data));
+    getAllGames()
+      .then((data) => setGames(data))
+      .catch((error) => console.error("Error al cargar juegos:", error));
   }, []);
 
-  const handleToggleAvailability = (id) => {
+  const handleToggleAvailability = async (id) => {
     const game = games.find((g) => g.id === id);
-    fetch(`https://thefrog-server.onrender.com/updateGame/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        nameGame: game.nameGame,
-        price: game.price,
-        developer: game.developer,
-        rating: game.rating,
-        genres: game.genres.map((g) => g.genreName),
-        platforms: game.platforms.map((p) => p.platformName),
-        available: !game.available,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error("Error: " + response.status);
-        return fetch("https://thefrog-server.onrender.com/games");
-      })
-      .then((response) => response.json())
-      .then((data) => setGames(data))
-      .catch((error) => console.error("Error:", error));
+    try {
+      if (game.available) {
+        await setGameNotAvailable(id, token);
+      } else {
+        await setGameAvailable(id, token);
+      }
+      const data = await getAllGames();
+      setGames(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleEditPrice = (id) => {
@@ -51,72 +45,24 @@ const ModifyProduct = () => {
     setNewTitle(game.nameGame);
   };
 
-  const handleSavePrice = (id) => {
+  const handleSavePrice = async (id) => {
     const game = games.find((g) => g.id === id);
-    fetch(`https://thefrog-server.onrender.com/updateGame/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        nameGame: newTitle,
-        price: parseFloat(newPrice),
-        developer: game.developer,
-        rating: game.rating,
-        genres: game.genres.map((g) => g.genreName),
-        platforms: game.platforms.map((p) => p.platformName),
-        available: game.available,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error("Error: " + response.status);
-        return fetch("https://thefrog-server.onrender.com/games");
-      })
-      .then((response) => response.json())
-      .then((data) => setGames(data))
-      .catch((error) => console.error("Error:", error));
+    try {
+      await updateGame(
+        id,
+        { ...game, nameGame: newTitle, price: parseFloat(newPrice) },
+        token,
+      );
+      const data = await getAllGames();
+      setGames(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
     seteditingProduct(null);
     setNewPrice("");
     setNewTitle("");
   };
 
-  const handleDeleteGame = async (id) => {
-    const confirmed = await confirmDialog({
-      title: translate("Confirm_Delete"),
-      text: translate("Are_you_sure"),
-      confirmButtonText: translate("Yes_Delete"),
-      cancelButtonText: translate("Cancel"),
-    });
-
-    if (!confirmed) return;
-
-    try {
-      const res = await fetch(
-        `https://thefrog-server.onrender.com/games/${id}`,
-        {
-          method: "DELETE",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error(`Error: ${res.status} - ${res.statusText}`);
-      }
-
-      setGames((prev) => prev.filter((g) => g.id !== id));
-      okAlert({
-        title: translate("Deleted"),
-        text: translate("Game_deleted"),
-      });
-    } catch (err) {
-      console.error("Error:", err);
-      errorAlert({
-        title: translate("Error"),
-        text: translate("Delete_failed"),
-      });
-    }
-  };
   return (
     <div className="modify-container">
       {games.map((game) => (
@@ -171,12 +117,6 @@ const ModifyProduct = () => {
             onClick={() => handleToggleAvailability(game.id)}
           >
             {game.available ? translate("Hide") : translate("Show")}
-          </button>
-          <button
-            className="buttonModify"
-            onClick={() => handleDeleteGame(game.id)}
-          >
-            {translate("Delete")}
           </button>
         </div>
       ))}
