@@ -17,14 +17,16 @@ const ProductCard = ({ product, onAddToCart }) => {
 
       <div className="product-content">
         <img
-          src={product.imageUrl}
+          src={product.imageURL || product.imageUrl}
           alt={product.nameGame}
           className="cardPageImg"
         />
 
         <div className="product-info">
           <h1 className="product-title">{product.nameGame}</h1>
-          <p>{translate("Developer")}: {product.developer}</p>
+          <p>
+            {translate("Developer")}: {product.developer}
+          </p>
           <p>Rating: {product.rating}/10 ⭐</p>
           <p>
             {translate("Genre")}:{" "}
@@ -34,9 +36,12 @@ const ProductCard = ({ product, onAddToCart }) => {
             {translate("Platform")}:{" "}
             {product.platforms?.map((p) => p.platformName).join(" - ") || "N/A"}
           </p>
-          <p>{translate("Price")}: ${product.price}</p>
           <p>
-            {translate("Available")}: {product.available ? translate("Yes") : translate("No")}
+            {translate("Price")}: ${product.price}
+          </p>
+          <p>
+            {translate("Available")}:{" "}
+            {product.available ? translate("Yes") : translate("No")}
           </p>
           <Button
             text={translate("Add_cart")}
@@ -48,6 +53,5 @@ const ProductCard = ({ product, onAddToCart }) => {
     </div>
   );
 };
-
 
 export default ProductCard;

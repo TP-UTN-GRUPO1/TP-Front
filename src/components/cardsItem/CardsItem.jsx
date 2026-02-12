@@ -71,6 +71,9 @@ const CardsItem = ({
             <div>
               {Array.isArray(platform) ? platform.join(", ") : platform}
             </div>
+            <div className="genre-list">
+              {Array.isArray(genre) ? genre.join(", ") : genre}
+            </div>
             <p>$ {price}</p>
             <div className="d-grid gap-2"></div>
           </Card.Body>

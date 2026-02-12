@@ -63,7 +63,24 @@ export async function getAllGames() {
 /** Obtener un juego por ID */
 export async function getGameById(id) {
   const response = await axiosInstance.get(API_ENDPOINTS.GAME_BY_ID(id));
-  return mapGameFromAPI(response.data);
+  const game = mapGameFromAPI(response.data);
+
+  // Workaround: si el endpoint de detalle no trae genres/platforms,
+  // los buscamos desde la lista completa
+  if (game.genres.length === 0 && game.platforms.length === 0) {
+    try {
+      const allGames = await getAllGames();
+      const fullGame = allGames.find((g) => g.id === game.id);
+      if (fullGame) {
+        game.genres = fullGame.genres;
+        game.platforms = fullGame.platforms;
+      }
+    } catch (e) {
+      console.warn("No se pudieron cargar genres/platforms desde lista:", e);
+    }
+  }
+
+  return game;
 }
 
 /** Buscar juegos por nombre */
