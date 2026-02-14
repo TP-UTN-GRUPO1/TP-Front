@@ -23,7 +23,7 @@ const Navbar = ({
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
-  const { token, username, handleUserLogout } = useContext(AuthContext);
+  const { token, name, handleUserLogout } = useContext(AuthContext);
   const translate = useTranslate();
   const { cart } = useCart();
 
@@ -84,7 +84,7 @@ const Navbar = ({
             <>
               <Link to="/dashboard">
                 <button className="nav-button primary">
-                  {translate("Dashboard_of")} {username}
+                  {translate("Dashboard_of")} {name}
                 </button>
               </Link>
               <button

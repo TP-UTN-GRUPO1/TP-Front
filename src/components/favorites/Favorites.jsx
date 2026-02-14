@@ -26,7 +26,7 @@ const Favorites = () => {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
         setFavorites(res.data.games || []);
       } catch (err) {
@@ -55,7 +55,7 @@ const Favorites = () => {
     } catch (err) {
       console.error(
         "Error deleting favorite",
-        err.response?.data || err.message
+        err.response?.data || err.message,
       );
       errorToast("Ups, error: no se pudo quitar el juego de favoritos.");
     }

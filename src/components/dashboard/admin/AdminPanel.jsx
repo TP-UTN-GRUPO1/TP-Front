@@ -18,14 +18,11 @@ const AdminPanel = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          "https://thefrog-server.onrender.com/users",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const response = await fetch("https://localhost::7256/api/user", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         if (!response.ok)
-          throw new Error((translate("Unauthorized_access_error")));
+          throw new Error(translate("Unauthorized_access_error"));
         const data = await response.json();
         setUsers(data);
         setFilteredUsers(data);
@@ -48,7 +45,7 @@ const AdminPanel = () => {
 
   const handleSearch = () => {
     const result = users.filter((u) =>
-      u.email.toLowerCase().includes(searchEmail.toLowerCase())
+      u.email.toLowerCase().includes(searchEmail.toLowerCase()),
     );
     if (result.length === 0) {
       toast.error(translate("No_found_email"), {
@@ -61,14 +58,14 @@ const AdminPanel = () => {
     setFilteredUsers(
       selectedRole === "all"
         ? result
-        : result.filter((u) => u.role?.roleName === selectedRole)
+        : result.filter((u) => u.role?.roleName === selectedRole),
     );
   };
 
   const handleRoleFilter = (role) => {
     setSelectedRole(role);
     setFilteredUsers(
-      role === "all" ? users : users.filter((u) => u.role?.roleName === role)
+      role === "all" ? users : users.filter((u) => u.role?.roleName === role),
     );
   };
 
@@ -84,7 +81,7 @@ const AdminPanel = () => {
     if (!confirmed) return;
     try {
       let response = await fetch(
-        `https://thefrog-server.onrender.com/users/${userId}/role`,
+        `https://localhost::7256/api/user/${userId}/role`,
         {
           method: "PUT",
           headers: {
@@ -92,10 +89,10 @@ const AdminPanel = () => {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ roleName: newRole }),
-        }
+        },
       );
       if (!response.ok) throw new Error("Error al cambiar el rol");
-      response = await fetch("https://thefrog-server.onrender.com/users", {
+      response = await fetch("https://localhost::7256/api/User", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) throw new Error("Error al recargar usuarios");
@@ -104,7 +101,7 @@ const AdminPanel = () => {
       setFilteredUsers(
         selectedRole === "all"
           ? data
-          : data.filter((u) => u.role?.roleName === selectedRole)
+          : data.filter((u) => u.role?.roleName === selectedRole),
       );
       toast.success(translate("Updated_role_confirmed"), {
         position: "top-right",
@@ -131,20 +128,17 @@ const AdminPanel = () => {
     });
     if (!confirmed) return;
     try {
-      const response = await fetch(
-        `https://thefrog-server.onrender.com/user/${id}`,
-        {
-          method: "DELETE",
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await fetch(`https://localhost::7256/api/User/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (!response.ok) throw new Error("Error al eliminar usuario");
       const updatedUsers = users.filter((u) => u.id !== id);
       setUsers(updatedUsers);
       setFilteredUsers(
         updatedUsers.filter(
-          (u) => selectedRole === "all" || u.Role?.roleName === selectedRole
-        )
+          (u) => selectedRole === "all" || u.Role?.roleName === selectedRole,
+        ),
       );
       toast.success(translate("Delete_user_confirmed"), {
         position: "top-right",
@@ -164,14 +158,10 @@ const AdminPanel = () => {
 
   const handleViewPurchases = async (id, email) => {
     try {
-      const response = await fetch(
-        `https://thefrog-server.onrender.com/orders/user/${id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      if (!response.ok)
-        throw new Error((translate("No_found_pucharse")));
+      const response = await fetch(`https://localhost::7256/api/User/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!response.ok) throw new Error(translate("No_found_pucharse"));
       const data = await response.json();
       if (selectedUserEmail === email) {
         setSelectedUserOrders([]);

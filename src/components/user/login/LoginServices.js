@@ -35,12 +35,13 @@ function decodeJWT(token) {
   try {
     const payload = token.split(".")[1];
     const decoded = JSON.parse(atob(payload));
+    const email =
+      decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] ||
+      "";
     return {
       id: decoded.idUser,
-      email:
-        decoded[
-          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
-        ],
+      email,
+      name: decoded.userName || email.split("@")[0] || "",
       roleId: parseInt(
         decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
       ),
