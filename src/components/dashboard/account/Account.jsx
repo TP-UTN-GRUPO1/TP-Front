@@ -1,15 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./Account.css";
 import { useTranslate } from "../../../hooks/useTranslate";
 import { confirmDialog, errorAlert, okAlert } from "../../../utils/SweetAlert";
+import axiosInstance from "../../../config/axiosInstance";
+import { API_ENDPOINTS } from "../../../config/api.config";
+import { AuthContext } from "../../../contexts/auth/AuthContext";
 
 const Account = () => {
+  const [userData, setUserData] = useState(null);
   const [address, setAddress] = useState("");
   const [lastName, setLastname] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [province, setProvince] = useState("");
-  const token = localStorage.getItem("token");
+  const { token } = useContext(AuthContext);
   const user = JSON.parse(localStorage.getItem("theFrog-user"));
   const userId = user?.id;
   const translate = useTranslate();
@@ -17,21 +21,18 @@ const Account = () => {
   useEffect(() => {
     const loadAccount = async () => {
       try {
-        const resp = await fetch(
-          `https://thefrog-server.onrender.com/account/${userId}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        if (!resp.ok) throw new Error("Error al cargar datos");
-        const data = await resp.json();
-        setAddress(data.address);
-        setLastname(data.lastName);
-        setCity(data.city);
-        setProvince(data.province);
-        setCountry(data.country);
+        const res = await axiosInstance.get(API_ENDPOINTS.USER_BY_ID(userId), {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = res.data;
+        setUserData(data);
+        setAddress(data.address || "");
+        setLastname(data.lastName || "");
+        setCity(data.city || "");
+        setProvince(data.province || "");
+        setCountry(data.country || "");
       } catch (err) {
-        console.error(err);
+        console.error("Error al cargar datos del usuario:", err);
       }
     };
     if (userId) loadAccount();
@@ -51,24 +52,9 @@ const Account = () => {
     const body = { id: userId, address, lastName, city, province, country };
 
     try {
-      const response = await fetch(
-        "https://thefrog-server.onrender.com/account",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(body),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Error al guardar los cambios");
-      }
-
-      const data = await response.json();
-      console.log("Respuesta del servidor:", data);
+      await axiosInstance.put(API_ENDPOINTS.USER_BY_ID(userId), body, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       okAlert({
         title: translate("Confirmed"),
         text: translate("Changes_confirmed"),
@@ -82,6 +68,19 @@ const Account = () => {
   return (
     <section className="containerAccount">
       <h1>{translate("My_Account")}</h1>
+
+      {userData && (
+        <div className="account-user-info">
+          <p>
+            <strong>{translate("Name")}:</strong>{" "}
+            {userData.name || userData.userName || "-"}
+          </p>
+          <p>
+            <strong>Email:</strong> {userData.email || "-"}
+          </p>
+        </div>
+      )}
+
       <form className="formAccount" onSubmit={handleSubmit}>
         <label>
           {translate("Address")}:

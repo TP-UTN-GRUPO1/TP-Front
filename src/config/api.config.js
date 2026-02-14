@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
 
   // Usuarios
   USER_PROFILE: "/api/user/profile",
+  USER_BY_ID: (id) => `/api/user/${id}`,
 
   // Juegos
   GAMES: "/api/Game",

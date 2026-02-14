@@ -1,57 +1,75 @@
+/* ── Admin Container ── */
 .containerAdmin {
-  background-color: #121212;
   color: #e0e0e0;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
-  font-family: Arial, sans-serif;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 197, 66, 0.1);
 }
 
 .containerAdmin h2 {
-  color: #fff;
+  color: var(--dorado, #f5b940);
   margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
+/* ── Filter Section ── */
 .filterSection {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.75rem;
   margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .filterSection input,
-.filterSection select,
-.filterSection button {
-  padding: 0.6rem;
-  font-size: 1rem;
-  border: 1px solid #666;
-  border-radius: 4px;
-  background-color: #1e1e1e;
+.filterSection select {
+  padding: 0.65rem 0.85rem;
+  font-size: 0.95rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
   color: #e0e0e0;
+  transition: border-color 0.25s ease;
 }
 
 .filterSection input::placeholder {
-  color: #888;
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .filterSection input:focus,
 .filterSection select:focus {
-  border-color: #4a90e2;
+  border-color: var(--dorado, #f5b940);
+  box-shadow: 0 0 0 3px rgba(245, 185, 64, 0.1);
   outline: none;
 }
 
 .filterSection button {
-  background-color: #4a90e2;
-  color: #fff;
+  padding: 0.65rem 1.2rem;
+  background: var(--dorado, #f5b940);
+  color: var(--negro, #1a1a1a);
   border: none;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
 }
 
 .filterSection button:hover {
-  background-color: #357ab8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 185, 64, 0.3);
 }
 
+/* ── User List ── */
 .userList {
   list-style: none;
   padding: 0;
@@ -62,9 +80,14 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid #333;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.2s ease;
+}
+
+.userList li:hover {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .userList li:last-child {
@@ -74,43 +97,59 @@
 .userList span {
   flex: 1;
   color: #ccc;
+  font-size: 0.95rem;
 }
 
-.userList select,
-.userList button {
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #666;
-  border-radius: 4px;
-  background-color: #1e1e1e;
+.userList select {
+  padding: 0.45rem 0.7rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
   color: #e0e0e0;
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition: border-color 0.2s;
+  font-size: 0.85rem;
 }
 
 .userList select:focus {
-  border-color: #4a90e2;
+  border-color: var(--dorado, #f5b940);
   outline: none;
 }
 
-.userList button:hover {
-  background-color: #333;
+.userList button {
+  padding: 0.45rem 0.85rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
+.userList button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--dorado, #f5b940);
+}
+
+/* ── Orders Section ── */
 .sectionOrders {
   margin-top: 2rem;
 }
 
 .sectionOrders div {
-  padding: 1rem;
-  border: 1px solid #333;
-  border-radius: 4px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
   margin-bottom: 1rem;
-  background-color: #1e1e1e;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .sectionOrders h3 {
   margin-bottom: 1rem;
-  color: #fff;
+  color: var(--dorado, #f5b940);
+  font-size: 1.1rem;
 }
 
 .sectionOrders ul {
@@ -124,30 +163,38 @@
   gap: 1rem;
   margin-bottom: 0.8rem;
   color: #ccc;
+  font-size: 0.9rem;
 }
 
 .sectionOrders img {
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   object-fit: cover;
-  border-radius: 4px;
-  background-color: #333;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Responsivo */
-@media (max-width: 600px) {
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .containerAdmin {
+    padding: 1.25rem 1rem;
+  }
+
   .filterSection {
     flex-direction: column;
   }
+
   .userList li {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .userList select,
   .userList button {
     margin-left: 0;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
   }
+
   .sectionOrders img {
     width: 100%;
     height: auto;

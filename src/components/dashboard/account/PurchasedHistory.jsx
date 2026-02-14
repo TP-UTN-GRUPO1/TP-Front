@@ -3,6 +3,7 @@ import { AuthContext } from "../../../contexts/auth/AuthContext";
 import axiosInstance from "../../../config/axiosInstance";
 import { API_ENDPOINTS } from "../../../config/api.config";
 import { useTranslate } from "../../../hooks/useTranslate";
+import "./PurchasedHistory.css";
 
 const PurchasedHistory = () => {
   const { token } = useContext(AuthContext);
@@ -11,6 +12,7 @@ const PurchasedHistory = () => {
   const translate = useTranslate();
 
   const [orders, setOrders] = useState([]);
+  const [games, setGames] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,6 +29,36 @@ const PurchasedHistory = () => {
         console.log("📦 Orders response:", res.data);
         const data = Array.isArray(res.data) ? res.data : [];
         setOrders(data);
+
+        // Obtener los IDs únicos de juegos de todas las órdenes
+        const gameIds = [
+          ...new Set(
+            data.flatMap((order) =>
+              (order.orderItems || order.items || [])
+                .map((item) => item.gameId || item.game_id || item.game?.id)
+                .filter(Boolean),
+            ),
+          ),
+        ];
+
+        // Buscar los datos de cada juego
+        const gamesMap = {};
+        await Promise.all(
+          gameIds.map(async (id) => {
+            try {
+              const gameRes = await axiosInstance.get(
+                API_ENDPOINTS.GAME_BY_ID(id),
+                {
+                  headers: { Authorization: `Bearer ${token}` },
+                },
+              );
+              gamesMap[id] = gameRes.data;
+            } catch (e) {
+              console.error(`Error fetching game ${id}:`, e);
+            }
+          }),
+        );
+        setGames(gamesMap);
       } catch (err) {
         console.error("Error fetching orders:", err);
       } finally {
@@ -38,21 +70,16 @@ const PurchasedHistory = () => {
     else setLoading(false);
   }, [userId, token]);
 
-  if (loading) return <p>{translate("Loading_pucharse")}</p>;
-  if (orders.length === 0) return <p>{translate("No_pucharse")}</p>;
+  if (loading)
+    return <p className="ph-message">{translate("Loading_pucharse")}</p>;
+  if (orders.length === 0)
+    return <p className="ph-message">{translate("No_pucharse")}</p>;
 
   return (
-    <div>
-      <h2>{translate("Pucharse_history")}</h2>
+    <div className="ph-container">
+      <h2 className="ph-title">{translate("Pucharse_history")}</h2>
       {orders.map((order) => (
-        <div
-          key={order.orderId || order.id}
-          style={{
-            border: "1px solid #ccc",
-            padding: "1rem",
-            marginBottom: "1rem",
-          }}
-        >
+        <div key={order.orderId || order.id} className="ph-order-card">
           <p>
             <strong>{translate("Date")}:</strong>{" "}
             {new Date(
@@ -60,41 +87,36 @@ const PurchasedHistory = () => {
             ).toLocaleString()}
           </p>
           <p>
-            <strong>Total:</strong> $
-            {(order.totalAmount || order.total || 0).toFixed(2)}
+            <strong>Total:</strong>{" "}
+            <span className="ph-total">
+              ${(order.totalAmount || order.total || 0).toFixed(2)}
+            </span>
           </p>
-          <h4>{translate("Games")}:</h4>
-          <ul>
+          <h4 className="ph-games-title">{translate("Games")}:</h4>
+          <ul className="ph-items-list">
             {(order.orderItems || order.items || []).map((item, idx) => {
-              const game = item.game || {};
+              const gameId = item.gameId || item.game_id || item.game?.id;
+              const fetchedGame = games[gameId] || {};
+              const game = item.game || fetchedGame;
               const gameName =
                 game.nameGame || game.title || game.name || "Juego";
               const gameImg = game.imageURL || game.imageUrl || "";
               return (
                 <li
                   key={item.order_item_id || item.orderItemId || item.id || idx}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "0.5rem",
-                  }}
+                  className="ph-item"
                 >
                   {gameImg && (
-                    <img
-                      src={gameImg}
-                      alt={gameName}
-                      style={{
-                        width: "60px",
-                        height: "60px",
-                        objectFit: "cover",
-                        marginRight: "1rem",
-                        borderRadius: "8px",
-                      }}
-                    />
+                    <img src={gameImg} alt={gameName} className="ph-item-img" />
                   )}
-                  {gameName} - {translate("Amount")}: {item.quantity},{" "}
-                  {translate("Price_unit")}: $
-                  {(item.unitPrice || item.price || 0).toFixed(2)}
+                  <div className="ph-item-info">
+                    <span className="ph-item-name">{gameName}</span>
+                    <span className="ph-item-detail">
+                      {translate("Amount")}: {item.quantity} &middot;{" "}
+                      {translate("Price_unit")}: $
+                      {(item.unitPrice || item.price || 0).toFixed(2)}
+                    </span>
+                  </div>
                 </li>
               );
             })}

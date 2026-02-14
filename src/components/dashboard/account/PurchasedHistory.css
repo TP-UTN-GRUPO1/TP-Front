@@ -1,0 +1,124 @@
+/* ── Purchased History ── */
+.ph-container {
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.ph-title {
+  font-size: 1.3rem;
+  color: var(--dorado, #f5b940);
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.ph-message {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+  padding: 2rem 0;
+}
+
+/* ── Order Card ── */
+.ph-order-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 197, 66, 0.12);
+  border-radius: 14px;
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.ph-order-card:hover {
+  border-color: rgba(255, 197, 66, 0.25);
+}
+
+.ph-order-card > p {
+  margin: 0.3rem 0;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ph-order-card > p strong {
+  color: #e0e0e0;
+}
+
+.ph-total {
+  color: var(--verde-neon, #63ffa1);
+  font-weight: 700;
+}
+
+/* ── Games Title ── */
+.ph-games-title {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0.8rem 0 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-size: 0.8rem;
+}
+
+/* ── Items List ── */
+.ph-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ph-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ph-item-img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.ph-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ph-item-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #f0f0f0;
+}
+
+.ph-item-detail {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .ph-order-card {
+    padding: 1rem;
+  }
+
+  .ph-item-img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ph-item-name {
+    font-size: 0.88rem;
+  }
+}
