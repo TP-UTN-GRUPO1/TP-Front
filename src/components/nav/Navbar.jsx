@@ -25,7 +25,7 @@ const Navbar = ({
 
   const { token, name, handleUserLogout } = useContext(AuthContext);
   const translate = useTranslate();
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
 
   const totalProduct = cart.reduce((acc, product) => acc + product.amount, 0);
 
@@ -91,6 +91,7 @@ const Navbar = ({
                 className="nav-button primary"
                 onClick={() => {
                   handleUserLogout();
+                  clearCart();
                   navigate("/");
                   successToast(translate("Session_closed"));
                 }}
