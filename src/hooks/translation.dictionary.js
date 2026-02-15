@@ -1,7 +1,9 @@
-
 export const translation_dictionary = {
   es: [
     { key: "Search_Games", value: "Buscar juegos..." },
+    { key: "Hello", value: "Hola," },
+    { key: "Welcome_msg", value: "¡Te damos la bienvenida!" },
+    { key: "Name", value: "Nombre" },
     { key: "Login", value: "Iniciar sesion" },
     { key: "Enter_email", value: "Ingresa email" },
     { key: "Password", value: "Contraseña" },
@@ -189,11 +191,20 @@ export const translation_dictionary = {
     { key: "Page_not_found_message", value: "Pagina no encontrada" },
     { key: "loading", value: "Cargando..." },
     { key: "No_games_found", value: "No se encontraron juegos." },
-    { key: "Log_in_to_continue", value: "Tenés que iniciar sesión para finalizar la compra." },
-    { key: "Unauthorized_access_error", value: "No autorizado o error en la solicitud." },
+    {
+      key: "Log_in_to_continue",
+      value: "Tenés que iniciar sesión para finalizar la compra.",
+    },
+    {
+      key: "Unauthorized_access_error",
+      value: "No autorizado o error en la solicitud.",
+    },
     { key: "Load_error", value: "Error al cargar usuarios:" },
     { key: "No_found_email", value: "No se encontró ningún email coincidente" },
-    { key: "No_found_pucharse", value: "No se pudo obtener el historial de compras." },
+    {
+      key: "No_found_pucharse",
+      value: "No se pudo obtener el historial de compras.",
+    },
     { key: "Pucharse_error", value: "Error al obtener compras: " },
     { key: "Warn_select", value: "Solo puedes seleccionar hasta" },
     { key: "Game_Created", value: "Juego creado exitosamente" },
@@ -201,10 +212,12 @@ export const translation_dictionary = {
     { key: "Error_server", value: "Error al conectar con el servidor" },
     { key: "Terms_and_Conditions", value: "Términos y condiciones" },
     { key: "Accept_terms", value: "Acepto los" },
-
   ],
   en: [
     { key: "Search_Games", value: "Search games..." },
+    { key: "Hello", value: "Hi," },
+    { key: "Welcome_msg", value: "Welcome back!" },
+    { key: "Name", value: "Name" },
     { key: "Login", value: "Login" },
     { key: "Enter_email", value: "Enter email" },
     { key: "Password", value: "Password" },
@@ -372,8 +385,14 @@ export const translation_dictionary = {
     { key: "Page_not_found_message", value: "Page not found" },
     { key: "loading", value: "Loading..." },
     { key: "No_games_found", value: "No games found." },
-    { key: "Log_in_to_continue", value: "You need to log in to complete the purchase." },
-    { key: "Unauthorized_access_error", value: "Unauthorized access or error in the request." },
+    {
+      key: "Log_in_to_continue",
+      value: "You need to log in to complete the purchase.",
+    },
+    {
+      key: "Unauthorized_access_error",
+      value: "Unauthorized access or error in the request.",
+    },
     { key: "Load_error", value: "Error loading users:" },
     { key: "No_found_email", value: "No matching email found" },
     { key: "No_found_pucharse", value: "Could not retrieve purchase history." },
@@ -384,8 +403,5 @@ export const translation_dictionary = {
     { key: "Error_server", value: "Error connecting to the server" },
     { key: "Terms_and_Conditions", value: " Terms and Conditions" },
     { key: "Accept_terms", value: "I accept the " },
-
-
-
   ],
 };

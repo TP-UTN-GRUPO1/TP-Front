@@ -1,113 +1,212 @@
-/* ── Dashboard Layout ── */
+/* ══════════════════════════════════════
+   Dashboard Layout — Sidebar + Content
+   ══════════════════════════════════════ */
+
+/* ── Main Container ── */
 .dashboardContainer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 2.5rem 2rem;
-  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%);
-  color: #f5f5f5;
   min-height: 100vh;
+  background: #0d0d0d;
+  color: #f5f5f5;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* ── Title ── */
-.title {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: var(--dorado, #f5b940);
-  margin-bottom: 2rem;
-  text-align: center;
-  width: 100%;
   position: relative;
-  letter-spacing: 1px;
-  text-transform: uppercase;
 }
 
-.title::after {
-  content: '';
-  display: block;
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--dorado, #f5b940), transparent);
-  margin: 0.6rem auto 0;
-  border-radius: 2px;
+/* ── Sidebar Wrapper ── */
+.sidebarWrapper {
+  width: 280px;
+  flex-shrink: 0;
 }
 
-/* ── Navigation Buttons ── */
-.buttonGroup {
+.sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, #111111 0%, #0a0a0a 100%);
+  border-right: 1px solid rgba(255, 197, 66, 0.1);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 2.5rem;
-  width: 100%;
-  max-width: 900px;
-  padding: 1.25rem 1.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 14px;
-  border: 1px solid rgba(255, 197, 66, 0.1);
+  flex-direction: column;
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
 }
 
-.navButton {
-  padding: 0.7rem 1.4rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1.5px solid rgba(255, 197, 66, 0.3);
-  color: #e0e0e0;
-  text-decoration: none;
+/* ── Sidebar Header (Welcome) ── */
+.sidebarHeader {
+  padding: 2rem 1.5rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.welcomeHi {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dorado, #f5b940);
+  line-height: 1.3;
+}
+
+.welcomeSub {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+}
+
+/* ── Sidebar Navigation ── */
+.sidebarNav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0.75rem;
+  gap: 2px;
+}
+
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.75rem 1rem;
   border-radius: 10px;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-.navButton:hover {
-  background: var(--dorado, #f5b940);
-  color: var(--negro, #1a1a1a);
-  border-color: var(--dorado, #f5b940);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(245, 185, 64, 0.25);
-}
-
-/* ── Back Button ── */
-.backButton {
-  padding: 0.55rem 1.2rem;
-  background: transparent;
-  color: #888;
-  border: 1px solid #444;
   text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  margin-top: 0.25rem;
-  align-self: center;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.sidebarLink:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f0f0f0;
+}
+
+.sidebarLinkActive {
+  background: rgba(245, 185, 64, 0.1);
+  color: var(--dorado, #f5b940);
+  border-left-color: var(--dorado, #f5b940);
+  font-weight: 600;
+}
+
+.sidebarIcon {
+  font-size: 1.1rem;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ── Sidebar Footer ── */
+.sidebarFooter {
+  padding: 1rem 1.25rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sidebarBackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.4);
   font-size: 0.85rem;
   font-weight: 500;
+  transition: color 0.2s ease;
 }
 
-.backButton:hover {
-  color: #fff;
-  border-color: var(--dorado, #f5b940);
-  background: rgba(245, 185, 64, 0.08);
+.sidebarBackLink:hover {
+  color: var(--dorado, #f5b940);
 }
 
-/* ── Responsive ── */
-@media (max-width: 640px) {
-  .dashboardContainer {
-    padding: 1.5rem 1rem;
+/* ── Main Content ── */
+.mainContent {
+  flex: 1;
+  padding: 2.5rem 3rem;
+  background: linear-gradient(180deg, #0d0d0d 0%, #141414 100%);
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* ── Mobile Menu Toggle ── */
+.menuToggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001;
+  background: rgba(17, 17, 17, 0.95);
+  border: 1px solid rgba(255, 197, 66, 0.3);
+  color: var(--dorado, #f5b940);
+  font-size: 1.4rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.menuToggle:hover {
+  background: var(--dorado, #f5b940);
+  color: #111;
+}
+
+/* ── Mobile Overlay ── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+}
+
+/* ══════════════════
+   Responsive
+   ══════════════════ */
+
+@media (max-width: 860px) {
+  .menuToggle {
+    display: flex;
   }
 
-  .title {
-    font-size: 1.5rem;
+  .overlay {
+    display: block;
   }
 
-  .buttonGroup {
-    gap: 0.5rem;
-    padding: 1rem;
+  .sidebarWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 280px;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
   }
 
-  .navButton {
-    padding: 0.6rem 1rem;
-    font-size: 0.82rem;
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .sidebar {
+    height: 100vh;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+  }
+
+  .mainContent {
+    padding: 2rem 1.25rem;
+    padding-top: 4.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContent {
+    padding: 1.5rem 0.75rem;
+    padding-top: 4.5rem;
+  }
+
+  .sidebarWrapper {
+    width: 260px;
+  }
+
+  .sidebar {
+    width: 260px;
   }
 }

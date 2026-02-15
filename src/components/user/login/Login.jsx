@@ -60,13 +60,13 @@ const Login = () => {
         navigate("/");
         successToast(translate("Session_started"));
       },
-      (err) => errorToast(err)
+      (err) => errorToast(err),
     );
   };
 
   return (
     <section className="containerLogin">
-      <h1 className="h1Login">{translate("Login")} </h1>
+      <h1 className="h1Login">{translate("Login")}</h1>
       <form className="formLogin" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -86,24 +86,23 @@ const Login = () => {
           placeholder={translate("Password")}
           value={form.password}
           name="password"
-          onChange={(e) => {
-            handleChange(e);
-          }}
+          onChange={handleChange}
         />
         <button className="buttonLogin" type="submit">
           {translate("Login")}
         </button>
-        <>
-          <h3>{translate("Have_account?")} </h3>
-          <Link to="/register" className="buttonLogin">
-            {translate("Register")}
-          </Link>
-        </>
-        <>
-          <Link to="/" className="linkLogin">
-            {translate("Return")}
-          </Link>
-        </>
+
+        <div className="loginDivider">{translate("or")}</div>
+
+        <h3 className="loginQuestion">{translate("Have_account?")}</h3>
+        <Link to="/register" className="buttonLogin buttonSecondary">
+          {translate("Register")}
+        </Link>
+
+        <Link to="/" className="linkLogin">
+          ← {translate("Return")}
+        </Link>
+
         {form.errors.email && <p className="errorLogin">Email inválido</p>}
         {form.errors.password && (
           <p className="errorLogin">{translate("Invalid_Password")}</p>

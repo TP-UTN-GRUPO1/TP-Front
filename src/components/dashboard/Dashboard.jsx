@@ -1,51 +1,38 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import styles from "./Dashboard.module.css";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/auth/AuthContext";
+import { useState } from "react";
+import DashboardSidebar from "./DashboardSidebar";
 import { useTranslate } from "../../hooks/useTranslate";
 
 const Dashboard = () => {
-  const { userRole } = useContext(AuthContext);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const translate = useTranslate();
+
   return (
     <div className={styles.dashboardContainer}>
-      <h1 className={styles.title}>{translate("My_Account")}</h1>
-      <div className={styles.buttonGroup}>
-        <Link to="account" className={styles.navButton}>
-          {translate("Data")}
-        </Link>
-        <Link to="purchasedHistory" className={styles.navButton}>
-          {translate("Pucharse_history")}
-        </Link>
-        {userRole === 1 && (
-          <Link to="user" className={styles.navButton}>
-            {translate("User_dashboard")}
-          </Link>
-        )}
+      {/* Overlay para mobile */}
+      {sidebarOpen && (
+        <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />
+      )}
 
-        {(userRole === 1 || userRole === 3) && (
-          <>
-            <Link to="products" className={styles.navButton}>
-              {translate("Add_product")}
-            </Link>
-            <Link to="modifyproducts" className={styles.navButton}>
-              {translate("Modify_product")}
-            </Link>
-          </>
-        )}
-        {(userRole === 1 || userRole === 3) && (
-          <>
-            <Link to="platforms" className={styles.navButton}>
-              {translate("Add_platform")}
-            </Link>
-          </>
-        )}
+      {/* Botón hamburguesa mobile */}
+      <button
+        className={styles.menuToggle}
+        onClick={() => setSidebarOpen((prev) => !prev)}
+        aria-label="Toggle menu"
+      >
+        ☰
+      </button>
 
-        <Link to="/" className={styles.backButton}>
-          {translate("Return")}
-        </Link>
+      <div
+        className={`${styles.sidebarWrapper} ${sidebarOpen ? styles.sidebarOpen : ""}`}
+      >
+        <DashboardSidebar onClose={() => setSidebarOpen(false)} />
       </div>
-      <Outlet />
+
+      <main className={styles.mainContent}>
+        <Outlet />
+      </main>
     </div>
   );
 };

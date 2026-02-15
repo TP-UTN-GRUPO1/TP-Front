@@ -31,6 +31,23 @@ export const validatePassword = (
   return true;
 };
 
+// Mapeo de nombre de rol (string) a ID numérico
+const ROLE_MAP = {
+  admin: 1,
+  user: 2,
+  sysadmin: 3,
+};
+
+function resolveRoleId(rawRole) {
+  if (rawRole == null) return null;
+  // Si ya es un número o string numérico
+  const num = parseInt(rawRole, 10);
+  if (!isNaN(num)) return num;
+  // Si es un nombre de rol (string)
+  const mapped = ROLE_MAP[String(rawRole).toLowerCase()];
+  return mapped ?? null;
+}
+
 function decodeJWT(token) {
   try {
     const payload = token.split(".")[1];
@@ -38,13 +55,22 @@ function decodeJWT(token) {
     const email =
       decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] ||
       "";
+
+    const rawRole =
+      decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] ??
+      decoded["role"] ??
+      decoded["Role"] ??
+      decoded["roleId"] ??
+      undefined;
+
+    const roleId = resolveRoleId(rawRole);
+    console.log("🔑 Role:", rawRole, "→", roleId);
+
     return {
-      id: decoded.idUser,
+      id: decoded.idUser ?? decoded.IdUser ?? decoded.id ?? decoded.Id,
       email,
-      name: decoded.userName || email.split("@")[0] || "",
-      roleId: parseInt(
-        decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
-      ),
+      name: decoded.userName || decoded.UserName || email.split("@")[0] || "",
+      roleId,
     };
   } catch (e) {
     console.error("Error al decodificar JWT:", e);

@@ -23,7 +23,9 @@ export const AuthContextProvider = ({ children }) => {
   const [name, setName] = useState(
     userSaved.name || userSaved.email?.split("@")[0] || "",
   );
-  const [userRole, setUserRole] = useState(roleSaved);
+  const [userRole, setUserRole] = useState(
+    roleSaved != null ? Number(roleSaved) : null,
+  );
 
   const handleUserLogin = (newToken, userData) => {
     localStorage.setItem("roleUser", JSON.stringify(userData.roleId));
@@ -31,14 +33,16 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.setItem("theFrog-user", JSON.stringify(userData));
     setToken(newToken);
     setName(userData.name || userData.email?.split("@")[0] || "");
-    setUserRole(userData.roleId);
+    setUserRole(Number(userData.roleId));
   };
 
   const handleUserLogout = () => {
     localStorage.removeItem("theFrog-token");
     localStorage.removeItem("theFrog-user");
+    localStorage.removeItem("roleUser");
     setToken("");
     setName("");
+    setUserRole(null);
   };
 
   return (
