@@ -19,7 +19,12 @@ const Cards = ({ games }) => {
   });
 
   return (
-    <div className="d-flex justify-content-center flex-wrap">{gamesMapped}</div>
+    <div
+      className="d-flex justify-content-center flex-wrap"
+      style={{ gap: "30px", padding: "20px" }}
+    >
+      {gamesMapped}
+    </div>
   );
 };
 

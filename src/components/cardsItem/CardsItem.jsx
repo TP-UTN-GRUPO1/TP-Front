@@ -1,6 +1,6 @@
-import { Card, Button, Badge } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./CardsItem.css";
+import "./cardsItem.css";
 import { useFavorites } from "../../contexts/FavoritesContext/FavoritesContext";
 import { useContext } from "react";
 import { warningToast, successToast } from "/src/utils/notification";
@@ -55,43 +55,51 @@ const CardsItem = ({
   };
 
   return (
-    <div className="card-container">
-      <Card className="cards">
-        <div className="button-card" onClick={handleGameSelected}>
-          <Card.Img height={350} variant="top" src={imageUrl} />
-          <Card.Body>
-            <div className="stock">
-              {available ? (
-                <Badge bg="success">{translate("Available_stock")}</Badge>
-              ) : (
-                <Badge bg="danger">{translate("Out_of_stock_badge")}</Badge>
-              )}
-            </div>
-            <Card.Title>{gameName}</Card.Title>
-            <div>
-              {Array.isArray(platform) ? platform.join(", ") : platform}
-            </div>
-            <div className="genre-list">
-              {Array.isArray(genre) ? genre.join(", ") : genre}
-            </div>
-            <p>$ {price}</p>
-            <div className="d-grid gap-2"></div>
-          </Card.Body>
+    <div className="card" onClick={handleGameSelected}>
+      <div className="card2">
+        <div className="imgBox">
+          <img src={imageUrl} alt={gameName} className="card-game-img" />
         </div>
-        <div className="card-buttons">
-          <Button onClick={handleGameSelected} className="me-3" size="sm">
+
+        <div className="contentBox">
+          <div className="stock">
+            {available ? (
+              <Badge bg="success">{translate("Available_stock")}</Badge>
+            ) : (
+              <Badge bg="danger">{translate("Out_of_stock_badge")}</Badge>
+            )}
+          </div>
+          <h3>{gameName}</h3>
+          <span className="platform-info">
+            {Array.isArray(platform) ? platform.join(", ") : platform}
+          </span>
+          <span className="genre-info">
+            {Array.isArray(genre) ? genre.join(", ") : genre}
+          </span>
+          <h2 className="price">$ {price}</h2>
+        </div>
+
+        <div className="card-overlay">
+          <a
+            className="buy"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleGameSelected();
+            }}
+          >
             {translate("Select_game")}
-          </Button>
-          <Button
-            className="me-3"
-            size="sm"
-            variant="secondary"
-            onClick={handleAddToFavorites}
+          </a>
+          <a
+            className="buy fav-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddToFavorites();
+            }}
           >
             {translate("Add_favorites")}
-          </Button>
+          </a>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };

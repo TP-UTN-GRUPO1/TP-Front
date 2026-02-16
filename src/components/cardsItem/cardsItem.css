@@ -1,64 +1,165 @@
-* {
-  max-width: 100%;
-  box-sizing: border-box;
-  font-family: Tahoma, Verdana, sans-serif;
-}
+@import url("https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap");
 
-.cards {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 30px 20px;
+/* ─── Outer card (gradient border) ─── */
+.card {
+  width: 322px;
+  height: 522px;
+  background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
   border-radius: 20px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  text-align: center;
-  width: 300px;
-  margin: 40px auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: aliceblue;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; 
-  height: 90%;
-}
-.card-body {
-  flex-grow: 1;
+  transition: all 0.3s;
+  cursor: pointer;
+  padding: 3px;
+  font-family: "Istok Web", sans-serif;
 }
 
 .card:hover {
-  transform: scale(1.02);
-  border-color: var(--verde-claro);
+  box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
 }
 
-
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  padding: 0 4rem;
-  justify-items: center;
+/* ─── Inner card (dark content) ─── */
+.card2 {
+  width: 100%;
+  height: 100%;
+  background-color: #1a1a1a;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
-.cards button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-weight: 600;
+.card2:hover {
+  transform: scale(0.98);
+  border-radius: 20px;
 }
 
-
-.favorite-button i {
-  color: gray;
-  transition: transform 0.2s, color 0.2s;
+/* ─── Image ─── */
+.card .imgBox {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
 }
 
-.favorite-button.favorited i {
-  color: red;
+.card .imgBox .card-game-img {
+  max-width: 90%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: 0.5s;
 }
 
-.favorite-button:hover i {
-  transform: scale(1.2);
+.card:hover .imgBox .card-game-img {
+  max-width: 75%;
 }
 
-.stock{
-  margin-bottom: 0.5rem;
+/* ─── Content ─── */
+.card .contentBox {
+  position: relative;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.card .contentBox .stock {
+  margin-bottom: 4px;
+}
+
+.card .contentBox h3 {
+  font-size: 17px;
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.card .contentBox .platform-info,
+.card .contentBox .genre-info {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.card .contentBox .price {
+  font-size: 24px;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* ─── Buttons overlay ─── */
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.35s;
+  border-radius: 18px;
+  z-index: 10;
+}
+
+.card:hover .card-overlay {
+  opacity: 1;
+}
+
+.card-overlay .buy {
+  padding: 10px 28px;
+  color: #000;
+  text-decoration: none;
+  background: #00ff75;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  user-select: none;
+  transition: background 0.2s, transform 0.2s;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: opacity 0.3s 0.1s, transform 0.3s 0.1s, background 0.2s;
+}
+
+.card:hover .card-overlay .buy {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:hover .card-overlay .buy:nth-child(2) {
+  transition-delay: 0.18s;
+}
+
+.card-overlay .buy:hover {
+  background: #00cc5e;
+  transform: scale(1.05);
+}
+
+.card-overlay .buy.fav-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.card-overlay .buy.fav-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
