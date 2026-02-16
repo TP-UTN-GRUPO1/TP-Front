@@ -13,7 +13,8 @@
   background: rgba(26, 26, 26, 0.6);
   padding: 12px 24px;
   border-radius: 14px;
-  border: 1px solid var(--verde-neon);
+  border: 1px solid transparent;
+  border-image: linear-gradient(90deg, #00ff75, #ffc542) 1;
   box-shadow: 0 0 10px rgba(99, 255, 161, 0.2);
 }
 

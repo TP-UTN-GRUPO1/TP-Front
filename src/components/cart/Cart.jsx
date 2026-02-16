@@ -90,7 +90,7 @@ const Cart = () => {
         />
       </div>
       {cart.length === 0 ? (
-        <p>{translate("empty_cart")}</p>
+        <img src="/src/assets/img/emptyCart.png" alt="Empty Cart" />
       ) : (
         <>
           <div className="cart-header">
@@ -112,15 +112,16 @@ const Cart = () => {
             ))}
           </ul>
           <div className="cart-summary">
-            <p className="total">
+            <span className="total">
               {translate("Total_pay")}: ${total.toFixed(2)}
-            </p>
-            <Button
-              text={translate("Pay")}
-              onClick={handleCheckout}
+            </span>
+            <button
               className="checkout-btn"
+              onClick={handleCheckout}
               disabled={!checked}
-            />
+            >
+              <span>{translate("Pay")}</span>
+            </button>
             <label className="terms-label">
               <input
                 type="checkbox"
