@@ -21,14 +21,15 @@ const Favorites = () => {
     const getFavoritesById = async () => {
       try {
         const res = await axios.get(
-          `https://thefrog-server.onrender.com/favorites/${userId}`,
+          "https://localhost:7256/api/Favorites",
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           },
         );
-        setFavorites(res.data.games || []);
+        setFavorites(res.data);
+
       } catch (err) {
         console.error("Error fetching favorites", err);
       } finally {
@@ -40,26 +41,31 @@ const Favorites = () => {
   }, [userId, token]);
 
   const handleDeleteFavorite = async (favoriteId) => {
-    try {
-      await axios.delete("https://thefrog-server.onrender.com/favorites", {
+
+  try {
+    await axios.delete(
+      `https://localhost:7256/api/Favorites/${favoriteId}`,
+      {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        data: {
-          gameId: favoriteId,
-          idUser: userId,
-        },
-      });
-      successToast("Juego eliminado de favoritos con éxito");
-      setFavorites((prev) => prev.filter((fav) => fav.id !== favoriteId));
-    } catch (err) {
-      console.error(
-        "Error deleting favorite",
-        err.response?.data || err.message,
-      );
-      errorToast("Ups, error: no se pudo quitar el juego de favoritos.");
-    }
-  };
+      }
+    );
+
+
+    successToast("Juego eliminado de favoritos con éxito");
+
+    setFavorites((prev) =>
+      prev.filter((fav) => fav.gameId !== favoriteId)
+    );
+  } catch (err) {
+    console.error(
+      "Error deleting favorite",
+      err.response?.data || err.message
+    );
+    errorToast("Ups, error: no se pudo quitar el juego de favoritos.");
+  }
+};
 
   const handleAddToCart = (fav) => {
     if (!fav.available) {
@@ -117,7 +123,7 @@ const Favorites = () => {
                   <div className="favoritesButton">
                     <Button
                       className="button"
-                      onClick={() => handleDeleteFavorite(fav.id)}
+                      onClick={() => handleDeleteFavorite(fav.gameId)}
                     >
                       {translate("Remove_from_favorites")}
                     </Button>

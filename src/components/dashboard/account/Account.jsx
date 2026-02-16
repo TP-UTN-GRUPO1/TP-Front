@@ -114,7 +114,6 @@ const Account = () => {
             onChange={(e) => setProvince(e.target.value)}
           />
         </label>
-
         <label>
           {translate("Country")}:
           <input
@@ -131,7 +130,7 @@ const Account = () => {
           <input
             name="last_name"
             type="text"
-            placeholder={translate("Last_name")}
+            placeholder={translate("Placeholder_lastname")}
             value={lastName}
             onChange={(e) => setLastname(e.target.value)}
           />

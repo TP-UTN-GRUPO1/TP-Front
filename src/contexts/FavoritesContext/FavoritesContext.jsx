@@ -6,25 +6,14 @@ const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
   const { token } = useContext(AuthContext);
-  const user = JSON.parse(localStorage.getItem("theFrog-user"));
-  const userId = user?.id;
 
   const addToFavorites = async (game) => {
     try {
-      const res = await axios.post(
-        "https://thefrog-server.onrender.com/favorites",
-        {
-          idUser: userId,
-          gameId: game.id,
-          gameName: game.gameName,
-          imageUrl: game.imageUrl,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      console.log("GAME COMPLETO:", game);
+      console.log("ID QUE ESTOY MANDANDO:", game.id);
+      const res = await axios.post(`https://localhost:7256/api/Favorites?gameId=${game.id}`, null, {
+  headers: { Authorization: `Bearer ${token}` },
+});
 
       return res.data;
     } catch (err) {

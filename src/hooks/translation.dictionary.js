@@ -212,6 +212,7 @@ export const translation_dictionary = {
     { key: "Error_server", value: "Error al conectar con el servidor" },
     { key: "Terms_and_Conditions", value: "Términos y condiciones" },
     { key: "Accept_terms", value: "Acepto los" },
+    {key:"Placeholder_lastname", value: "Apellido"},
   ],
   en: [
     { key: "Search_Games", value: "Search games..." },
@@ -403,5 +404,6 @@ export const translation_dictionary = {
     { key: "Error_server", value: "Error connecting to the server" },
     { key: "Terms_and_Conditions", value: " Terms and Conditions" },
     { key: "Accept_terms", value: "I accept the " },
+    {key:"Placeholder_lastname", value: "Apellido"},
   ],
 };
