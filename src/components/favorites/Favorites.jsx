@@ -1,18 +1,21 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Badge } from "react-bootstrap";
 import LoadingSpinner from "../loadingSpinner/LoadingSpinner";
 import { AuthContext } from "../../contexts/auth/AuthContext";
 import { errorToast, successToast } from "../../utils/notification";
-import "./Favorites.css";
-import { Badge, Button, Card } from "react-bootstrap";
 import { useTranslate } from "../../hooks/useTranslate";
 import { useCart } from "../../contexts/CartContext/CartContext";
+import "../cardsItem/cardsItem.css";
+import "./Favorites.css";
 
 const Favorites = () => {
   const { token, userRole } = useContext(AuthContext);
   const user = JSON.parse(localStorage.getItem("theFrog-user"));
   const userId = user?.id;
   const translate = useTranslate();
+  const navigate = useNavigate();
   const { addToCart } = useCart();
   const role = Number(userRole);
   const isUser = role === 3 || !userRole;
@@ -47,7 +50,6 @@ const Favorites = () => {
       });
 
       successToast("Juego eliminado de favoritos con éxito");
-
       setFavorites((prev) => prev.filter((fav) => fav.gameId !== favoriteId));
     } catch (err) {
       console.error(
@@ -80,55 +82,89 @@ const Favorites = () => {
     }
   };
 
+  const handleGameSelected = (fav) => {
+    navigate(`/games/${fav.id || fav.gameId}`, {
+      state: {
+        game: {
+          id: fav.id || fav.gameId,
+          gameName: fav.nameGame,
+          imageUrl: fav.imageUrl,
+          price: fav.price,
+          available: fav.available,
+        },
+      },
+    });
+  };
+
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="container mt-4">
-      <h2>{translate("Your_Favorites")}</h2>
+    <div className="favorites-container">
+      <h2 className="favorites-title">{translate("Your_Favorites")}</h2>
 
       {favorites.length === 0 ? (
-        <p className="text-white">{translate("No_games_favorites")}</p>
+        <p className="favorites-empty">{translate("No_games_favorites")}</p>
       ) : (
-        <div className="row">
+        <div className="favorites-grid">
           {favorites.map((fav) => (
-            <div className="col-md-4 mb-4" key={fav.id}>
-              <Card className="cards">
-                <Card.Img
-                  src={fav.imageUrl}
-                  height={350}
-                  variant="top"
-                  alt={fav.nameGame}
-                />
-                <div className="stock">
-                  {fav.available ? (
-                    <Badge bg="success">
-                      {translate("Out_of_stock_badge")}
-                    </Badge>
-                  ) : (
-                    <Badge bg="danger">{translate("Available_stock")}</Badge>
-                  )}
+            <div className="card" key={fav.id || fav.gameId}>
+              <div className="card2">
+                <div className="imgBox">
+                  <img
+                    src={fav.imageUrl}
+                    alt={fav.nameGame}
+                    className="card-game-img"
+                  />
                 </div>
-                <Card.Body className="card-body">
-                  <h5 className="card-title">{fav.nameGame}</h5>
-                  <h5 className="card-title">${fav.price}</h5>
-                  <div className="favoritesButton">
-                    <Button
-                      className="button"
-                      onClick={() => handleDeleteFavorite(fav.gameId)}
-                    >
-                      {translate("Remove_from_favorites")}
-                    </Button>
-                    {isUser && (
-                      <Button
-                        className="button"
-                        onClick={() => handleAddToCart(fav)}
-                      >
-                        {translate("Add_cart")}
-                      </Button>
+
+                <div className="contentBox">
+                  <div className="stock">
+                    {fav.available ? (
+                      <Badge bg="success">
+                        {translate("Available_stock")}
+                      </Badge>
+                    ) : (
+                      <Badge bg="danger">
+                        {translate("Out_of_stock_badge")}
+                      </Badge>
                     )}
                   </div>
-                </Card.Body>
-              </Card>
+                  <h3>{fav.nameGame}</h3>
+                  <h2 className="price">$ {fav.price}</h2>
+                </div>
+
+                <div className="card-overlay">
+                  <a
+                    className="buy"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleGameSelected(fav);
+                    }}
+                  >
+                    {translate("Select_game")}
+                  </a>
+                  <a
+                    className="buy fav-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteFavorite(fav.gameId);
+                    }}
+                  >
+                    {translate("Remove_from_favorites")}
+                  </a>
+                  {isUser && (
+                    <a
+                      className="buy"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAddToCart(fav);
+                      }}
+                    >
+                      {translate("Add_cart")}
+                    </a>
+                  )}
+                </div>
+              </div>
             </div>
           ))}
         </div>
