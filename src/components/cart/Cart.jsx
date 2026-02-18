@@ -82,16 +82,15 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
+      <Button
+        text={translate("Return")}
+        onClick={() => window.history.back()}
+        className="back-button"
+      />
       <div className="tittleButton">
         <h2 className="h2Cart">
           {translate("YOUR")} {translate("CART")}
         </h2>
-
-        <Button
-          text={translate("Return")}
-          onClick={() => window.history.back()}
-          className="back-button"
-        />
       </div>
       {cart.length === 0 ? (
         <img src="/src/assets/img/emptyCart.png" alt="Empty Cart" />

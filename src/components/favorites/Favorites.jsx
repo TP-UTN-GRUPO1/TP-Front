@@ -7,6 +7,7 @@ import { AuthContext } from "../../contexts/auth/AuthContext";
 import { errorToast, successToast } from "../../utils/notification";
 import { useTranslate } from "../../hooks/useTranslate";
 import { useCart } from "../../contexts/CartContext/CartContext";
+import Button from "../button/Button";
 import "../cardsItem/cardsItem.css";
 import "./Favorites.css";
 
@@ -100,6 +101,11 @@ const Favorites = () => {
 
   return (
     <div className="favorites-container">
+      <Button
+        text={translate("Return")}
+        onClick={() => window.history.back()}
+        className="back-button"
+      />
       <h2 className="favorites-title">{translate("Your_Favorites")}</h2>
 
       {favorites.length === 0 ? (
@@ -120,9 +126,7 @@ const Favorites = () => {
                 <div className="contentBox">
                   <div className="stock">
                     {fav.available ? (
-                      <Badge bg="success">
-                        {translate("Available_stock")}
-                      </Badge>
+                      <Badge bg="success">{translate("Available_stock")}</Badge>
                     ) : (
                       <Badge bg="danger">
                         {translate("Out_of_stock_badge")}

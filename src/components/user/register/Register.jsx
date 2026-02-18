@@ -106,7 +106,7 @@ function Register() {
         <input
           type="text"
           className="inputLogin"
-          placeholder={translate("Last_Name")}
+          placeholder={translate("Last_name")}
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
@@ -120,7 +120,7 @@ function Register() {
         <input
           type="date"
           className="inputLogin"
-          placeholder="Fecha de nacimiento"
+          placeholder={translate("Birth_Date")}
           value={birthDate}
           onChange={(e) => setBirthDate(e.target.value)}
         />

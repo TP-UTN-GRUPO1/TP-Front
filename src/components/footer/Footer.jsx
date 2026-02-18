@@ -27,7 +27,7 @@ const Footer = () => {
               <a href="/contact">{translate("Contact_us")}</a>
             </li>
             <li>
-              <a href="/terms">{translate("Terms_of_Service")}</a>
+              <a href="/terms">{translate("Terms_and_Conditions")}</a>
             </li>
           </ul>
         </div>
