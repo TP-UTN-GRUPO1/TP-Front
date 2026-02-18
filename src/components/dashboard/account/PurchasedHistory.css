@@ -107,6 +107,68 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
+/* ── Search Bar (Admin/Sysadmin) ── */
+.ph-search-bar {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.ph-search-input {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 197, 66, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f0f0f0;
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.ph-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.ph-search-input:focus {
+  border-color: rgba(255, 197, 66, 0.5);
+}
+
+.ph-search-btn {
+  padding: 0.6rem 1.3rem;
+  border-radius: 10px;
+  border: none;
+  background: var(--dorado, #f5b940);
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.ph-search-btn:hover {
+  background: #e0a830;
+  transform: scale(1.03);
+}
+
+.ph-search-btn:active {
+  transform: scale(0.97);
+}
+
+.ph-subtitle {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.ph-error {
+  text-align: center;
+  color: #ff6b6b;
+  font-size: 0.92rem;
+  padding: 0.8rem 0;
+}
+
 /* ── Responsive ── */
 @media (max-width: 480px) {
   .ph-order-card {

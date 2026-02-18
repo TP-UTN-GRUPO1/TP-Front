@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
   LOGIN: "/api/Auth/login",
 
   // Usuarios
+  USERS: "/api/user",
   USER_PROFILE: "/api/user/profile",
   USER_BY_ID: (id) => `/api/user/${id}`,
 
