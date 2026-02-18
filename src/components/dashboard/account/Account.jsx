@@ -21,16 +21,20 @@ const Account = () => {
   useEffect(() => {
     const loadAccount = async () => {
       try {
+        console.log("👤 Loading account for userId:", userId);
         const res = await axiosInstance.get(API_ENDPOINTS.USER_BY_ID(userId), {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = res.data;
+        console.log("👤 Account data:", data);
         setUserData(data);
-        setAddress(data.address || "");
-        setLastname(data.lastName || "");
-        setCity(data.city || "");
-        setProvince(data.province || "");
-        setCountry(data.country || "");
+        setAddress(data.address || data.Address || "");
+        setLastname(data.lastName || data.LastName || data.lastname || "");
+        setCity(data.city || data.City || "");
+        setProvince(
+          data.province || data.Province || data.state || data.State || "",
+        );
+        setCountry(data.country || data.Country || "");
       } catch (err) {
         console.error("Error al cargar datos del usuario:", err);
       }
@@ -52,7 +56,7 @@ const Account = () => {
     const body = { id: userId, address, lastName, city, province, country };
 
     try {
-      await axiosInstance.put(API_ENDPOINTS.USER_BY_ID(userId), body, {
+      await axiosInstance.patch(API_ENDPOINTS.USER_BY_ID(userId), body, {
         headers: { Authorization: `Bearer ${token}` },
       });
       okAlert({
@@ -73,11 +77,19 @@ const Account = () => {
         <div className="account-user-info">
           <p>
             <strong>{translate("Name")}:</strong>{" "}
-            {userData.name || userData.userName || "-"}
+            {userData.completeName || userData.name || userData.userName || "-"}
           </p>
           <p>
             <strong>Email:</strong> {userData.email || "-"}
           </p>
+          {userData.birthDate && (
+            <p>
+              <strong>
+                {translate("Birth_date") || "Fecha de nacimiento"}:
+              </strong>{" "}
+              {new Date(userData.birthDate).toLocaleDateString()}
+            </p>
+          )}
         </div>
       )}
 
