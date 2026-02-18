@@ -9,6 +9,7 @@ import { useTranslate } from "../../hooks/useTranslate";
 import { confirmDialog, okAlert, errorAlert } from "../../utils/SweetAlert";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/auth/AuthContext";
+import { sendPurchaseEmail } from "../../services/emailService";
 
 const Cart = () => {
   const { cart, updateAmount, deleteProduct, clearCart } = useCart();
@@ -64,7 +65,26 @@ const Cart = () => {
         { headers: { Authorization: `Bearer ${token}` } },
       );
       if (response.status === 201) {
-        successToast(translate("Purchase_successfully"));
+        // Enviar email con las keys
+        const emailItems = cart.map((p) => ({
+          name: p.name,
+          amount: p.amount,
+          price: p.price,
+        }));
+        const emailResult = await sendPurchaseEmail(
+          user.email,
+          user.name || user.email.split("@")[0],
+          emailItems,
+          total,
+        );
+
+        if (emailResult.success) {
+          successToast(translate("Purchase_successfully"));
+        } else {
+          successToast(translate("Purchase_successfully"));
+          console.warn("No se pudo enviar el email con las keys");
+        }
+
         clearCart();
         okAlert({
           title: translate("Purchase_success"),
