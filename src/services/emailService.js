@@ -1,8 +1,8 @@
 import emailjs from "@emailjs/browser";
 
-const EMAILJS_SERVICE_ID = "service_b9sac3c"; // Ej: "service_abc123"
-const EMAILJS_TEMPLATE_ID = "template_6a3pes4"; // Ej: "template_xyz789"
-const EMAILJS_PUBLIC_KEY = "TtTYSXYp4LOzNoH97K"; // Ej: "abcDEF123456"
+const EMAILJS_SERVICE_ID = "service_tjg34y2";
+const EMAILJS_TEMPLATE_ID = "template_hbm0qi4";
+const EMAILJS_PUBLIC_KEY = "DDtNllazoBvPoGAhp";
 
 /**
  * Genera una key falsa de juego con formato XXXXX-XXXXX-XXXXX-XXXXX-XXXXX

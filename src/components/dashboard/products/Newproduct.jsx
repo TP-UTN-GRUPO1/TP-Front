@@ -47,25 +47,25 @@ const Newproduct = () => {
 
   const validateForm = () => {
     const errs = {};
-    if (!formData.nameGame) errs.nameGame = "Ingrese un nombre";
+    if (!formData.nameGame) errs.nameGame = translate("Err_Game_name");
     if (!formData.developer)
-      errs.developer = "Ingrese el nombre de la desarrolladora";
+      errs.developer = translate("Err_Developer");
     if (
       !formData.rating ||
       isNaN(formData.rating) ||
       formData.rating < 0 ||
       formData.rating > 10
     ) {
-      errs.rating = "El rating debe ser un número entre 0 y 10";
+      errs.rating = translate("Err_Rating");
     }
-    if (!formData.imageUrl) errs.imageUrl = "La URL de la imagen es requerida";
+    if (!formData.imageUrl) errs.imageUrl = translate("Err_Img_URL");
     if (!formData.price || isNaN(formData.price) || formData.price < 0) {
-      errs.price = "El precio debe ser un número mayor o igual a 0";
+      errs.price = translate("Err_Price");
     }
     if (formData.platforms.length < 1)
-      errs.platforms = "Selecciona al menos una plataforma";
+      errs.platforms = translate("Err_Platforms");
     if (formData.genres.length < 1 || formData.genres.length > 3) {
-      errs.genres = "Selecciona entre 1 y 3 géneros";
+      errs.genres = translate("Err_Genres");
     }
     return errs;
   };

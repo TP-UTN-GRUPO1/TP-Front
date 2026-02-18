@@ -113,7 +113,10 @@ const Cart = () => {
         </h2>
       </div>
       {cart.length === 0 ? (
-        <img src="/src/assets/img/emptyCart.png" alt="Empty Cart" />
+        <div>
+          <p className="h2Cart">{translate("empty_cart")}</p>
+        <img src="/src/assets/img/emptyCart.png" alt="Empty Cart" className="imageEmptyCart" />
+        </div>
       ) : (
         <>
           <div className="cart-header">

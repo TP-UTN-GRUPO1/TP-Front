@@ -2,12 +2,9 @@ import { Outlet } from "react-router-dom";
 import styles from "./Dashboard.module.css";
 import { useState } from "react";
 import DashboardSidebar from "./DashboardSidebar";
-import { useTranslate } from "../../hooks/useTranslate";
 
 const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const translate = useTranslate();
-
   return (
     <div className={styles.dashboardContainer}>
       {/* Overlay para mobile */}

@@ -178,6 +178,12 @@
   z-index: 20;
   transition: fill 0.3s ease-in-out;
 }
+.imageEmptyCart{
+  display: block;
+  margin: 20px auto 0 auto;
+  width: 300px;
+  opacity: 0.8;
+}
 
 .checkout-btn:hover:not(:disabled) .checkout-svg {
   fill: #183153;
