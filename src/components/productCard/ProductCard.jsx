@@ -1,9 +1,14 @@
+import { useContext } from "react";
 import { useTranslate } from "../../hooks/useTranslate";
+import { AuthContext } from "../../contexts/auth/AuthContext";
 import Button from "../button/Button";
 import "./ProductCard.css";
 
 const ProductCard = ({ product, onAddToCart }) => {
   const translate = useTranslate();
+  const { userRole } = useContext(AuthContext);
+  const role = Number(userRole);
+  const isUser = role === 2 || !userRole;
 
   return (
     <div className="productCard">
@@ -43,11 +48,13 @@ const ProductCard = ({ product, onAddToCart }) => {
             {translate("Available")}:{" "}
             {product.available ? translate("Yes") : translate("No")}
           </p>
-          <Button
-            text={translate("Add_cart")}
-            onClick={onAddToCart}
-            className="add-to-cart"
-          />
+          {isUser && (
+            <Button
+              text={translate("Add_cart")}
+              onClick={onAddToCart}
+              className="add-to-cart"
+            />
+          )}
         </div>
       </div>
     </div>

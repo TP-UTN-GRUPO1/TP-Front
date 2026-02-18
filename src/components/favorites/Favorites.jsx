@@ -9,27 +9,25 @@ import { useTranslate } from "../../hooks/useTranslate";
 import { useCart } from "../../contexts/CartContext/CartContext";
 
 const Favorites = () => {
-  const { token } = useContext(AuthContext);
+  const { token, userRole } = useContext(AuthContext);
   const user = JSON.parse(localStorage.getItem("theFrog-user"));
   const userId = user?.id;
   const translate = useTranslate();
   const { addToCart } = useCart();
+  const role = Number(userRole);
+  const isUser = role === 2 || !userRole;
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getFavoritesById = async () => {
       try {
-        const res = await axios.get(
-          "https://localhost:7256/api/Favorites",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+        const res = await axios.get("https://localhost:7256/api/Favorites", {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-        );
+        });
         setFavorites(res.data);
-
       } catch (err) {
         console.error("Error fetching favorites", err);
       } finally {
@@ -41,31 +39,24 @@ const Favorites = () => {
   }, [userId, token]);
 
   const handleDeleteFavorite = async (favoriteId) => {
-
-  try {
-    await axios.delete(
-      `https://localhost:7256/api/Favorites/${favoriteId}`,
-      {
+    try {
+      await axios.delete(`https://localhost:7256/api/Favorites/${favoriteId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
-    );
+      });
 
+      successToast("Juego eliminado de favoritos con éxito");
 
-    successToast("Juego eliminado de favoritos con éxito");
-
-    setFavorites((prev) =>
-      prev.filter((fav) => fav.gameId !== favoriteId)
-    );
-  } catch (err) {
-    console.error(
-      "Error deleting favorite",
-      err.response?.data || err.message
-    );
-    errorToast("Ups, error: no se pudo quitar el juego de favoritos.");
-  }
-};
+      setFavorites((prev) => prev.filter((fav) => fav.gameId !== favoriteId));
+    } catch (err) {
+      console.error(
+        "Error deleting favorite",
+        err.response?.data || err.message,
+      );
+      errorToast("Ups, error: no se pudo quitar el juego de favoritos.");
+    }
+  };
 
   const handleAddToCart = (fav) => {
     if (!fav.available) {
@@ -127,12 +118,14 @@ const Favorites = () => {
                     >
                       {translate("Remove_from_favorites")}
                     </Button>
-                    <Button
-                      className="button"
-                      onClick={() => handleAddToCart(fav)}
-                    >
-                      {translate("Add_cart")}
-                    </Button>
+                    {isUser && (
+                      <Button
+                        className="button"
+                        onClick={() => handleAddToCart(fav)}
+                      >
+                        {translate("Add_cart")}
+                      </Button>
+                    )}
                   </div>
                 </Card.Body>
               </Card>

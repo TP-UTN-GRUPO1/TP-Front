@@ -7,12 +7,16 @@ import "./Cart.css";
 import { errorToast, successToast } from "../../utils/notification";
 import { useTranslate } from "../../hooks/useTranslate";
 import { confirmDialog, okAlert, errorAlert } from "../../utils/SweetAlert";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../contexts/auth/AuthContext";
 
 const Cart = () => {
   const { cart, updateAmount, deleteProduct, clearCart } = useCart();
   const [checked, setChecked] = useState(false);
   const translate = useTranslate();
+  const { userRole } = useContext(AuthContext);
+  const role = Number(userRole);
+  const isUser = role === 2 || !userRole;
   const total = cart.reduce(
     (acc, product) => acc + product.price * product.amount,
     0,
@@ -115,29 +119,33 @@ const Cart = () => {
             <span className="total">
               {translate("Total_pay")}: ${total.toFixed(2)}
             </span>
-            <button
-              className="checkout-btn"
-              onClick={handleCheckout}
-              disabled={!checked}
-            >
-              <span>{translate("Pay")}</span>
-            </button>
-            <label className="terms-label">
-              <input
-                type="checkbox"
-                checked={checked}
-                onChange={handleCheckboxChange}
-                className="terms-checkbox"
-              />
-              {translate("Accept_terms")}{" "}
-              <a
-                href="Terminos y condiciones.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {translate("Terms_and_Conditions")}
-              </a>
-            </label>
+            {isUser && (
+              <>
+                <button
+                  className="checkout-btn"
+                  onClick={handleCheckout}
+                  disabled={!checked}
+                >
+                  <span>{translate("Pay")}</span>
+                </button>
+                <label className="terms-label">
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={handleCheckboxChange}
+                    className="terms-checkbox"
+                  />
+                  {translate("Accept_terms")}{" "}
+                  <a
+                    href="Terminos y condiciones.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {translate("Terms_and_Conditions")}
+                  </a>
+                </label>
+              </>
+            )}
           </div>
         </>
       )}
