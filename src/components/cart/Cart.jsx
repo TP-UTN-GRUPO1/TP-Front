@@ -16,7 +16,7 @@ const Cart = () => {
   const translate = useTranslate();
   const { userRole } = useContext(AuthContext);
   const role = Number(userRole);
-  const isUser = role === 2 || !userRole;
+  const isUser = role === 3 || !userRole;
   const total = cart.reduce(
     (acc, product) => acc + product.price * product.amount,
     0,

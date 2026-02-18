@@ -15,7 +15,7 @@ const Favorites = () => {
   const translate = useTranslate();
   const { addToCart } = useCart();
   const role = Number(userRole);
-  const isUser = role === 2 || !userRole;
+  const isUser = role === 3 || !userRole;
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 

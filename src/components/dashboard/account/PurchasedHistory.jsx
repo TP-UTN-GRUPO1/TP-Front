@@ -10,7 +10,7 @@ const PurchasedHistory = () => {
   const user = JSON.parse(localStorage.getItem("theFrog-user"));
   const userId = user?.id;
   const role = Number(userRole);
-  const isAdminOrSysadmin = role === 1 || role === 3;
+  const isAdminOrSysadmin = role === 1 || role === 2;
   const translate = useTranslate();
 
   const [orders, setOrders] = useState([]);
@@ -94,10 +94,14 @@ const PurchasedHistory = () => {
       const usersRes = await axiosInstance.get(API_ENDPOINTS.USERS, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log("📋 Users response:", usersRes.data);
       const users = Array.isArray(usersRes.data) ? usersRes.data : [];
       const foundUser = users.find(
-        (u) => u.email.toLowerCase() === searchEmail.trim().toLowerCase(),
+        (u) =>
+          (u.email || u.Email || "").toLowerCase() ===
+          searchEmail.trim().toLowerCase(),
       );
+      console.log("🔍 Found user:", foundUser);
 
       if (!foundUser) {
         setSearchError(translate("No_user_found"));
@@ -105,10 +109,12 @@ const PurchasedHistory = () => {
         return;
       }
 
-      setSearchedEmail(foundUser.email);
-      await fetchOrdersForUser(foundUser.id);
+      setSearchedEmail(foundUser.email || foundUser.Email);
+      await fetchOrdersForUser(
+        foundUser.id || foundUser.Id || foundUser.userId,
+      );
     } catch (err) {
-      console.error("Error searching user:", err);
+      console.error("❌ Error searching user:", err);
       setSearchError(translate("No_user_found"));
       setLoading(false);
     }

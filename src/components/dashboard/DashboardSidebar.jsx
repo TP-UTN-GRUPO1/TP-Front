@@ -47,7 +47,7 @@ const DashboardSidebar = ({ onClose }) => {
           </NavLink>
         )}
 
-        {(role === 1 || role === 3) && (
+        {(role === 1 || role === 2) && (
           <>
             <NavLink to="products" className={linkClass} onClick={onClose}>
               <span className={styles.sidebarIcon}>➕</span>

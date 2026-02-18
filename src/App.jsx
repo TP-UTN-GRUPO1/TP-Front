@@ -82,7 +82,7 @@ function App() {
                   <Route
                     path="products"
                     element={
-                      <ProtectedRoute requiredRole={[1, 3]}>
+                      <ProtectedRoute requiredRole={[1, 2]}>
                         <Newproduct />
                       </ProtectedRoute>
                     }
@@ -90,7 +90,7 @@ function App() {
                   <Route
                     path="modifyproducts"
                     element={
-                      <ProtectedRoute requiredRole={[1, 3]}>
+                      <ProtectedRoute requiredRole={[1, 2]}>
                         <ModifyProduct />
                       </ProtectedRoute>
                     }
@@ -102,7 +102,7 @@ function App() {
                   <Route
                     path="platforms"
                     element={
-                      <ProtectedRoute requiredRole={[1, 3]}>
+                      <ProtectedRoute requiredRole={[1, 2]}>
                         <PlatformManager />
                       </ProtectedRoute>
                     }

@@ -8,7 +8,7 @@ const ProductCard = ({ product, onAddToCart }) => {
   const translate = useTranslate();
   const { userRole } = useContext(AuthContext);
   const role = Number(userRole);
-  const isUser = role === 2 || !userRole;
+  const isUser = role === 3 || !userRole;
 
   return (
     <div className="productCard">

@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./AdminPanel.css";
 import { useTranslate } from "../../../hooks/useTranslate";
 import { confirmDialog, okAlert } from "../../../utils/SweetAlert";
+import { AuthContext } from "../../../contexts/auth/AuthContext";
+import axiosInstance from "../../../config/axiosInstance";
+import { API_ENDPOINTS } from "../../../config/api.config";
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -12,29 +15,52 @@ const AdminPanel = () => {
   const [searchEmail, setSearchEmail] = useState("");
   const [selectedUserOrders, setSelectedUserOrders] = useState([]);
   const [selectedUserEmail, setSelectedUserEmail] = useState("");
-  const token = localStorage.getItem("token");
+  const { token } = useContext(AuthContext);
   const translate = useTranslate();
+
+  // Mapeo de roleId a nombre para mostrar
+  const ROLE_NAMES = { 1: "SysAdmin", 2: "Admin", 3: "User" };
+
+  // Extrae el nombre del rol de forma robusta según la estructura de la API
+  const getRoleName = (user) => {
+    // Si tiene roleId numérico, usar el mapeo
+    const roleId = user.roleId || user.role?.roleId || user.role?.id;
+    if (roleId && ROLE_NAMES[roleId]) return ROLE_NAMES[roleId];
+    return (
+      user.role?.roleName ||
+      user.role?.name ||
+      user.roleName ||
+      user.Role?.RoleName ||
+      user.Role?.roleName ||
+      null
+    );
+  };
+
+  // Extrae el roleId numérico del usuario
+  const getRoleId = (user) => {
+    return user.roleId || user.role?.roleId || user.role?.id || 3;
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("https://localhost::7256/api/user", {
+        const response = await axiosInstance.get(API_ENDPOINTS.USERS, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        if (!response.ok)
-          throw new Error(translate("Unauthorized_access_error"));
-        const data = await response.json();
+        console.log("👥 Users response:", response.data);
+        const data = Array.isArray(response.data) ? response.data : [];
         setUsers(data);
         setFilteredUsers(data);
       } catch (error) {
-        toast.error(`${translate("Load_error")} ${error.message}`, {
+        toast.error(`Error al cargar usuarios: ${error.message}`, {
           position: "top-right",
           autoClose: 3000,
         });
       }
     };
-    fetchUsers();
-  }, [token, translate]);
+    if (token) fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   useEffect(() => {
     if (searchEmail.trim() !== "") {
@@ -58,50 +84,44 @@ const AdminPanel = () => {
     setFilteredUsers(
       selectedRole === "all"
         ? result
-        : result.filter((u) => u.role?.roleName === selectedRole),
+        : result.filter((u) => getRoleName(u) === selectedRole),
     );
   };
 
   const handleRoleFilter = (role) => {
     setSelectedRole(role);
     setFilteredUsers(
-      role === "all" ? users : users.filter((u) => u.role?.roleName === role),
+      role === "all" ? users : users.filter((u) => getRoleName(u) === role),
     );
   };
 
-  const handleChangeRole = async (userId, newRole) => {
+  const handleChangeRole = async (userId, newRoleId) => {
+    const roleId = Number(newRoleId);
+    const roleName = ROLE_NAMES[roleId] || "usuario";
     const confirmed = await confirmDialog({
-      title: `${translate("Confirm_change_role")} ${
-        newRole === "user" ? "usuario" : newRole
-      }?`,
+      title: `${translate("Confirm_change_role")} ${roleName}?`,
       text: translate("Are_you_sure"),
       confirmButtonText: translate("Yes_Confirm"),
       cancelButtonText: translate("Cancel"),
     });
     if (!confirmed) return;
     try {
-      let response = await fetch(
-        `https://localhost::7256/api/user/${userId}/role`,
+      await axiosInstance.put(
+        `${API_ENDPOINTS.USER_BY_ID(userId)}/role`,
+        { RoleId: roleId },
         {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ roleName: newRole }),
+          headers: { Authorization: `Bearer ${token}` },
         },
       );
-      if (!response.ok) throw new Error("Error al cambiar el rol");
-      response = await fetch("https://localhost::7256/api/User", {
+      const response = await axiosInstance.get(API_ENDPOINTS.USERS, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!response.ok) throw new Error("Error al recargar usuarios");
-      const data = await response.json();
+      const data = Array.isArray(response.data) ? response.data : [];
       setUsers(data);
       setFilteredUsers(
         selectedRole === "all"
           ? data
-          : data.filter((u) => u.role?.roleName === selectedRole),
+          : data.filter((u) => getRoleName(u) === selectedRole),
       );
       toast.success(translate("Updated_role_confirmed"), {
         position: "top-right",
@@ -128,16 +148,14 @@ const AdminPanel = () => {
     });
     if (!confirmed) return;
     try {
-      const response = await fetch(`https://localhost::7256/api/User/${id}`, {
-        method: "DELETE",
+      await axiosInstance.delete(API_ENDPOINTS.USER_BY_ID(id), {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!response.ok) throw new Error("Error al eliminar usuario");
       const updatedUsers = users.filter((u) => u.id !== id);
       setUsers(updatedUsers);
       setFilteredUsers(
         updatedUsers.filter(
-          (u) => selectedRole === "all" || u.Role?.roleName === selectedRole,
+          (u) => selectedRole === "all" || getRoleName(u) === selectedRole,
         ),
       );
       toast.success(translate("Delete_user_confirmed"), {
@@ -158,16 +176,18 @@ const AdminPanel = () => {
 
   const handleViewPurchases = async (id, email) => {
     try {
-      const response = await fetch(`https://localhost::7256/api/User/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!response.ok) throw new Error(translate("No_found_pucharse"));
-      const data = await response.json();
+      const response = await axiosInstance.get(
+        API_ENDPOINTS.ORDERS_BY_USER(id),
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
       if (selectedUserEmail === email) {
         setSelectedUserOrders([]);
         setSelectedUserEmail("");
         return;
       }
+      const data = Array.isArray(response.data) ? response.data : [];
       setSelectedUserOrders(data);
       setSelectedUserEmail(email);
     } catch (err) {
@@ -205,15 +225,15 @@ const AdminPanel = () => {
           <li key={user.id}>
             <span>
               {user.name} | {user.email} | {translate("Role")}:{" "}
-              {user.role?.roleName || translate("No_role")}
+              {getRoleName(user) || translate("No_role")}
             </span>
             <select
               onChange={(e) => handleChangeRole(user.id, e.target.value)}
-              value={user.role?.roleName || "user"}
+              value={getRoleId(user)}
             >
-              <option value="user">{translate("User")}</option>
-              <option value="admin">Admin</option>
-              <option value="sysadmin">Sysadmin</option>
+              <option value={3}>{translate("User")}</option>
+              <option value={2}>Admin</option>
+              <option value={1}>Sysadmin</option>
             </select>
             <button onClick={() => handleDelete(user.id)}>
               {translate("Delete")}

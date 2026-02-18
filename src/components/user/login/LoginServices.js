@@ -32,10 +32,11 @@ export const validatePassword = (
 };
 
 // Mapeo de nombre de rol (string) a ID numérico
+// 1 = sysadmin, 2 = admin, 3 = usuario normal
 const ROLE_MAP = {
-  admin: 1,
-  user: 2,
-  sysadmin: 3,
+  sysadmin: 1,
+  admin: 2,
+  user: 3,
 };
 
 function resolveRoleId(rawRole) {
