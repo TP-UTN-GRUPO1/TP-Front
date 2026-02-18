@@ -5,6 +5,7 @@ import { errorToast, successToast } from "../../../utils/notification.jsx";
 import { AuthContext } from "../../../contexts/auth/AuthContext.jsx";
 import "./Login.css";
 import { useTranslate } from "../../../hooks/useTranslate.jsx";
+import PasswordInput from "../passwordInput/PasswordInput.jsx";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -78,15 +79,12 @@ const Login = () => {
           name="email"
           onChange={handleChange}
         />
-        <input
-          type="password"
-          required
-          ref={passwordRef}
-          className="inputLogin"
-          placeholder={translate("Password")}
+        <PasswordInput
           value={form.password}
           name="password"
+          placeholder={translate("Password")}
           onChange={handleChange}
+          inputRef={passwordRef}
         />
         <button className="buttonLogin" type="submit">
           {translate("Login")}

@@ -11,6 +11,7 @@ import axiosInstance from "../../../config/axiosInstance.js";
 import { useTranslate } from "../../../hooks/useTranslate.jsx";
 import { successToast, errorToast } from "../../../utils/notification.jsx";
 import { API_ENDPOINTS } from "../../../config/api.config.js";
+import PasswordInput from "../passwordInput/PasswordInput.jsx";
 
 function Register() {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -124,19 +127,16 @@ function Register() {
           value={birthDate}
           onChange={(e) => setBirthDate(e.target.value)}
         />
-        <input
-          type="password"
-          className="inputLogin"
-          placeholder={translate("Password")}
+        <PasswordInput
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder={translate("Password")}
         />
-        <input
-          type="password"
-          className="inputLogin"
-          placeholder={translate("Confirm_Password")}
+
+        <PasswordInput
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder={translate("Confirm_Password")}
         />
         <button className="buttonLogin" type="submit">
           {translate("Register")}
