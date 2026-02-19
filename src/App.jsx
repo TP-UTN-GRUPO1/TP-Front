@@ -25,6 +25,8 @@ import AdminPanel from "./components/dashboard/admin/AdminPanel.jsx";
 import ProtectedRoute from "./components/routes/protected/ProtectedRoute.jsx";
 import Unauthorized from "./components/err/Unauthorized.jsx";
 import TranslateContextProvider from "./contexts/translateContext/TranslateContextProvider.jsx";
+import FailedPurchase from "./components/err/FailedPurchase.jsx";
+import SuccessfulPurchase from "./components/successNotification/SuccessfulPurchase.jsx";
 
 function App() {
   return (
@@ -58,6 +60,8 @@ function App() {
                 </Route>
                 <Route path="/" element={<Home />} />
                 <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="/failedpurchase" element={<FailedPurchase />} />
+                <Route path="/successfullpurchase" element={<SuccessfulPurchase />} />
                 <Route path="*" element={<Err />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />

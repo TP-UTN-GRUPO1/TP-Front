@@ -417,5 +417,7 @@ export const translation_dictionary = {
     { key: "Terms_and_Conditions", value: " Terms and Conditions" },
     { key: "Accept_terms", value: "I accept the " },
     { key: "Placeholder_lastname", value: "Apellido" },
+    { key: "Failed purchase", value: "Compra fallida" },
+    { key: "Unauthorized or failed payment", value: "pago no autorizado o fallido" },
   ],
 };
