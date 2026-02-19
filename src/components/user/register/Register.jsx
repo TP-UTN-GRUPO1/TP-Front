@@ -64,7 +64,7 @@ function Register() {
         password,
       });
 
-      successToast("Registro exitoso");
+      successToast(translate("Success_register"));
       navigate("/login");
     } catch (error) {
       console.error("❌ Error completo:", error);
@@ -91,7 +91,7 @@ function Register() {
         setError(error.message);
       }
 
-      errorToast("Ocurrió un error!");
+      errorToast(translate("Err_ocurred"));
     }
   };
 

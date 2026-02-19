@@ -50,14 +50,14 @@ const Favorites = () => {
         },
       });
 
-      successToast("Juego eliminado de favoritos con éxito");
+      successToast(translate("Delete_game_favorite"));
       setFavorites((prev) => prev.filter((fav) => fav.gameId !== favoriteId));
     } catch (err) {
       console.error(
         "Error deleting favorite",
         err.response?.data || err.message,
       );
-      errorToast("Ups, error: no se pudo quitar el juego de favoritos.");
+      errorToast(translate("Error_deleting_favorite"));
     }
   };
 

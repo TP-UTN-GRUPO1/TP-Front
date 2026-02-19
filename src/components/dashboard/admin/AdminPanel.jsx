@@ -52,7 +52,7 @@ const AdminPanel = () => {
         setUsers(data);
         setFilteredUsers(data);
       } catch (error) {
-        toast.error(`Error al cargar usuarios: ${error.message}`, {
+        toast.error(`${translate("Err_Load_Users")} ${error.message}`, {
           position: "top-right",
           autoClose: 3000,
         });
@@ -132,7 +132,7 @@ const AdminPanel = () => {
         text: translate("Updated_role"),
       });
     } catch (err) {
-      toast.error(`Error al cambiar el rol: ${err.message}`, {
+      toast.error(`${translate("Err_Change_role")} ${err.message}`, {
         position: "top-right",
         autoClose: 3000,
       });
