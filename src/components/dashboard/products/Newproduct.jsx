@@ -5,6 +5,7 @@ import { createGame } from "../../../services/gameService.js";
 import { getAllPlatforms } from "../../../services/platformService.js";
 import { getAllGenres } from "../../../services/genreService.js";
 import { useTranslate } from "../../../hooks/useTranslate";
+import { confirmDialog, okAlert, errorAlert } from "../../../utils/SweetAlert";
 
 const Newproduct = () => {
   const [availablePlatforms, setAvailablePlatforms] = useState([]);
@@ -107,10 +108,27 @@ const Newproduct = () => {
       return;
     }
     setErrors({});
+
+    // Confirmación antes de crear
+    const confirmed = await confirmDialog({
+      title: translate("Confirm_create_game"),
+      text: translate("Are_you_sure"),
+      confirmButtonText: translate("Yes_Confirm"),
+      cancelButtonText: translate("Cancel"),
+    });
+    if (!confirmed) {
+      toast.info(translate("Create_cancelled"), { autoClose: 2000 });
+      return;
+    }
+
     try {
       const token = localStorage.getItem("theFrog-token");
       await createGame(formData, token);
-      toast.success(translate("Game_Created"));
+      toast.success(translate("Game_Created"), { autoClose: 3000 });
+      okAlert({
+        title: translate("Confirmed"),
+        text: translate("Game_Created"),
+      });
       setFormData({
         nameGame: "",
         developer: "",
@@ -129,7 +147,11 @@ const Newproduct = () => {
       setErrors({
         api: typeof msg === "string" ? msg : "Error al crear el juego",
       });
-      toast.error(translate("Error_server"));
+      toast.error(translate("Error_server"), { autoClose: 3000 });
+      errorAlert({
+        title: translate("Error_creating_game"),
+        text: typeof msg === "string" ? msg : translate("Error_server"),
+      });
     }
   };
 

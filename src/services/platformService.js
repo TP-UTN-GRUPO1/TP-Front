@@ -27,7 +27,7 @@ export async function createPlatform(name, token) {
 export async function updatePlatform(id, name, token) {
   const response = await axiosInstance.put(
     API_ENDPOINTS.PLATFORMS,
-    { id, name: name.trim() },
+    { id, newName: name.trim() },
     { headers: { Authorization: `Bearer ${token}` } },
   );
   return response.data;

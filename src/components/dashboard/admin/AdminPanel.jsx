@@ -18,12 +18,10 @@ const AdminPanel = () => {
   const { token } = useContext(AuthContext);
   const translate = useTranslate();
 
-  // Mapeo de roleId a nombre para mostrar
   const ROLE_NAMES = { 1: "SysAdmin", 2: "Admin", 3: "User" };
 
   // Extrae el nombre del rol de forma robusta según la estructura de la API
   const getRoleName = (user) => {
-    // Si tiene roleId numérico, usar el mapeo
     const roleId = user.roleId || user.role?.roleId || user.role?.id;
     if (roleId && ROLE_NAMES[roleId]) return ROLE_NAMES[roleId];
     return (
@@ -59,7 +57,6 @@ const AdminPanel = () => {
       }
     };
     if (token) fetchUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   useEffect(() => {
@@ -148,7 +145,7 @@ const AdminPanel = () => {
     });
     if (!confirmed) return;
     try {
-      await axiosInstance.delete(API_ENDPOINTS.USER_BY_ID(id), {
+      await axiosInstance.delete(API_ENDPOINTS.USER_DELETE(id), {
         headers: { Authorization: `Bearer ${token}` },
       });
       const updatedUsers = users.filter((u) => u.id !== id);
@@ -175,6 +172,12 @@ const AdminPanel = () => {
   };
 
   const handleViewPurchases = async (id, email) => {
+    if (selectedUserEmail === email) {
+      setSelectedUserOrders([]);
+      setSelectedUserEmail("");
+      return;
+    }
+
     try {
       const response = await axiosInstance.get(
         API_ENDPOINTS.ORDERS_BY_USER(id),
@@ -182,15 +185,76 @@ const AdminPanel = () => {
           headers: { Authorization: `Bearer ${token}` },
         },
       );
-      if (selectedUserEmail === email) {
+
+      const data = Array.isArray(response.data) ? response.data : [];
+
+      // Si viene vacío igual lo mostramos
+      if (data.length === 0) {
         setSelectedUserOrders([]);
-        setSelectedUserEmail("");
+        setSelectedUserEmail(email);
         return;
       }
-      const data = Array.isArray(response.data) ? response.data : [];
-      setSelectedUserOrders(data);
+
+      // Obtener IDs únicos de juegos
+      const gameIds = [
+        ...new Set(
+          data.flatMap((order) =>
+            (order.orderItems || order.items || [])
+              .map((item) => item.gameId || item.game_id || item.game?.id)
+              .filter(Boolean),
+          ),
+        ),
+      ];
+
+      const gamesMap = {};
+
+      await Promise.all(
+        gameIds.map(async (gId) => {
+          try {
+            const gameRes = await axiosInstance.get(
+              API_ENDPOINTS.GAME_BY_ID(gId),
+              { headers: { Authorization: `Bearer ${token}` } },
+            );
+            gamesMap[gId] = gameRes.data;
+          } catch (e) {
+            console.error(`Error fetching game ${gId}:`, e);
+          }
+        }),
+      );
+
+      const enrichedData = data.map((order) => ({
+        ...order,
+        orderItems: (order.orderItems || order.items || []).map((item) => {
+          const gameId = item.gameId || item.game_id || item.game?.id;
+          const fetchedGame = gamesMap[gameId] || {};
+
+          return {
+            ...item,
+            game: {
+              nameGame:
+                fetchedGame.title ||
+                item.game?.nameGame ||
+                item.game?.title ||
+                "Juego",
+              imageUrl:
+                fetchedGame.imageUrl ||
+                item.game?.imageUrl ||
+                item.game?.imageURL ||
+                "",
+            },
+          };
+        }),
+      }));
+
+      setSelectedUserOrders(enrichedData);
       setSelectedUserEmail(email);
     } catch (err) {
+      if (err.response?.status === 404) {
+        setSelectedUserOrders([]);
+        setSelectedUserEmail(email);
+        return;
+      }
+
       toast.error(`${translate("No_found_pucharse")} ${err.message}`, {
         position: "top-right",
         autoClose: 3000,
@@ -253,21 +317,33 @@ const AdminPanel = () => {
             <p>{translate("No_Purchase")}</p>
           ) : (
             selectedUserOrders.map((order) => (
-              <div key={order.orderId}>
+              <div key={order.orderId || order.id}>
                 <p>
                   <strong>{translate("Date")}:</strong>{" "}
-                  {new Date(order.createdAt).toLocaleString()}
+                  {new Date(
+                    order.createdAt || order.date || order.orderDate,
+                  ).toLocaleString()}
                 </p>
                 <p>
-                  <strong>Total:</strong> ${order.totalAmount.toFixed(2)}
+                  <strong>Total:</strong> $
+                  {(order.totalAmount || order.total || 0).toFixed(2)}
                 </p>
                 <ul>
-                  {order.orderItems.map((item) => (
-                    <li key={item.order_item_id}>
-                      <img src={item.game.imageUrl} alt={item.game.nameGame} />
-                      {item.game.nameGame} - {translate("Amount")}:{" "}
+                  {(order.orderItems || order.items || []).map((item, idx) => (
+                    <li
+                      key={
+                        item.order_item_id || item.orderItemId || item.id || idx
+                      }
+                    >
+                      {item.game?.imageUrl && (
+                        <img
+                          src={item.game.imageUrl}
+                          alt={item.game.nameGame || "Game"}
+                        />
+                      )}
+                      {item.game?.nameGame || "Juego"} - {translate("Amount")}:{" "}
                       {item.quantity}, {translate("Price")}: $
-                      {item.unitPrice.toFixed(2)}
+                      {(item.unitPrice || item.price || 0).toFixed(2)}
                     </li>
                   ))}
                 </ul>

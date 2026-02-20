@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
   USERS: "/api/User",
   USER_PROFILE: "/api/user/profile",
   USER_BY_ID: (id) => `/api/user/${id}`,
+  USER_DELETE: (id) => `/api/user/${id}/soft`,
 
   // Juegos
   GAMES: "/api/Game",
