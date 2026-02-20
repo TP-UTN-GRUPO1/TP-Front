@@ -33,11 +33,21 @@ const Cart = () => {
     updateAmount(productId, -1);
   };
 
-  const handleCheckout = async () => {
+ const handleCheckout = async () => {
   try {
     const token = localStorage.getItem("theFrog-token");
 
-    const response = await fetch("https://localhost:5001/api/orders", {
+    if (!token) {
+      alert("Debes iniciar sesión");
+      return;
+    }
+
+    if (cart.length === 0) {
+      alert("El carrito está vacío");
+      return;
+    }
+
+    const response = await fetch("https://localhost:7256/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,17 +61,26 @@ const Cart = () => {
       })
     });
 
+    console.log("Status:", response.status);
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.log("Error response:", errorText);
       throw new Error("Error creando la orden");
     }
 
+    // ✅ SOLO usar json()
     const data = await response.json();
+    console.log("Data:", data);
 
-    // 🔥 REDIRECCIÓN A MERCADO PAGO
-    window.location.href = data.checkoutUrl;
+    if (data.checkoutUrl) {
+      window.location.href = data.checkoutUrl;
+    } else {
+      alert("Orden creada pero no se recibió checkoutUrl");
+    }
 
   } catch (error) {
-    console.error(error);
+    console.error("Error:", error);
     alert("Error al iniciar el pago");
   }
 };
