@@ -12,7 +12,7 @@ import { AuthContext } from "../../contexts/auth/AuthContext";
 //import { sendPurchaseEmail } from "../../services/emailService";
 
 const Cart = () => {
-  const { cart, updateAmount, deleteProduct, } = useCart();
+  const { cart, updateAmount, deleteProduct, clearCart} = useCart();
   const [checked, setChecked] = useState(false);
   const translate = useTranslate();
   const { userRole } = useContext(AuthContext);
@@ -68,8 +68,7 @@ const Cart = () => {
       console.log("Error response:", errorText);
       throw new Error("Error creando la orden");
     }
-
-    // ✅ SOLO usar json()
+    
     const data = await response.json();
     console.log("Data:", data);
 
@@ -83,6 +82,8 @@ const Cart = () => {
     console.error("Error:", error);
     alert("Error al iniciar el pago");
   }
+
+  clearCart()
 };
 
 
