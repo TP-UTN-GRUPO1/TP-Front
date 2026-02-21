@@ -47,9 +47,14 @@ const Newproduct = () => {
 
   const validateForm = () => {
     const errs = {};
+<<<<<<< Updated upstream
     if (!formData.nameGame) errs.nameGame = "Ingrese un nombre";
     if (!formData.developer)
       errs.developer = "Ingrese el nombre de la desarrolladora";
+=======
+    if (!formData.nameGame) errs.nameGame = translate("Err_Game_name");
+    if (!formData.developer) errs.developer = translate("Err_Developer");
+>>>>>>> Stashed changes
     if (
       !formData.rating ||
       isNaN(formData.rating) ||

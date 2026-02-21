@@ -147,7 +147,7 @@ export const translation_dictionary = {
     { key: "Changes_failed", value: "Error al guardar los cambios" },
     { key: "Added_to_cart_success", value: "Añadido exitosamente al carrito" },
     { key: "Error_adding_to_cart", value: "Error al añadir al carrito" },
-    { key: "Purchase_failed", value: "Eror al realizar la compra" },
+    { key: "Purchase_failed", value: "Error al realizar la compra" },
     { key: "No_Purchase", value: "No hay compras realizadas por el usuario" },
     {
       key: "Out_of_stock_error",
@@ -219,6 +219,25 @@ export const translation_dictionary = {
     { key: "Terms_and_Conditions", value: "Términos y condiciones" },
     { key: "Accept_terms", value: "Acepto los " },
     { key: "Placeholder_lastname", value: "Apellido" },
+    { key: "Err_Game_name", value: "El nombre del juego no puede estar vacío" },
+    {
+      key: "Err_Developer",
+      value: "El nombre de la desarrolladora no puede estar vacío",
+    },
+    { key: "Err_Rating", value: "El rating debe ser un número entre 0 y 10" },
+    { key: "Err_Img_URL", value: "La URL de la imagen es requerida" },
+    {
+      key: "Err_Price",
+      value: "El precio debe ser un número mayor o igual a 0",
+    },
+    { key: "Err_Platforms", value: "Selecciona al menos una plataforma" },
+    { key: "Err_Genres", value: "Selecciona entre 1 y 3 géneros" },
+    { key: "Err_Load_Users", value: "Error al cargar los usuarios: " },
+    { key: "Err_Change_role", value: "Error al cambiar el rol: " },
+    { key: "Delete_game_favorite", value: "Juego eliminado con éxito" },
+    { key: "Error_deleting_favorite", value: "Error al eliminar de favoritos" },
+    { key: "Success_register", value: "Registro exitoso" },
+    { key: "Err_ocurred", value: "Ocurrió un error!" },
   ],
   en: [
     { key: "Search_Games", value: "Search games..." },
@@ -417,7 +436,29 @@ export const translation_dictionary = {
     { key: "Terms_and_Conditions", value: " Terms and Conditions" },
     { key: "Accept_terms", value: "I accept the " },
     { key: "Placeholder_lastname", value: "Apellido" },
+<<<<<<< Updated upstream
     { key: "Failed purchase", value: "Compra fallida" },
     { key: "Unauthorized or failed payment", value: "pago no autorizado o fallido" },
+=======
+    { key: "Err_Game_name", value: "Game name cannot be empty" },
+    { key: "Err_Developer", value: "Developer name cannot be empty" },
+    { key: "Err_Rating", value: "Rating must be a number between 0 and 10" },
+    { key: "Err_Img_URL", value: "Image URL is required" },
+    {
+      key: "Err_Price",
+      value: "Price must be a number greater than or equal to 0",
+    },
+    { key: "Err_Platforms", value: "Select at least one platform" },
+    { key: "Err_Genres", value: "Select between 1 and 3 genres" },
+    { key: "Err_Load_Users", value: "Error loading users: " },
+    { key: "Err_Change_role", value: "Error changing role: " },
+    {
+      key: "Delete_game_favorite",
+      value: "Game deleted from favorites successfully",
+    },
+    { key: "Error_deleting_favorite", value: "Error deleting from favorites" },
+    { key: "Success_register", value: "Registration successful" },
+    { key: "Err_ocurred", value: "An error occurred!" },
+>>>>>>> Stashed changes
   ],
 };
