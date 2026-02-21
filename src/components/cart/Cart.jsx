@@ -1,18 +1,18 @@
-import axiosInstance from "../../config/axiosInstance";
+//import axiosInstance from "../../config/axiosInstance";
 import { API_ENDPOINTS } from "../../config/api.config";
 import { useCart } from "../../contexts/CartContext/CartContext";
 import CartItem from "../cartItem/CartItem";
 import Button from "../button/Button";
 import "./Cart.css";
-import { errorToast, successToast } from "../../utils/notification";
+//import { errorToast, successToast } from "../../utils/notification";
 import { useTranslate } from "../../hooks/useTranslate";
-import { confirmDialog, okAlert, errorAlert } from "../../utils/SweetAlert";
+//import { confirmDialog, okAlert, errorAlert } from "../../utils/SweetAlert";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/auth/AuthContext";
-import { sendPurchaseEmail } from "../../services/emailService";
+//import { sendPurchaseEmail } from "../../services/emailService";
 
 const Cart = () => {
-  const { cart, updateAmount, deleteProduct, clearCart } = useCart();
+  const { cart, updateAmount, deleteProduct, clearCart} = useCart();
   const [checked, setChecked] = useState(false);
   const translate = useTranslate();
   const { userRole } = useContext(AuthContext);
@@ -33,72 +33,59 @@ const Cart = () => {
     updateAmount(productId, -1);
   };
 
-  const handleCheckout = async () => {
-    const stored = localStorage.getItem("theFrog-user");
-    const user = stored ? JSON.parse(stored) : null;
+ const handleCheckout = async () => {
+  try {
+    const token = localStorage.getItem("theFrog-token");
 
-    if (!user?.id) {
-      errorToast(translate("Log_in_to_continue"));
+    if (!token) {
+      alert("Debes iniciar sesión");
       return;
     }
-    const confirmed = await confirmDialog({
-      title: translate("ConfirmPurchase"),
-      text: `${translate("Total_pay")}: $${total.toFixed(2)}`,
-      confirmButtonText: translate("Yes_Pay"),
-      cancelButtonText: translate("Cancel"),
-    });
-    if (!confirmed) return;
-    const orderData = {
-      userId: user.id,
-      items: cart.map((p) => ({
-        gameId: p.id,
-        quantity: p.amount,
-        unitPrice: p.price,
-      })),
-      totalAmount: total,
-    };
-    try {
-      const token = localStorage.getItem("theFrog-token");
-      const response = await axiosInstance.post(
-        API_ENDPOINTS.ORDERS,
-        orderData,
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
-      if (response.status === 201) {
-        // Enviar email con las keys
-        const emailItems = cart.map((p) => ({
-          name: p.name,
-          amount: p.amount,
-          price: p.price,
-        }));
-        const emailResult = await sendPurchaseEmail(
-          user.email,
-          user.name || user.email.split("@")[0],
-          emailItems,
-          total,
-        );
 
-        if (emailResult.success) {
-          successToast(translate("Purchase_successfully"));
-        } else {
-          successToast(translate("Purchase_successfully"));
-          console.warn("No se pudo enviar el email con las keys");
-        }
-
-        clearCart();
-        okAlert({
-          title: translate("Purchase_success"),
-          text: translate("Thank_you"),
-        });
-      } else alert("Ocurrió un error al procesar tu compra.");
-    } catch (e) {
-      console.error("Error al enviar la orden:", e);
-      errorAlert({
-        title: translate("Error"),
-        text: translate("Purchase_failed"),
-      });
+    if (cart.length === 0) {
+      alert("El carrito está vacío");
+      return;
     }
-  };
+
+    const response = await fetch("https://localhost:7256/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        items: cart.map(p => ({
+          gameId: p.id,
+          quantity: p.amount
+        }))
+      })
+    });
+
+    console.log("Status:", response.status);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.log("Error response:", errorText);
+      throw new Error("Error creando la orden");
+    }
+    
+    const data = await response.json();
+    console.log("Data:", data);
+
+    if (data.checkoutUrl) {
+      window.location.href = data.checkoutUrl;
+    } else {
+      alert("Orden creada pero no se recibió checkoutUrl");
+    }
+
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error al iniciar el pago");
+  }
+
+  clearCart()
+};
+
 
   return (
     <div className="cart-container">

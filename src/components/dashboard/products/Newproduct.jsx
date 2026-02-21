@@ -49,8 +49,9 @@ const Newproduct = () => {
   const validateForm = () => {
     const errs = {};
     if (!formData.nameGame) errs.nameGame = translate("Err_Game_name");
-    if (!formData.developer)
-      errs.developer = translate("Err_Developer");
+    if (!formData.developer) errs.developer = translate("Err_Developer");
+    if (!formData.nameGame) errs.nameGame = translate("Err_Game_name");
+    if (!formData.developer) errs.developer = translate("Err_Developer");
     if (
       !formData.rating ||
       isNaN(formData.rating) ||
