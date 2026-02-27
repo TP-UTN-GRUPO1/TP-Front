@@ -1,18 +1,15 @@
-//import axiosInstance from "../../config/axiosInstance";
+import axiosInstance from "../../config/axiosInstance";
 import { API_ENDPOINTS } from "../../config/api.config";
 import { useCart } from "../../contexts/CartContext/CartContext";
 import CartItem from "../cartItem/CartItem";
 import Button from "../button/Button";
 import "./Cart.css";
-//import { errorToast, successToast } from "../../utils/notification";
 import { useTranslate } from "../../hooks/useTranslate";
-//import { confirmDialog, okAlert, errorAlert } from "../../utils/SweetAlert";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/auth/AuthContext";
-//import { sendPurchaseEmail } from "../../services/emailService";
 
 const Cart = () => {
-  const { cart, updateAmount, deleteProduct, clearCart} = useCart();
+  const { cart, updateAmount, deleteProduct } = useCart();
   const [checked, setChecked] = useState(false);
   const translate = useTranslate();
   const { userRole } = useContext(AuthContext);
@@ -33,59 +30,63 @@ const Cart = () => {
     updateAmount(productId, -1);
   };
 
- const handleCheckout = async () => {
-  try {
-    const token = localStorage.getItem("theFrog-token");
+  const handleCheckout = async () => {
+    try {
+      const token = localStorage.getItem("theFrog-token");
 
-    if (!token) {
-      alert("Debes iniciar sesión");
-      return;
+      if (!token) {
+        alert(translate("login_required") || "Debes iniciar sesión");
+        return;
+      }
+
+      if (cart.length === 0) {
+        alert(translate("empty_cart") || "El carrito está vacío");
+        return;
+      }
+
+      const response = await axiosInstance.post(
+        API_ENDPOINTS.ORDERS,
+        {
+          items: cart.map((p) => ({
+            gameId: p.id,
+            quantity: p.amount,
+          })),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const { checkoutUrl } = response.data;
+
+      if (checkoutUrl) {
+        // Abrir MercadoPago en una pestaña nueva
+        window.open(checkoutUrl, "_blank");
+      } else {
+        alert("Orden creada pero no se recibió checkoutUrl");
+      }
+    } catch (error) {
+      console.error("Error al crear la orden:", error);
+      console.error("Response data del backend:", error.response?.data);
+      console.error("Status:", error.response?.status);
+      console.error(
+        "Body enviado:",
+        JSON.stringify(
+          {
+            items: cart.map((p) => ({
+              gameId: p.id,
+              quantity: p.amount,
+            })),
+          },
+          null,
+          2,
+        ),
+      );
+      alert(translate("checkout_error") || "Error al iniciar el pago");
     }
-
-    if (cart.length === 0) {
-      alert("El carrito está vacío");
-      return;
-    }
-
-    const response = await fetch("https://localhost:7256/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        items: cart.map(p => ({
-          gameId: p.id,
-          quantity: p.amount
-        }))
-      })
-    });
-
-    console.log("Status:", response.status);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.log("Error response:", errorText);
-      throw new Error("Error creando la orden");
-    }
-    
-    const data = await response.json();
-    console.log("Data:", data);
-
-    if (data.checkoutUrl) {
-      window.location.href = data.checkoutUrl;
-    } else {
-      alert("Orden creada pero no se recibió checkoutUrl");
-    }
-
-  } catch (error) {
-    console.error("Error:", error);
-    alert("Error al iniciar el pago");
-  }
-
-  clearCart()
-};
-
+  };
 
   return (
     <div className="cart-container">
@@ -102,7 +103,11 @@ const Cart = () => {
       {cart.length === 0 ? (
         <div>
           <p className="h2Cart">{translate("empty_cart")}</p>
-        <img src="/src/assets/img/emptyCart.png" alt="Empty Cart" className="imageEmptyCart" />
+          <img
+            src="/src/assets/img/emptyCart.png"
+            alt="Empty Cart"
+            className="imageEmptyCart"
+          />
         </div>
       ) : (
         <>
@@ -145,11 +150,7 @@ const Cart = () => {
                     className="terms-checkbox"
                   />
                   {translate("Accept_terms")}{" "}
-                  <a
-                    href="Terminos y condiciones.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href="/terms" target="_blank" rel="noopener noreferrer">
                     {translate("Terms_and_Conditions")}
                   </a>
                 </label>
