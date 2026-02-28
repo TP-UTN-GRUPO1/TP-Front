@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Form } from "react-bootstrap";
 import { TranslateContext } from "../../contexts/translateContext/Translate.context";
 import { useTranslate } from "../../hooks/useTranslate";
+import "./ToggleLanguage.css";
 
 const ToggleLanguage = () => {
   const { language, handleChangeLanguage } = useContext(TranslateContext);

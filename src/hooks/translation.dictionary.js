@@ -255,7 +255,6 @@ export const translation_dictionary = {
     { key: "Err_Genres", value: "Selecciona entre 1 y 3 géneros" },
     { key: "Err_Load_Users", value: "Error al cargar los usuarios: " },
     { key: "Err_Change_role", value: "Error al cambiar el rol: " },
-    { key: "Delete_game_favorite", value: "Juego eliminado con éxito" },
     { key: "Error_deleting_favorite", value: "Error al eliminar de favoritos" },
     { key: "Success_register", value: "Registro exitoso" },
     { key: "Err_ocurred", value: "Ocurrió un error!" },
@@ -460,5 +459,6 @@ export const translation_dictionary = {
     { key: "Terms_and_Conditions", value: " Terms and Conditions" },
     { key: "Accept_terms", value: "I accept the " },
     { key: "Placeholder_lastname", value: "Apellido" },
+    { key: "Delete_game_favorite", value: "Game successfully deleted from wishlist" },
   ],
 };

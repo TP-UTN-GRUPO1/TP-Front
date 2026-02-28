@@ -1,0 +1,13 @@
+.buttonTranslate{
+    background-color: #1a1a1a;
+    border: 1px solid #ffc542;
+    color: #f0f0f0;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.optionLanguage{
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
