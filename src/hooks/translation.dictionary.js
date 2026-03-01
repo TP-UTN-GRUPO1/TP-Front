@@ -336,6 +336,74 @@ export const translation_dictionary = {
     { key: "Error_deleting_favorite", value: "Error al eliminar de favoritos" },
     { key: "Success_register", value: "Registro exitoso" },
     { key: "Err_ocurred", value: "Ocurrió un error!" },
+    { key: "terms_acceptance_title", value: "Aceptación de los Términos" },
+    {
+      key: "terms_acceptance_body",
+      value:
+        "Al acceder y utilizar la plataforma TheFrog, usted acepta cumplir con estos términos y condiciones. Si no está de acuerdo con alguna parte de estos términos, le recomendamos no utilizar nuestros servicios.",
+    },
+    { key: "terms_services_title", value: "Descripción del Servicio" },
+    {
+      key: "terms_services_body",
+      value:
+        "TheFrog es una plataforma de comercio electrónico dedicada a la venta de videojuegos digitales. Ofrecemos un catálogo de juegos para diversas plataformas, facilitando la compra segura a través de MercadoPago.",
+    },
+    { key: "terms_account_title", value: "Cuenta de Usuario" },
+    {
+      key: "terms_account_item1",
+      value:
+        "Debe proporcionar información veraz y actualizada al registrarse.",
+    },
+    {
+      key: "terms_account_item2",
+      value:
+        "Es responsable de mantener la confidencialidad de su contraseña y cuenta.",
+    },
+    {
+      key: "terms_account_item3",
+      value:
+        "Debe notificar inmediatamente cualquier uso no autorizado de su cuenta.",
+    },
+    { key: "terms_purchases_title", value: "Compras y Pagos" },
+    {
+      key: "terms_purchases_item1",
+      value:
+        "Los precios están expresados en la moneda indicada y pueden estar sujetos a cambios sin previo aviso.",
+    },
+    {
+      key: "terms_purchases_item2",
+      value: "Los pagos se procesan de forma segura a través de MercadoPago.",
+    },
+    {
+      key: "terms_purchases_item3",
+      value:
+        "Las compras de productos digitales son finales y no reembolsables, salvo que la ley aplicable disponga lo contrario.",
+    },
+    { key: "terms_intellectual_title", value: "Propiedad Intelectual" },
+    {
+      key: "terms_intellectual_body",
+      value:
+        "Todo el contenido de la plataforma, incluyendo logos, diseños, textos e imágenes, es propiedad de TheFrog o de sus respectivos titulares y está protegido por las leyes de propiedad intelectual.",
+    },
+    { key: "terms_liability_title", value: "Limitación de Responsabilidad" },
+    {
+      key: "terms_liability_body",
+      value:
+        "TheFrog no será responsable por daños indirectos, incidentales o consecuentes que resulten del uso o la imposibilidad de uso de la plataforma.",
+    },
+    { key: "terms_modifications_title", value: "Modificaciones" },
+    {
+      key: "terms_modifications_body",
+      value:
+        "Nos reservamos el derecho de modificar estos términos en cualquier momento. Las modificaciones entrarán en vigencia al ser publicadas en la plataforma.",
+    },
+    { key: "terms_contact_title", value: "Contacto" },
+    {
+      key: "terms_contact_body",
+      value:
+        "Si tiene preguntas sobre estos términos, puede contactarnos a través de nuestra página de contacto.",
+    },
+    { key: "terms_last_updated", value: "Última actualización" },
   ],
   en: [
     { key: "Search_Games", value: "Search games..." },
