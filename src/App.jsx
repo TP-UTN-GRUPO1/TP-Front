@@ -28,6 +28,7 @@ import Unauthorized from "./components/err/Unauthorized.jsx";
 import TranslateContextProvider from "./contexts/translateContext/TranslateContextProvider.jsx";
 import FailedPurchase from "./components/err/FailedPurchase.jsx";
 import SuccessfulPurchase from "./components/successNotification/SuccessfulPurchase.jsx";
+import TermsAndConditions from "./components/termsAndConditions/TermsAndConditions.jsx";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
                   />
                   <Route path="/games/:id" element={<CardPage />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/terms" element={<TermsAndConditions />} />
                   <Route
                     path="/favorites"
                     element={
@@ -62,7 +64,10 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/unauthorized" element={<Unauthorized />} />
                 <Route path="/failedpurchase" element={<FailedPurchase />} />
-                <Route path="/successfullpurchase" element={<SuccessfulPurchase />} />
+                <Route
+                  path="/successfullpurchase"
+                  element={<SuccessfulPurchase />}
+                />
                 <Route path="*" element={<Err />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />

@@ -1,0 +1,48 @@
+.terms-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  color: #e0e0e0;
+  line-height: 1.8;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.terms-container h1 {
+  text-align: center;
+  color: #4caf50;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.terms-container h2 {
+  color: #81c784;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.3rem;
+}
+
+.terms-container p,
+.terms-container li {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.terms-container ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.terms-container ul li {
+  margin-bottom: 0.4rem;
+}
+
+.terms-last-updated {
+  text-align: center;
+  color: #888;
+  font-size: 0.85rem;
+  margin-top: 2rem;
+}
