@@ -23,6 +23,18 @@ const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // helper to pick a human-readable name (API sometimes nests game info)
+  const getGameName = (fav) => {
+    if (!fav) return "";
+    return (
+      fav.nameGame ||
+      fav.game?.nameGame ||
+      fav.game?.gameName ||
+      fav.game?.title ||
+      ""
+    );
+  };
+
   useEffect(() => {
     const getFavoritesById = async () => {
       try {
@@ -31,7 +43,24 @@ const Favorites = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setFavorites(res.data);
+
+        console.log("Fetched favorites:", res.data);
+        // normalize potential nested structure so UI code can be simpler
+        const normalized = res.data.map((fav) => {
+          const game = fav.game || fav;
+          return {
+            ...fav,
+            id: game.id,
+            gameId: fav.gameId || game.id,
+            nameGame:
+              game.nameGame || game.gameName || game.title || "",
+            imageUrl: game.imageUrl || game.imageURL || game.imageUrl,
+            price: game.price,
+            available: game.available,
+          };
+        });
+
+        setFavorites(normalized);
       } catch (err) {
         console.error("Error fetching favorites", err);
       } finally {
@@ -70,7 +99,7 @@ const Favorites = () => {
     try {
       const formattedProduct = {
         id: fav.id,
-        name: fav.nameGame,
+        name: getGameName(fav),
         img: fav.imageUrl,
         price: fav.price,
       };
@@ -84,11 +113,12 @@ const Favorites = () => {
   };
 
   const handleGameSelected = (fav) => {
+    const name = getGameName(fav);
     navigate(`/games/${fav.id || fav.gameId}`, {
       state: {
         game: {
           id: fav.id || fav.gameId,
-          gameName: fav.nameGame,
+          gameName: name,
           imageUrl: fav.imageUrl,
           price: fav.price,
           available: fav.available,
@@ -118,22 +148,13 @@ const Favorites = () => {
                 <div className="imgBox">
                   <img
                     src={fav.imageUrl}
-                    alt={fav.nameGame}
+                    alt={getGameName(fav)}
                     className="card-game-img"
                   />
                 </div>
 
                 <div className="contentBox">
-                  <div className="stock">
-                    {fav.available ? (
-                      <Badge bg="success">{translate("Available_stock")}</Badge>
-                    ) : (
-                      <Badge bg="danger">
-                        {translate("Out_of_stock_badge")}
-                      </Badge>
-                    )}
-                  </div>
-                  <h3>{fav.nameGame}</h3>
+                  <h3>{getGameName(fav)}</h3>
                   <h2 className="price">$ {fav.price}</h2>
                 </div>
 
@@ -151,7 +172,7 @@ const Favorites = () => {
                     className="buy fav-btn"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleDeleteFavorite(fav.gameId);
+                      handleDeleteFavorite(fav.gameId || fav.id);
                     }}
                   >
                     {translate("Remove_from_favorites")}

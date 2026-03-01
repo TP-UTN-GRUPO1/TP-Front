@@ -7,12 +7,15 @@ import "./Cart.css";
 import { useTranslate } from "../../hooks/useTranslate";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/auth/AuthContext";
+import { sendPurchaseEmail } from "../../services/emailService";
+import { okAlert, errorAlert } from "../../utils/SweetAlert";
+
 
 const Cart = () => {
-  const { cart, updateAmount, deleteProduct } = useCart();
+  const { cart, updateAmount, deleteProduct,clearCart } = useCart();
   const [checked, setChecked] = useState(false);
   const translate = useTranslate();
-  const { userRole } = useContext(AuthContext);
+  const { userRole ,user,email} = useContext(AuthContext);
   const role = Number(userRole);
   const isUser = role === 3 || !userRole;
   const total = cart.reduce(
@@ -30,63 +33,78 @@ const Cart = () => {
     updateAmount(productId, -1);
   };
 
-  const handleCheckout = async () => {
-    try {
-      const token = localStorage.getItem("theFrog-token");
+ const handleCheckout = async () => {
+  try {
+    const token = localStorage.getItem("theFrog-token");
 
-      if (!token) {
-        alert(translate("login_required") || "Debes iniciar sesión");
-        return;
-      }
-
-      if (cart.length === 0) {
-        alert(translate("empty_cart") || "El carrito está vacío");
-        return;
-      }
-
-      const response = await axiosInstance.post(
-        API_ENDPOINTS.ORDERS,
-        {
-          items: cart.map((p) => ({
-            gameId: p.id,
-            quantity: p.amount,
-          })),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      const { checkoutUrl } = response.data;
-
-      if (checkoutUrl) {
-        // Abrir MercadoPago en una pestaña nueva
-        window.open(checkoutUrl, "_blank");
-      } else {
-        alert("Orden creada pero no se recibió checkoutUrl");
-      }
-    } catch (error) {
-      console.error("Error al crear la orden:", error);
-      console.error("Response data del backend:", error.response?.data);
-      console.error("Status:", error.response?.status);
-      console.error(
-        "Body enviado:",
-        JSON.stringify(
-          {
-            items: cart.map((p) => ({
-              gameId: p.id,
-              quantity: p.amount,
-            })),
-          },
-          null,
-          2,
-        ),
-      );
-      alert(translate("checkout_error") || "Error al iniciar el pago");
+    if (!token) {
+      errorAlert({
+        title: translate("Error"),
+        text: translate("login_required"),
+      });
+      return;
     }
-  };
+
+    if (cart.length === 0) {
+      errorAlert({
+        title: translate("Error"),
+        text: translate("empty_cart"),
+      });
+      return;
+    }
+
+    const response = await axiosInstance.post(
+      API_ENDPOINTS.ORDERS,
+      {
+        items: cart.map((p) => ({
+          gameId: p.id,
+          quantity: p.amount,
+        })),
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    const { checkoutUrl } = response.data;
+
+    if (!checkoutUrl) {
+      errorAlert({
+        title: translate("Error"),
+        text: "No se recibió checkoutUrl",
+      });
+      return;
+    }
+
+    const emailItems = cart.map((p) => ({
+      name: p.name,
+      amount: p.amount,
+      price: p.price,
+    }));
+
+    if (email) {
+      console.log("Enviando mail a:", email);
+      sendPurchaseEmail(
+        email,
+        name || email.split("@")[0],
+        emailItems,
+        total
+      ).catch(() => console.warn("Error enviando email"));
+    }
+
+    clearCart();
+
+    window.location.href = checkoutUrl;
+
+  } catch (error) {
+    console.error("Error al crear la orden:", error);
+
+    errorAlert({
+      title: translate("Error"),
+      text: translate("checkout_error"),
+    });
+  }
+};
 
   return (
     <div className="cart-container">
