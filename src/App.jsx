@@ -20,6 +20,7 @@ import Account from "./components/dashboard/account/Account.jsx";
 import Newproduct from "./components/dashboard/products/Newproduct.jsx";
 import ModifyProduct from "./components/dashboard/products/Modifyproduct.jsx";
 import PlatformManager from "./components/dashboard/platform/PlatformManager.jsx";
+import GenreManager from "./components/dashboard/genre/GenreManager.jsx";
 import { FavoritesProvider } from "./contexts/FavoritesContext/FavoritesContext.jsx";
 import AdminPanel from "./components/dashboard/admin/AdminPanel.jsx";
 import ProtectedRoute from "./components/routes/protected/ProtectedRoute.jsx";
@@ -108,6 +109,14 @@ function App() {
                     element={
                       <ProtectedRoute requiredRole={[1, 2]}>
                         <PlatformManager />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="genres"
+                    element={
+                      <ProtectedRoute requiredRole={[1, 2]}>
+                        <GenreManager />
                       </ProtectedRoute>
                     }
                   />

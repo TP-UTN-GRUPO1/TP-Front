@@ -65,7 +65,12 @@ const DashboardSidebar = ({ onClose }) => {
 
             <NavLink to="platforms" className={linkClass} onClick={onClose}>
               <span className={styles.sidebarIcon}>🎮</span>
-              {translate("Add_platform")}
+              {translate("Platform_Management")}
+            </NavLink>
+
+            <NavLink to="genres" className={linkClass} onClick={onClose}>
+              <span className={styles.sidebarIcon}>🏷️</span>
+              {translate("Genre_Management")}
             </NavLink>
           </>
         )}
