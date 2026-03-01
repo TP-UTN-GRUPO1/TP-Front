@@ -27,7 +27,7 @@ export async function createGenre(name, token) {
 export async function updateGenre(id, name, token) {
   const response = await axiosInstance.put(
     API_ENDPOINTS.GENRES,
-    { id, name: name.trim() },
+    { id, newName: name.trim() },
     { headers: { Authorization: `Bearer ${token}` } },
   );
   return response.data;

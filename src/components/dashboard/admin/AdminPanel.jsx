@@ -66,6 +66,9 @@ const AdminPanel = () => {
     }
   }, [searchEmail]);
 
+  // Normalize role for comparison
+  const normalizeRole = (r) => (r ? String(r).toLowerCase() : "");
+
   const handleSearch = () => {
     const result = users.filter((u) =>
       u.email.toLowerCase().includes(searchEmail.toLowerCase()),
@@ -81,14 +84,21 @@ const AdminPanel = () => {
     setFilteredUsers(
       selectedRole === "all"
         ? result
-        : result.filter((u) => getRoleName(u) === selectedRole),
+        : result.filter(
+            (u) => normalizeRole(getRoleName(u)) === normalizeRole(selectedRole),
+          ),
     );
   };
 
   const handleRoleFilter = (role) => {
+    // store the raw value so the select stays in sync
     setSelectedRole(role);
     setFilteredUsers(
-      role === "all" ? users : users.filter((u) => getRoleName(u) === role),
+      role === "all"
+        ? users
+        : users.filter(
+            (u) => normalizeRole(getRoleName(u)) === normalizeRole(role),
+          ),
     );
   };
 

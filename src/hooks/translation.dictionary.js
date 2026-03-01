@@ -177,6 +177,74 @@ export const translation_dictionary = {
     { key: "Platform_created", value: "Plataforma creada" },
     { key: "Error_create_platfrom", value: "Error al crear la plataforma" },
     { key: "Platform_updated", value: "Plataforma actualizada" },
+    { key: "terms_acceptance_title", value: "Aceptación de los Términos" },
+    {
+      key: "terms_acceptance_body",
+      value:
+        "Al acceder y utilizar la plataforma TheFrog, usted acepta cumplir con estos términos y condiciones. Si no está de acuerdo con alguna parte de estos términos, le recomendamos no utilizar nuestros servicios.",
+    },
+    { key: "terms_services_title", value: "Descripción del Servicio" },
+    {
+      key: "terms_services_body",
+      value:
+        "TheFrog es una plataforma de comercio electrónico dedicada a la venta de videojuegos digitales. Ofrecemos un catálogo de juegos para diversas plataformas, facilitando la compra segura a través de MercadoPago.",
+    },
+    { key: "terms_account_title", value: "Cuenta de Usuario" },
+    {
+      key: "terms_account_item1",
+      value:
+        "Debe proporcionar información veraz y actualizada al registrarse.",
+    },
+    {
+      key: "terms_account_item2",
+      value:
+        "Es responsable de mantener la confidencialidad de su contraseña y cuenta.",
+    },
+    {
+      key: "terms_account_item3",
+      value:
+        "Debe notificar inmediatamente cualquier uso no autorizado de su cuenta.",
+    },
+    { key: "terms_purchases_title", value: "Compras y Pagos" },
+    {
+      key: "terms_purchases_item1",
+      value:
+        "Los precios están expresados en la moneda indicada y pueden estar sujetos a cambios sin previo aviso.",
+    },
+    {
+      key: "terms_purchases_item2",
+      value: "Los pagos se procesan de forma segura a través de MercadoPago.",
+    },
+    {
+      key: "terms_purchases_item3",
+      value:
+        "Las compras de productos digitales son finales y no reembolsables, salvo que la ley aplicable disponga lo contrario.",
+    },
+    { key: "terms_intellectual_title", value: "Propiedad Intelectual" },
+    {
+      key: "terms_intellectual_body",
+      value:
+        "Todo el contenido de la plataforma, incluyendo logos, diseños, textos e imágenes, es propiedad de TheFrog o de sus respectivos titulares y está protegido por las leyes de propiedad intelectual.",
+    },
+    { key: "terms_liability_title", value: "Limitación de Responsabilidad" },
+    {
+      key: "terms_liability_body",
+      value:
+        "TheFrog no será responsable por daños indirectos, incidentales o consecuentes que resulten del uso o la imposibilidad de uso de la plataforma.",
+    },
+    { key: "terms_modifications_title", value: "Modificaciones" },
+    {
+      key: "terms_modifications_body",
+      value:
+        "Nos reservamos el derecho de modificar estos términos en cualquier momento. Las modificaciones entrarán en vigencia al ser publicadas en la plataforma.",
+    },
+    { key: "terms_contact_title", value: "Contacto" },
+    {
+      key: "terms_contact_body",
+      value:
+        "Si tiene preguntas sobre estos términos, puede contactarnos a través de nuestra página de contacto.",
+    },
+    { key: "terms_last_updated", value: "Última actualización" },
     {
       key: "Error_update_platform",
       value: "Error al actualizar la plataforma",
@@ -187,6 +255,16 @@ export const translation_dictionary = {
     },
     { key: "Delete_platform", value: "Plataforma Eliminada" },
     { key: "Err_delete_platform", value: "Error al eliminar la plataforma" },
+    { key: "Genre_Management", value: "Gestión de Géneros" },
+    { key: "New_genre_placeholder", value: "Nuevo género" },
+    { key: "Genre_created", value: "Género creado" },
+    { key: "Genre_updated", value: "Género actualizado" },
+    {
+      key: "Confirm_delete_genre",
+      value: "¿Estás seguro de que querés eliminar este género?",
+    },
+    { key: "Delete_genre", value: "Género eliminado" },
+    { key: "Err_delete_genre", value: "Error al eliminar el género" },
     {
       key: "Confirm_delete_user",
       value: "¿Estas seguro que quieres eliminar el usuario?",
@@ -255,7 +333,6 @@ export const translation_dictionary = {
     { key: "Err_Genres", value: "Selecciona entre 1 y 3 géneros" },
     { key: "Err_Load_Users", value: "Error al cargar los usuarios: " },
     { key: "Err_Change_role", value: "Error al cambiar el rol: " },
-    { key: "Delete_game_favorite", value: "Juego eliminado con éxito" },
     { key: "Error_deleting_favorite", value: "Error al eliminar de favoritos" },
     { key: "Success_register", value: "Registro exitoso" },
     { key: "Err_ocurred", value: "Ocurrió un error!" },
@@ -365,6 +442,74 @@ export const translation_dictionary = {
     { key: "Game_added_to_wishlist", value: "Game added to wishlist" },
     { key: "Your_Favorites", value: "Your favorites" },
     { key: "Remove_from_favorites", value: "Remove from favorites" },
+    { key: "terms_acceptance_title", value: "Acceptance of Terms" },
+    {
+      key: "terms_acceptance_body",
+      value:
+        "By accessing and using the TheFrog platform, you agree to comply with these terms and conditions. If you do not agree with any part of these terms, we recommend that you do not use our services.",
+    },
+    { key: "terms_services_title", value: "Service Description" },
+    {
+      key: "terms_services_body",
+      value:
+        "TheFrog is an e-commerce platform dedicated to the sale of digital video games. We offer a catalog of games for various platforms, facilitating secure purchases through MercadoPago.",
+    },
+    { key: "terms_account_title", value: "User Account" },
+    {
+      key: "terms_account_item1",
+      value:
+        "You must provide truthful and up-to-date information when registering.",
+    },
+    {
+      key: "terms_account_item2",
+      value:
+        "You are responsible for maintaining the confidentiality of your password and account.",
+    },
+    {
+      key: "terms_account_item3",
+      value:
+        "You must immediately notify any unauthorized use of your account.",
+    },
+    { key: "terms_purchases_title", value: "Purchases and Payments" },
+    {
+      key: "terms_purchases_item1",
+      value:
+        "Prices are expressed in the indicated currency and may be subject to change without notice.",
+    },
+    {
+      key: "terms_purchases_item2",
+      value: "Payments are securely processed through MercadoPago.",
+    },
+    {
+      key: "terms_purchases_item3",
+      value:
+        "Purchases of digital products are final and non-refundable, unless applicable law provides otherwise.",
+    },
+    { key: "terms_intellectual_title", value: "Intellectual Property" },
+    {
+      key: "terms_intellectual_body",
+      value:
+        "All content on the platform, including logos, designs, texts, and images, is the property of TheFrog or its respective owners and is protected by intellectual property laws.",
+    },
+    { key: "terms_liability_title", value: "Limitation of Liability" },
+    {
+      key: "terms_liability_body",
+      value:
+        "TheFrog shall not be liable for indirect, incidental, or consequential damages resulting from the use or inability to use the platform.",
+    },
+    { key: "terms_modifications_title", value: "Modifications" },
+    {
+      key: "terms_modifications_body",
+      value:
+        "We reserve the right to modify these terms at any time. Modifications will take effect upon being published on the platform.",
+    },
+    { key: "terms_contact_title", value: "Contact" },
+    {
+      key: "terms_contact_body",
+      value:
+        "If you have questions about these terms, you can contact us through our contact page.",
+    },
+    { key: "terms_last_updated", value: "Last updated" },
     {
       key: "No_games_favorites",
       value: "You don't have any favorite games yet.",
@@ -502,6 +647,16 @@ export const translation_dictionary = {
     },
     { key: "Delete_platform", value: "Platform deleted" },
     { key: "Err_delete_platform", value: "Error deleting platform" },
+    { key: "Genre_Management", value: "Genre Management" },
+    { key: "New_genre_placeholder", value: "New genre" },
+    { key: "Genre_created", value: "Genre created" },
+    { key: "Genre_updated", value: "Genre updated" },
+    {
+      key: "Confirm_delete_genre",
+      value: "Are you sure you want to delete this genre?",
+    },
+    { key: "Delete_genre", value: "Genre deleted" },
+    { key: "Err_delete_genre", value: "Error deleting genre" },
     { key: "Unauthorized_access_message", value: "Without permission" },
     { key: "Page_not_found_message", value: "Page not found" },
     { key: "loading", value: "Loading..." },
@@ -528,73 +683,9 @@ export const translation_dictionary = {
     { key: "Terms_and_Conditions", value: " Terms and Conditions" },
     { key: "Accept_terms", value: "I accept the " },
     { key: "Placeholder_lastname", value: "Apellido" },
-    { key: "terms_acceptance_title", value: "Acceptance of Terms" },
     {
-      key: "terms_acceptance_body",
-      value:
-        "By accessing and using the TheFrog platform, you agree to comply with these terms and conditions. If you do not agree with any part of these terms, we recommend that you do not use our services.",
+      key: "Delete_game_favorite",
+      value: "Game successfully deleted from wishlist",
     },
-    { key: "terms_services_title", value: "Service Description" },
-    {
-      key: "terms_services_body",
-      value:
-        "TheFrog is an e-commerce platform dedicated to the sale of digital video games. We offer a catalog of games for various platforms, facilitating secure purchases through MercadoPago.",
-    },
-    { key: "terms_account_title", value: "User Account" },
-    {
-      key: "terms_account_item1",
-      value:
-        "You must provide truthful and up-to-date information when registering.",
-    },
-    {
-      key: "terms_account_item2",
-      value:
-        "You are responsible for maintaining the confidentiality of your password and account.",
-    },
-    {
-      key: "terms_account_item3",
-      value:
-        "You must immediately notify any unauthorized use of your account.",
-    },
-    { key: "terms_purchases_title", value: "Purchases and Payments" },
-    {
-      key: "terms_purchases_item1",
-      value:
-        "Prices are expressed in the indicated currency and may be subject to change without notice.",
-    },
-    {
-      key: "terms_purchases_item2",
-      value: "Payments are securely processed through MercadoPago.",
-    },
-    {
-      key: "terms_purchases_item3",
-      value:
-        "Purchases of digital products are final and non-refundable, unless applicable law provides otherwise.",
-    },
-    { key: "terms_intellectual_title", value: "Intellectual Property" },
-    {
-      key: "terms_intellectual_body",
-      value:
-        "All content on the platform, including logos, designs, texts, and images, is the property of TheFrog or its respective owners and is protected by intellectual property laws.",
-    },
-    { key: "terms_liability_title", value: "Limitation of Liability" },
-    {
-      key: "terms_liability_body",
-      value:
-        "TheFrog shall not be liable for indirect, incidental, or consequential damages resulting from the use or inability to use the platform.",
-    },
-    { key: "terms_modifications_title", value: "Modifications" },
-    {
-      key: "terms_modifications_body",
-      value:
-        "We reserve the right to modify these terms at any time. Modifications will take effect upon being published on the platform.",
-    },
-    { key: "terms_contact_title", value: "Contact" },
-    {
-      key: "terms_contact_body",
-      value:
-        "If you have questions about these terms, you can contact us through our contact page.",
-    },
-    { key: "terms_last_updated", value: "Last updated" },
   ],
 };
