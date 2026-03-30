@@ -23,7 +23,6 @@ const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // helper to pick a human-readable name (API sometimes nests game info)
   const getGameName = (fav) => {
     if (!fav) return "";
     return (
@@ -44,16 +43,13 @@ const Favorites = () => {
           },
         });
 
-        console.log("Fetched favorites:", res.data);
-        // normalize potential nested structure so UI code can be simpler
         const normalized = res.data.map((fav) => {
           const game = fav.game || fav;
           return {
             ...fav,
             id: game.id,
             gameId: fav.gameId || game.id,
-            nameGame:
-              game.nameGame || game.gameName || game.title || "",
+            nameGame: game.nameGame || game.gameName || game.title || "",
             imageUrl: game.imageUrl || game.imageURL || game.imageUrl,
             price: game.price,
             available: game.available,
@@ -62,7 +58,6 @@ const Favorites = () => {
 
         setFavorites(normalized);
       } catch (err) {
-        console.error("Error fetching favorites", err);
       } finally {
         setLoading(false);
       }
@@ -82,10 +77,6 @@ const Favorites = () => {
       successToast(translate("Delete_game_favorite"));
       setFavorites((prev) => prev.filter((fav) => fav.gameId !== favoriteId));
     } catch (err) {
-      console.error(
-        "Error deleting favorite",
-        err.response?.data || err.message,
-      );
       errorToast(translate("Error_deleting_favorite"));
     }
   };
@@ -107,7 +98,6 @@ const Favorites = () => {
       addToCart(formattedProduct);
       successToast(translate("Added_to_cart_success"));
     } catch (error) {
-      console.error("Error adding to cart", error);
       errorToast(translate("Error_adding_to_cart"));
     }
   };

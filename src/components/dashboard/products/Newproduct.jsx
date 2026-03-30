@@ -38,9 +38,7 @@ const Newproduct = () => {
           : [];
         setAvailablePlatforms(platformsList);
         setAvailableGenres(genresList);
-      } catch (error) {
-        console.error("Error al cargar plataformas y géneros", error);
-      }
+      } catch (error) {}
     };
 
     fetchData();
@@ -110,7 +108,6 @@ const Newproduct = () => {
     }
     setErrors({});
 
-    // Confirmación antes de crear
     const confirmed = await confirmDialog({
       title: translate("Confirm_create_game"),
       text: translate("Are_you_sure"),

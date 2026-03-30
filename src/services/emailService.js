@@ -4,9 +4,6 @@ const EMAILJS_SERVICE_ID = "service_tjg34y2";
 const EMAILJS_TEMPLATE_ID = "template_hbm0qi4";
 const EMAILJS_PUBLIC_KEY = "DDtNllazoBvPoGAhp";
 
-/**
- * Genera una key falsa de juego con formato XXXXX-XXXXX-XXXXX-XXXXX-XXXXX
- */
 function generateFakeGameKey() {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   const segments = 5;
@@ -24,11 +21,6 @@ function generateFakeGameKey() {
   return parts.join("-");
 }
 
-/**
- * Genera las keys para todos los items del carrito
- * @param {Array} cartItems
- * @returns {Array}
- */
 function generateKeysForCart(cartItems) {
   return cartItems.map((item) => ({
     name: item.name,
@@ -36,9 +28,6 @@ function generateKeysForCart(cartItems) {
   }));
 }
 
-/**
- * Formatea las keys en un texto legible para el email
- */
 function formatKeysForEmail(gameKeys) {
   return gameKeys
     .map((game) => {
@@ -50,13 +39,6 @@ function formatKeysForEmail(gameKeys) {
     .join("\n\n");
 }
 
-/**
- * Envía un email con las keys de los juegos comprados
- * @param {string} userEmail - Email del usuario
- * @param {string} userName - Nombre del usuario
- * @param {Array} cartItems - Items del carrito [{name, amount, price}]
- * @param {number} total - Total de la compra
- */
 export async function sendPurchaseEmail(userEmail, userName, cartItems, total) {
   const gameKeys = generateKeysForCart(cartItems);
   const keysText = formatKeysForEmail(gameKeys);
@@ -76,10 +58,8 @@ export async function sendPurchaseEmail(userEmail, userName, cartItems, total) {
       templateParams,
       EMAILJS_PUBLIC_KEY,
     );
-    console.log("📧 Email enviado:", result.text);
     return { success: true, gameKeys };
   } catch (error) {
-    console.error("❌ Error al enviar email:", error);
     return { success: false, gameKeys, error };
   }
 }

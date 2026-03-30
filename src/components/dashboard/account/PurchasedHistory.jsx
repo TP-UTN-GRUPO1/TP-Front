@@ -17,7 +17,6 @@ const PurchasedHistory = () => {
   const [games, setGames] = useState({});
   const [loading, setLoading] = useState(!isAdminOrSysadmin);
 
-  // Estado para búsqueda por email (admin/sysadmin)
   const [searchEmail, setSearchEmail] = useState("");
   const [searchedEmail, setSearchedEmail] = useState("");
   const [searchError, setSearchError] = useState("");
@@ -35,7 +34,6 @@ const PurchasedHistory = () => {
       const data = Array.isArray(res.data) ? res.data : [];
       setOrders(data);
 
-      // Obtener los IDs únicos de juegos de todas las órdenes
       const gameIds = [
         ...new Set(
           data.flatMap((order) =>
@@ -46,7 +44,6 @@ const PurchasedHistory = () => {
         ),
       ];
 
-      // Buscar los datos de cada juego
       const gamesMap = {};
       await Promise.all(
         gameIds.map(async (id) => {
@@ -58,21 +55,17 @@ const PurchasedHistory = () => {
               },
             );
             gamesMap[id] = gameRes.data;
-          } catch (e) {
-            console.error(`Error fetching game ${id}:`, e);
-          }
+          } catch (e) {}
         }),
       );
       setGames(gamesMap);
     } catch (err) {
-      console.error("Error fetching orders:", err);
       setOrders([]);
     } finally {
       setLoading(false);
     }
   };
 
-  // Para usuarios normales, cargar sus propias órdenes
   useEffect(() => {
     if (!isAdminOrSysadmin) {
       if (userId) fetchOrdersForUser(userId);
@@ -80,7 +73,6 @@ const PurchasedHistory = () => {
     }
   }, [userId, token]);
 
-  // Buscar órdenes por email (admin/sysadmin)
   const handleSearchByEmail = async () => {
     if (!searchEmail.trim()) return;
     setLoading(true);
@@ -90,19 +82,15 @@ const PurchasedHistory = () => {
     setSearchedEmail("");
 
     try {
-      // Obtener lista de usuarios para encontrar el ID por email
       const usersRes = await axiosInstance.get(API_ENDPOINTS.USERS, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("📋 Users response:", usersRes.data);
       const users = Array.isArray(usersRes.data) ? usersRes.data : [];
       const foundUser = users.find(
         (u) =>
           (u.email || u.Email || "").toLowerCase() ===
           searchEmail.trim().toLowerCase(),
       );
-      console.log("🔍 Found user:", foundUser);
-
       if (!foundUser) {
         setSearchError(translate("No_user_found"));
         setLoading(false);
@@ -114,7 +102,6 @@ const PurchasedHistory = () => {
         foundUser.id || foundUser.Id || foundUser.userId,
       );
     } catch (err) {
-      console.error("❌ Error searching user:", err);
       setSearchError(translate("No_user_found"));
       setLoading(false);
     }
@@ -124,7 +111,6 @@ const PurchasedHistory = () => {
     if (e.key === "Enter") handleSearchByEmail();
   };
 
-  // Vista de admin/sysadmin
   if (isAdminOrSysadmin) {
     return (
       <div className="ph-container">
@@ -226,7 +212,6 @@ const PurchasedHistory = () => {
     );
   }
 
-  // Vista de usuario normal
   if (loading)
     return <p className="ph-message">{translate("Loading_pucharse")}</p>;
   if (orders.length === 0)

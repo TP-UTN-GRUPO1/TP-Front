@@ -20,7 +20,6 @@ const AdminPanel = () => {
 
   const ROLE_NAMES = { 1: "SysAdmin", 2: "Admin", 3: "User" };
 
-  // Extrae el nombre del rol de forma robusta según la estructura de la API
   const getRoleName = (user) => {
     const roleId = user.roleId || user.role?.roleId || user.role?.id;
     if (roleId && ROLE_NAMES[roleId]) return ROLE_NAMES[roleId];
@@ -34,7 +33,6 @@ const AdminPanel = () => {
     );
   };
 
-  // Extrae el roleId numérico del usuario
   const getRoleId = (user) => {
     return user.roleId || user.role?.roleId || user.role?.id || 3;
   };
@@ -45,7 +43,6 @@ const AdminPanel = () => {
         const response = await axiosInstance.get(API_ENDPOINTS.USERS, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log("👥 Users response:", response.data);
         const data = Array.isArray(response.data) ? response.data : [];
         setUsers(data);
         setFilteredUsers(data);
@@ -66,7 +63,6 @@ const AdminPanel = () => {
     }
   }, [searchEmail]);
 
-  // Normalize role for comparison
   const normalizeRole = (r) => (r ? String(r).toLowerCase() : "");
 
   const handleSearch = () => {
@@ -85,13 +81,13 @@ const AdminPanel = () => {
       selectedRole === "all"
         ? result
         : result.filter(
-            (u) => normalizeRole(getRoleName(u)) === normalizeRole(selectedRole),
+            (u) =>
+              normalizeRole(getRoleName(u)) === normalizeRole(selectedRole),
           ),
     );
   };
 
   const handleRoleFilter = (role) => {
-    // store the raw value so the select stays in sync
     setSelectedRole(role);
     setFilteredUsers(
       role === "all"
@@ -198,14 +194,12 @@ const AdminPanel = () => {
 
       const data = Array.isArray(response.data) ? response.data : [];
 
-      // Si viene vacío igual lo mostramos
       if (data.length === 0) {
         setSelectedUserOrders([]);
         setSelectedUserEmail(email);
         return;
       }
 
-      // Obtener IDs únicos de juegos
       const gameIds = [
         ...new Set(
           data.flatMap((order) =>
@@ -226,9 +220,7 @@ const AdminPanel = () => {
               { headers: { Authorization: `Bearer ${token}` } },
             );
             gamesMap[gId] = gameRes.data;
-          } catch (e) {
-            console.error(`Error fetching game ${gId}:`, e);
-          }
+          } catch (e) {}
         }),
       );
 

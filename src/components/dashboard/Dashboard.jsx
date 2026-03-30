@@ -7,12 +7,10 @@ const Dashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className={styles.dashboardContainer}>
-      {/* Overlay para mobile */}
       {sidebarOpen && (
         <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />
       )}
 
-      {/* Botón hamburguesa mobile */}
       <button
         className={styles.menuToggle}
         onClick={() => setSidebarOpen((prev) => !prev)}

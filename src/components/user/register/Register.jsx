@@ -25,11 +25,9 @@ function Register() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validaciones
     if (!validateString(name, 3, 30)) {
       setError(translate("Error_name"));
       return;
@@ -67,16 +65,6 @@ function Register() {
       successToast(translate("Success_register"));
       navigate("/login");
     } catch (error) {
-      console.error("❌ Error completo:", error);
-      console.table({
-        Código: error.code,
-        Mensaje: error.message,
-        URL: error.config?.url,
-        Método: error.config?.method?.toUpperCase(),
-        Status: error.response?.status,
-        Respuesta: error.response?.data,
-      });
-
       if (error.code === "ERR_NETWORK") {
         setError(
           "No se puede conectar con el servidor. Verifica que el backend está corriendo.",

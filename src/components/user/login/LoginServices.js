@@ -31,8 +31,6 @@ export const validatePassword = (
   return true;
 };
 
-// Mapeo de nombre de rol (string) a ID numérico
-// 1 = sysadmin, 2 = admin, 3 = usuario normal
 const ROLE_MAP = {
   sysadmin: 1,
   admin: 2,
@@ -41,10 +39,8 @@ const ROLE_MAP = {
 
 function resolveRoleId(rawRole) {
   if (rawRole == null) return null;
-  // Si ya es un número o string numérico
   const num = parseInt(rawRole, 10);
   if (!isNaN(num)) return num;
-  // Si es un nombre de rol (string)
   const mapped = ROLE_MAP[String(rawRole).toLowerCase()];
   return mapped ?? null;
 }
@@ -65,7 +61,6 @@ function decodeJWT(token) {
       undefined;
 
     const roleId = resolveRoleId(rawRole);
-    console.log("🔑 Role:", rawRole, "→", roleId);
 
     return {
       id: decoded.idUser ?? decoded.IdUser ?? decoded.id ?? decoded.Id,
@@ -74,7 +69,6 @@ function decodeJWT(token) {
       roleId,
     };
   } catch (e) {
-    console.error("Error al decodificar JWT:", e);
     return null;
   }
 }
@@ -99,7 +93,6 @@ export const loginUser = async (email, password, onSuccess, onError) => {
 
     onSuccess(token, userData);
   } catch (err) {
-    console.error("Error al iniciar sesión:", err);
     if (err.response && err.response.data) {
       onError(
         typeof err.response.data === "string"

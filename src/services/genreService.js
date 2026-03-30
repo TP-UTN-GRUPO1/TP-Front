@@ -1,19 +1,11 @@
 import axiosInstance from "../config/axiosInstance.js";
 import { API_ENDPOINTS } from "../config/api.config.js";
 
-/**
- * Response DTO: { id: number, name: string }
- * CreateRequest: { name: string }
- * UpdateRequest: { id: number, name: string }
- */
-
-/** Obtener todos los géneros → GenreResponse[] */
 export async function getAllGenres() {
   const response = await axiosInstance.get(API_ENDPOINTS.GENRES);
   return response.data;
 }
 
-/** Crear un género (Admin/SysAdmin) */
 export async function createGenre(name, token) {
   const response = await axiosInstance.post(
     API_ENDPOINTS.GENRES,
@@ -23,7 +15,6 @@ export async function createGenre(name, token) {
   return response.data;
 }
 
-/** Actualizar un género (Admin) */
 export async function updateGenre(id, name, token) {
   const response = await axiosInstance.put(
     API_ENDPOINTS.GENRES,
@@ -33,7 +24,6 @@ export async function updateGenre(id, name, token) {
   return response.data;
 }
 
-/** Eliminar un género (Admin) */
 export async function deleteGenre(id, token) {
   const response = await axiosInstance.delete(API_ENDPOINTS.GENRE_BY_ID(id), {
     headers: { Authorization: `Bearer ${token}` },
@@ -41,7 +31,6 @@ export async function deleteGenre(id, token) {
   return response.data;
 }
 
-/** Extrae mensaje de error legible del backend */
 export function getGenreErrorMessage(error) {
   const data = error.response?.data;
   if (typeof data === "string") return data;

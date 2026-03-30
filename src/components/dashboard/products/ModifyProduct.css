@@ -121,6 +121,118 @@
   outline: none;
 }
 
+/* ── Editing card expanded ── */
+.modify-container .game-card.editing {
+  grid-column: 1 / -1;
+  max-width: 500px;
+  justify-self: center;
+}
+
+/* ── Edit form ── */
+.modify-container .edit-form label {
+  font-weight: 600;
+  display: block;
+  margin-top: 0.75rem;
+  margin-bottom: 0.4rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.modify-container .edit-form select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border-color 0.25s ease;
+}
+
+.modify-container .edit-form select:focus {
+  border-color: var(--dorado, #f5b940);
+  box-shadow: 0 0 0 3px rgba(245, 185, 64, 0.1);
+  outline: none;
+}
+
+/* ── Chips ── */
+.modify-container .chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.modify-container .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--dorado, #f5b940);
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 197, 66, 0.25);
+  font-size: 0.82rem;
+}
+
+.modify-container .chip-remove {
+  background: transparent !important;
+  border: none !important;
+  color: #ff6b6b !important;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 2px !important;
+  margin: 0 !important;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.modify-container .chip-remove:hover {
+  color: #ff4444 !important;
+  background: transparent !important;
+}
+
+/* ── Edit actions ── */
+.modify-container .edit-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.modify-container .edit-actions button {
+  flex: 1;
+}
+
+/* ── Game tags (platforms & genres in non-edit mode) ── */
+.game-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.5rem 0;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tag-platform {
+  background: rgba(99, 255, 161, 0.12);
+  color: var(--verde-neon, #63ffa1);
+  border: 1px solid rgba(99, 255, 161, 0.25);
+}
+
+.tag-genre {
+  background: rgba(245, 185, 64, 0.12);
+  color: var(--dorado, #f5b940);
+  border: 1px solid rgba(245, 185, 64, 0.25);
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .modify-container {
