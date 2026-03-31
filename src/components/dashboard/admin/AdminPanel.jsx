@@ -7,6 +7,7 @@ import { confirmDialog, okAlert } from "../../../utils/SweetAlert";
 import { AuthContext } from "../../../contexts/auth/AuthContext";
 import axiosInstance from "../../../config/axiosInstance";
 import { API_ENDPOINTS } from "../../../config/api.config";
+import UserList from "../userList/UserList";
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -81,9 +82,9 @@ const AdminPanel = () => {
       selectedRole === "all"
         ? result
         : result.filter(
-            (u) =>
-              normalizeRole(getRoleName(u)) === normalizeRole(selectedRole),
-          ),
+          (u) =>
+            normalizeRole(getRoleName(u)) === normalizeRole(selectedRole),
+        ),
     );
   };
 
@@ -93,8 +94,8 @@ const AdminPanel = () => {
       role === "all"
         ? users
         : users.filter(
-            (u) => normalizeRole(getRoleName(u)) === normalizeRole(role),
-          ),
+          (u) => normalizeRole(getRoleName(u)) === normalizeRole(role),
+        ),
     );
   };
 
@@ -220,7 +221,7 @@ const AdminPanel = () => {
               { headers: { Authorization: `Bearer ${token}` } },
             );
             gamesMap[gId] = gameRes.data;
-          } catch (e) {}
+          } catch (e) { }
         }),
       );
 
@@ -286,30 +287,15 @@ const AdminPanel = () => {
           <option value="sysadmin">Sysadmin</option>
         </select>
       </div>
-      <ul className="userList">
-        {filteredUsers.map((user) => (
-          <li key={user.id}>
-            <span>
-              {user.name} | {user.email} | {translate("Role")}:{" "}
-              {getRoleName(user) || translate("No_role")}
-            </span>
-            <select
-              onChange={(e) => handleChangeRole(user.id, e.target.value)}
-              value={getRoleId(user)}
-            >
-              <option value={3}>{translate("User")}</option>
-              <option value={2}>Admin</option>
-              <option value={1}>Sysadmin</option>
-            </select>
-            <button onClick={() => handleDelete(user.id)}>
-              {translate("Delete")}
-            </button>
-            <button onClick={() => handleViewPurchases(user.id, user.email)}>
-              {translate("See_Pucharse")}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <UserList
+        users={filteredUsers}
+        getRoleName={getRoleName}
+        getRoleId={getRoleId}
+        onChangeRole={handleChangeRole}
+        onDelete={handleDelete}
+        onViewPurchases={handleViewPurchases}
+        translate={translate}
+      />
       {selectedUserEmail && (
         <div className="sectionOrders">
           <h3>

@@ -58,3 +58,28 @@
   font-weight: bold;
   text-shadow: 0 0 6px var(--dorado);
 }
+
+.user-pagination .custom-pagination {
+  padding: 10px;
+}
+
+.user-pagination .pagination-numbers {
+  gap: 14px;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
+.user-pagination .pagination-item {
+  padding: 4px;
+  border-radius: 7px;
+}
+
+.user-pagination .pagination-icon img {
+  width: 16px;
+  height: 16px;
+}
+
+.user-pagination .pagination-number {
+  font-size: 10px;
+  margin-top: 3px;
+}
