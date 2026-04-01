@@ -26,7 +26,7 @@ const UserList = ({
 
     return (
         <>
-            <div className="user-pagination">
+            <div className="dashboard-pagination">
                 <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}
