@@ -8,6 +8,7 @@ import { AuthContext } from "../../../contexts/auth/AuthContext";
 import axiosInstance from "../../../config/axiosInstance";
 import { API_ENDPOINTS } from "../../../config/api.config";
 import UserList from "../userList/UserList";
+import PurchaseList from "../pucharseList/PurchaseList";
 
 const AdminPanel = () => {
   const [users, setUsers] = useState([]);
@@ -65,6 +66,12 @@ const AdminPanel = () => {
   }, [searchEmail]);
 
   const normalizeRole = (r) => (r ? String(r).toLowerCase() : "");
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "";
+    const [year, month, day] = dateStr.split("T")[0].split("-");
+    return `${day}/${month}/${year}`;
+  };
 
   const handleSearch = () => {
     const result = users.filter((u) =>
@@ -248,8 +255,14 @@ const AdminPanel = () => {
           };
         }),
       }));
+      const sortedOrders = [...enrichedData].sort((a, b) => {
+        const dateA = new Date(a.createdAt || a.date || a.orderDate);
+        const dateB = new Date(b.createdAt || b.date || b.orderDate);
 
-      setSelectedUserOrders(enrichedData);
+        return dateB - dateA || b.id - a.id;
+      });
+
+      setSelectedUserOrders(sortedOrders);
       setSelectedUserEmail(email);
     } catch (err) {
       if (err.response?.status === 404) {
@@ -304,39 +317,12 @@ const AdminPanel = () => {
           {selectedUserOrders.length === 0 ? (
             <p>{translate("No_Purchase")}</p>
           ) : (
-            selectedUserOrders.map((order) => (
-              <div key={order.orderId || order.id}>
-                <p>
-                  <strong>{translate("Date")}:</strong>{" "}
-                  {new Date(
-                    order.createdAt || order.date || order.orderDate,
-                  ).toLocaleString()}
-                </p>
-                <p>
-                  <strong>Total:</strong> $
-                  {(order.totalAmount || order.total || 0).toFixed(2)}
-                </p>
-                <ul>
-                  {(order.orderItems || order.items || []).map((item, idx) => (
-                    <li
-                      key={
-                        item.order_item_id || item.orderItemId || item.id || idx
-                      }
-                    >
-                      {item.game?.imageUrl && (
-                        <img
-                          src={item.game.imageUrl}
-                          alt={item.game.nameGame || "Game"}
-                        />
-                      )}
-                      {item.game?.nameGame || "Juego"} - {translate("Amount")}:{" "}
-                      {item.quantity}, {translate("Price")}: $
-                      {(item.unitPrice || item.price || 0).toFixed(2)}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))
+            <PurchaseList
+              orders={selectedUserOrders}
+              games={{}}
+              translate={translate}
+              formatDate={formatDate}
+            />
           )}
         </div>
       )}

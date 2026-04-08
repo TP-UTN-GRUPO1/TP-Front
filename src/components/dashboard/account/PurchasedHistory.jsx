@@ -38,9 +38,14 @@ const PurchasedHistory = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
       const data = Array.isArray(res.data) ? res.data : [];
-      setOrders(data);
+      const sortedOrders = [...data].sort((a, b) => {
+        const dateA = new Date(a.createdAt || a.date || a.orderDate);
+        const dateB = new Date(b.createdAt || b.date || b.orderDate);
+        return dateB - dateA;
+      });
+
+      setOrders(sortedOrders);
 
       const gameIds = [
         ...new Set(
@@ -64,7 +69,7 @@ const PurchasedHistory = () => {
               }
             );
             gamesMap[id] = gameRes.data;
-          } catch (e) {}
+          } catch (e) { }
         })
       );
 
