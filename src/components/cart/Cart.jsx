@@ -94,7 +94,7 @@ const Cart = () => {
 
     clearCart();
 
-    window.location.href = checkoutUrl;
+    window.open(checkoutUrl, "_blank", "noopener,noreferrer");
 
   } catch (error) {
     console.error("Error al crear la orden:", error);
