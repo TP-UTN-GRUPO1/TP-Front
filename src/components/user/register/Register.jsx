@@ -90,7 +90,7 @@ function Register() {
         <input
           type="text"
           className="inputLogin"
-          placeholder={translate("User")}
+          placeholder={translate("Name")}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
